@@ -1,0 +1,5 @@
+ofxGui
+ofxXmlSettings
+ofxAutoReloadedShader
+ofxBullet
+ofxSyphon
