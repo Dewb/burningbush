@@ -18,8 +18,7 @@ namespace {
         mesh.addIndex(count + 1);
     }
     
-    void find_and_replace(std::string& str, const std::string& findStr, const std::string& replaceStr)
-    {
+    void find_and_replace(std::string& str, const std::string& findStr, const std::string& replaceStr) {
         size_t pos = 0;
         while((pos = str.find(findStr, pos)) != std::string::npos)
         {
@@ -31,11 +30,7 @@ namespace {
 
 
 void LSystem::generate(int iterations) {
-    
-    mesh.setMode(OF_PRIMITIVE_LINES);
-    
     Rule current = axiom;
-    
     while (iterations--) {
         for (auto iter = rules.rbegin(); iter != rules.rend(); iter++) {
             auto& rule = *iter;
@@ -45,13 +40,12 @@ void LSystem::generate(int iterations) {
             ofLog() << "  " << current;
         }
     }
-    
     generateMesh(current);
 }
 
 void LSystem::generateMesh(const Rule& current) {
-    
     mesh.clear();
+    mesh.setMode(OF_PRIMITIVE_LINES);
     mesh.enableIndices();
     
     ofVec3f turtleHeading(0, 1, 0);

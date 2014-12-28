@@ -26,6 +26,14 @@ void ofApp::setup(){
     l.rules.insert(std::pair<Rule, Rule>("F", "FF"));
     l.generate(N);
     
+//    int N = 4;
+//    l.angle = 22.5;
+//    l.edgeLength = 10 / N;
+//    l.axiom = Rule("X");
+//    l.rules.insert(std::pair<Rule, Rule>("X", "F-[[-X]+XX]+F[+F+XF+FX]-X"));
+//    l.rules.insert(std::pair<Rule, Rule>("F", "FF"));
+//    l.generate(N);
+    
     ofEnableDepthTest();
     
     cam.setTarget(ofVec3f(0, l.mesh.getCentroid().y * 0.75, 0));
