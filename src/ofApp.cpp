@@ -9,22 +9,19 @@ void ofApp::setup(){
 //    l.edgeLength = 10 / N;
 //    l.axiom = Rule("F");
 //    l.rules.insert(std::pair<Rule, Rule>("F", "F[+F]F[-F]F"));
-//    l.generate(N);
 
 //    int N = 4;
 //    l.angle = 22.5;
 //    l.edgeLength = 10 / N;
 //    l.axiom = Rule("F");
 //    l.rules.insert(std::pair<Rule, Rule>("F", "FF-[-F+F+F]+[+F-F-F]"));
-//    l.generate(N);
     
-    int N = 5;
-    l.angle = 22.5;
-    l.edgeLength = 10 / N;
-    l.axiom = Rule("X");
-    l.rules.insert(std::pair<Rule, Rule>("X", "F-[[X]+X]+F[+FX]-X"));
-    l.rules.insert(std::pair<Rule, Rule>("F", "FF"));
-    l.generate(N);
+//    int N = 5;
+//    l.angle = 22.5;
+//    l.edgeLength = 10 / N;
+//    l.axiom = Rule("X");
+//    l.rules.insert(std::pair<Rule, Rule>("X", "F-[[X]+X]+F[+FX]-X"));
+//    l.rules.insert(std::pair<Rule, Rule>("F", "FF"));
     
 //    int N = 4;
 //    l.angle = 22.5;
@@ -32,14 +29,27 @@ void ofApp::setup(){
 //    l.axiom = Rule("X");
 //    l.rules.insert(std::pair<Rule, Rule>("X", "F-[[-X]+XX]+F[+F+XF+FX]-X"));
 //    l.rules.insert(std::pair<Rule, Rule>("F", "FF"));
-//    l.generate(N);
+    
+    int N = 5;
+    MeshGeneratorState state;
+    state.position = ofVec3f(0, 0, 0);
+    state.heading = ofVec3f(0, 1, 0);
+    state.angle = 27.5;
+    state.edgeLength = 10 / N;
+    mg.setInitialState(state);
+    
+    mg.getSystem().axiom = "X";
+    mg.getSystem().addRule("X", "F-[[X]+X]+F[+FX]+X-X");
+    mg.getSystem().addRule("F", "FF");
+    
+    mesh = mg.generate(N);
     
     ofEnableDepthTest();
     
-    cam.setTarget(ofVec3f(0, l.mesh.getCentroid().y * 0.75, 0));
+    cam.setTarget(ofVec3f(0, mesh.getCentroid().y * 0.75, 0));
     cam.setRotation(0.0, 0.0);
     cam.setupPerspective(false);
-    cam.setDistance(N * 75);
+    cam.setDistance(N * 50);
     
     ofEnableAlphaBlending();
     ofEnableAntiAliasing();
@@ -57,7 +67,7 @@ void ofApp::draw(){
     
     cam.begin();
     //ofDrawAxis(30.0);
-    l.mesh.draw();
+    mesh.draw();
     cam.end();
 }
 

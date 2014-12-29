@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
-#include "LSystem.h"
+#include "MeshGenerator.h"
 #include "TurntableCam.h"
 
 class ofApp : public ofBaseApp{
@@ -21,6 +21,7 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
     
-    LSystem l;
+    MeshGenerator mg;
+    ofMesh mesh;
     ofxTurntableCam cam;
 };
