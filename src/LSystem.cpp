@@ -11,7 +11,7 @@
 
 
 void LSystem::addRule(const Rule& match, const Rule& replace) {
-    rules.insert(std::pair<Rule, Rule>(match, replace));
+    rules.push_back(std::pair<Rule, Rule>(match, replace));
 }
 
 void LSystem::reset() {

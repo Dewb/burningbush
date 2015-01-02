@@ -49,7 +49,7 @@ void DemoLSystemApp::setup(){
     system.addRule("A", "[&FL!A]/////'[&FL!A]///////'[&FL!A]");
     system.addRule("F", "S/////F");
     system.addRule("S", "FL");
-    system.addRule("L", "['''^^{-f+f+f-|-f+f+f}]");
+    system.addRule("L", "[\"^^{-f+f+f-|-f+f+f}]");
     system.setProperty("angle", 22.5);
     systems.push_back(system);
     
@@ -63,17 +63,32 @@ void DemoLSystemApp::setup(){
     systems.push_back(system);
     
     MeshGeneratorState state;
-    state.position = ofVec3f(0, 0, 0);
-    state.heading = ofVec3f(1, 0, 0);
-    state.up = ofVec3f(0, 1, 0);
     state.left = state.heading.crossed(state.up);
-    state.angle = 90;
-    state.segmentLength = 10;
-    state.segmentRadius = 1;
-    mesh_gen.generate(systems[3], state, 3);
+    state.angle = 22.5;
+    state.segmentLength = 4.5;
+    state.segmentRadius = 1.2;
+
+    ColorBook* cb = new ColorBook();
+    
+    state.colorBook.reset(cb);
+    cb->addGradient(ofColor::saddleBrown, ofColor::brown, 4);
+    cb->addGradient(ofColor(180, 110, 60), 5);
+    cb->addGradient(ofColor(210, 130, 90), 3);
+    cb->nextSeries();
+    cb->addGradient(ofColor::yellow, ofColor::orangeRed, 7);
+    cb->addGradient(ofColor::red, 3);
+    cb->add(ofColor(190, 0, 0));
+    cb->nextSeries();
+    cb->addGradient(ofColor::darkGreen, ofColor::forestGreen, 4);
+    cb->addGradient(ofColor::lawnGreen, 4);
+    cb->addGradient(ofColor::greenYellow, 3);
+    
+    mesh_gen.generate(systems[2], state, 7);
     mesh = state.mesh;
     
     ofEnableDepthTest();
+    ofEnableSmoothing();
+    ofEnableAntiAliasing();
     
     cam.setTarget(ofVec3f(0, mesh->getCentroid().y * 0.75, 0));
     cam.setRotation(0.0, 0.0);
@@ -94,7 +109,7 @@ void DemoLSystemApp::update(){
 void DemoLSystemApp::draw(){
     ofBackground(0, 0, 80);
     ofSetColor(200, 200, 180);
-    ofSetLineWidth(1.5);
+    ofSetLineWidth(0.75);
     
     string title;
     int system = 0;
@@ -107,9 +122,9 @@ void DemoLSystemApp::draw(){
         state.edgeLength = 2.5;
         state.position = ofVec2f(ofGetWidth()/2, ofGetHeight() * 0.8);
         state.heading = ofVec3f(0, -1);
-        line_gen.generate(systems[system], state, 5);
+        line_gen.generate(systems[system], state, 6);
     } else if (mode == Mesh) {
-        system = 3;
+        system = 2;
         title = "MeshGenerator";
         cam.begin();
         mesh->draw();
@@ -123,11 +138,12 @@ void DemoLSystemApp::draw(){
         n += 15;
     }
     ofDrawBitmapString(title, 20, ofGetHeight() - 25);
+    ofDrawBitmapString("SPACE to cycle modes", ofGetWidth() - 185, ofGetHeight() - 25);
 }
 
 //--------------------------------------------------------------
 void DemoLSystemApp::keyPressed(int key){
-    if (key == 'm') {
+    if (key == ' ') {
         if (mode == Line) {
             mode = Mesh;
         } else if (mode == Mesh) {

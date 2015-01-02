@@ -20,7 +20,7 @@ using namespace std;
 
 typedef string Rule;
 typedef char RuleToken;
-typedef set<pair<Rule, Rule> > RuleSet;
+typedef vector<pair<Rule, Rule> > RuleSet;
 
 class LSystem {
 public:

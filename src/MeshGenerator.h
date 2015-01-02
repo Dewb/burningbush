@@ -12,18 +12,39 @@
 #include "LSystem.h"
 #include <ofMesh.h>
 
+class ColorBook {
+public:
+    ColorBook();
+    void add(const ofColor& c, int number = 1);
+    void addGradient(const ofColor& c1, const ofColor& c2, int steps = 3);
+    void addGradient(const ofColor& next, int steps = 3);
+    void nextSeries();
+    const ofColor& getColor(int series, int index);
+protected:
+    vector<vector<ofColor> > colors;
+};
+
 class MeshGeneratorState {
 public:
-    MeshGeneratorState() : heading(ofVec3f(0, 1, 0)) {}
+    MeshGeneratorState();
     MeshGeneratorState(const MeshGeneratorState& other);
-    ofVec3f position;
-    vector<ofVec3f> pointHistory;
-    ofVec3f heading;
-    ofVec3f left;
-    ofVec3f up;
+
     float angle;
     float segmentLength;
     float segmentRadius;
+    
+    ofVec3f heading;
+    ofVec3f left;
+    ofVec3f up;
+
+    ofVec3f position;
+    vector<ofVec3f> pointHistory;
+    ofPtr<ColorBook> colorBook;
+    int currentColor;
+    int currentColorSeries;
+    
+    ofColor getCurrentColor();
+    
     ofPtr<ofMesh> mesh;
 };
 
