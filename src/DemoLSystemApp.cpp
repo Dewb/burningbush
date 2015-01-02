@@ -77,11 +77,12 @@ void DemoLSystemApp::setup(){
     cb->nextSeries();
     cb->addGradient(ofColor::yellow, ofColor::orangeRed, 7);
     cb->addGradient(ofColor::red, 3);
+    cb->add(ofColor(230, 0, 0));
     cb->add(ofColor(190, 0, 0));
     cb->nextSeries();
     cb->addGradient(ofColor::darkGreen, ofColor::forestGreen, 4);
     cb->addGradient(ofColor::lawnGreen, 4);
-    cb->addGradient(ofColor::greenYellow, 3);
+    cb->addGradient(ofColor::greenYellow, 4);
     
     mesh_gen.generate(systems[2], state, 7);
     mesh = state.mesh;
