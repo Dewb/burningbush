@@ -39,6 +39,7 @@ public:
 
     ofVec3f position;
     vector<ofVec3f> pointHistory;
+    vector<ofColor> colorHistory;
     ofPtr<ColorBook> colorBook;
     int currentColor;
     int currentColorSeries;

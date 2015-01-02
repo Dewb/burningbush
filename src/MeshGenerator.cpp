@@ -122,7 +122,8 @@ namespace {
         mergeIntoMesh(*(mesh.get()), segmentMesh, shiftOrigin * orient);
     }
 
-    void addTriangleToMesh(ofPtr<ofMesh> mesh, const ofVec3f& a, const ofVec3f& b, const ofVec3f& c, const ofColor& color) {
+    void addTriangleToMesh(ofPtr<ofMesh> mesh, const ofVec3f& a, const ofVec3f& b, const ofVec3f& c,
+                           const ofColor& color1, const ofColor& color2, const ofColor& color3) {
         unsigned start = mesh->getVertices().size();
         mesh->addIndex(start + 0);
         mesh->addIndex(start + 1);
@@ -130,14 +131,15 @@ namespace {
         mesh->addVertex(a);
         mesh->addVertex(b);
         mesh->addVertex(c);
-        mesh->addColor(color);
-        mesh->addColor(color);
-        mesh->addColor(color);
+        mesh->addColor(color1);
+        mesh->addColor(color2);
+        mesh->addColor(color3);
     }
     
-    void addPolygonToMesh(ofPtr<ofMesh> mesh, const vector<ofVec3f> points, const ofColor& color) {
+    void addPolygonToMesh(ofPtr<ofMesh> mesh, const vector<ofVec3f>& points, const vector<ofColor>& colors) {
         for (int i = 1; i < points.size() - 1; i++) {
-            addTriangleToMesh(mesh, points[0], points[i], points[i + 1], color);
+            addTriangleToMesh(mesh, points[0], points[i], points[i + 1],
+                                    colors[0], colors[i], colors[i + 1]);
         }
     }
     
@@ -149,6 +151,7 @@ namespace {
     void forward(MeshGeneratorState& state) {
         state.position += state.heading.normalized() * state.segmentLength;
         state.pointHistory.push_back(state.position);
+        state.colorHistory.push_back(state.getCurrentColor());
     }
 
     void forward_draw(MeshGeneratorState& state) {
@@ -200,6 +203,10 @@ namespace {
         state.currentColor++;
     }
     
+    void previous_color(MeshGeneratorState& state) {
+        state.currentColor--;
+    }
+    
     void next_color_series(MeshGeneratorState& state) {
         state.currentColorSeries++;
     }
@@ -208,10 +215,11 @@ namespace {
         // history should already be clear because it isn't copied, but just in case
         state.pointHistory.clear();
         state.pointHistory.push_back(state.position);
+        state.colorHistory.push_back(state.getCurrentColor());
     }
 
     void end_polygon(MeshGeneratorState& state) {
-        addPolygonToMesh(state.mesh, state.pointHistory, state.getCurrentColor());
+        addPolygonToMesh(state.mesh, state.pointHistory, state.colorHistory);
     }
 
 }
@@ -228,6 +236,7 @@ MeshGenerator::MeshGenerator() {
     add(Token('|').action(turn_around));
     add(Token('!').action(decrease_diameter));
     add(Token('\'').action(next_color));
+    add(Token('`').action(previous_color));
     add(Token('"').action(next_color_series));
     add(Token('[').startsGroup());
     add(Token(']').endsGroup());

@@ -49,7 +49,7 @@ void DemoLSystemApp::setup(){
     system.addRule("A", "[&FL!A]/////'[&FL!A]///////'[&FL!A]");
     system.addRule("F", "S/////F");
     system.addRule("S", "FL");
-    system.addRule("L", "[\"^^{-f+f+f-|-f+f+f}]");
+    system.addRule("L", "[\"\"''^^{-f+`f+`f-|-f+'f+'f}]");
     system.setProperty("angle", 22.5);
     systems.push_back(system);
     
@@ -78,11 +78,11 @@ void DemoLSystemApp::setup(){
     cb->addGradient(ofColor::yellow, ofColor::orangeRed, 7);
     cb->addGradient(ofColor::red, 3);
     cb->add(ofColor(230, 0, 0));
-    cb->add(ofColor(190, 0, 0));
+    cb->addGradient(ofColor(160, 0, 0), 3);
     cb->nextSeries();
     cb->addGradient(ofColor::darkGreen, ofColor::forestGreen, 4);
     cb->addGradient(ofColor::lawnGreen, 4);
-    cb->addGradient(ofColor::greenYellow, 4);
+    cb->addGradient(ofColor::greenYellow, 6);
     
     mesh_gen.generate(systems[2], state, 7);
     mesh = state.mesh;
