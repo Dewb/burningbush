@@ -15,11 +15,15 @@
 class MeshGeneratorState {
 public:
     MeshGeneratorState() : heading(ofVec3f(0, 1, 0)) {}
+    MeshGeneratorState(const MeshGeneratorState& other);
     ofVec3f position;
-    ofVec3f previousPosition;
+    vector<ofVec3f> pointHistory;
     ofVec3f heading;
+    ofVec3f left;
+    ofVec3f up;
     float angle;
-    float edgeLength;
+    float segmentLength;
+    float segmentRadius;
     ofPtr<ofMesh> mesh;
 };
 
@@ -27,7 +31,7 @@ class MeshGenerator : public Generator<MeshGeneratorState> {
 public:
     MeshGenerator();
     virtual void begin(MeshGeneratorState& state);
-    virtual void end(MeshGeneratorState& state);
+    virtual void end(MeshGeneratorState& state);    
 };
 
 #endif /* defined(__burningbush__MeshGenerator__) */

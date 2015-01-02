@@ -27,7 +27,14 @@ public:
     Rule axiom;
     RuleSet rules;
     void addRule(const Rule& match, const Rule& replace);
+    void reset();
+    
     Rule generate(int iteration);
+    
+    void setProperty(string name, float value);
+    float getProperty(string name) const;
+protected:
+    map<string, float> properties;
 };
 
 template<typename StateType>

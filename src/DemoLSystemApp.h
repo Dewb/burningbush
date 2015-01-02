@@ -27,7 +27,7 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
     
-    LSystem system;
+    vector<LSystem> systems;
     LineGenerator line_gen;
     MeshGenerator mesh_gen;
     ofPtr<ofMesh> mesh;

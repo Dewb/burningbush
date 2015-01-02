@@ -7,28 +7,38 @@
 //
 
 #include "LSystem.h"
+#include <tr1/tuple>
 
-namespace {
-    void find_and_replace(Rule& str, const Rule& findStr, const Rule& replaceStr) {
-        size_t pos = 0;
-        while((pos = str.find(findStr, pos)) != std::string::npos) {
-            str.replace(pos, findStr.length(), replaceStr);
-            pos += replaceStr.length();
-        }
-    }
-}
 
 void LSystem::addRule(const Rule& match, const Rule& replace) {
     rules.insert(std::pair<Rule, Rule>(match, replace));
 }
 
+void LSystem::reset() {
+    rules.clear();
+    properties.clear();
+    axiom = "";
+}
+
 Rule LSystem::generate(int iterations) {
     Rule current = axiom;
+   
     while (iterations--) {
-        for (auto iter = rules.rbegin(); iter != rules.rend(); ++iter) {
-            find_and_replace(current, iter->first, iter->second);
+        size_t position = 0;
+        while(position < current.length()) {
+            for (auto iter = rules.begin(); iter != rules.end(); ++iter) {
+                if (current.substr(position, 1) == iter->first) {
+                    current.replace(position, iter->first.length(), iter->second);
+                    position += iter->second.length() - 1;
+                    break;
+                }
+            }
+            position++;
         }
     }
     return current;
 }
 
+void LSystem::setProperty(string name, float value) {
+    properties[name] = value;
+}
