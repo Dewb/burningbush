@@ -25,7 +25,7 @@ void LSystem::addRule(const Rule& match, const Rule& replace) {
 Rule LSystem::generate(int iterations) {
     Rule current = axiom;
     while (iterations--) {
-        for (auto iter = rules.rbegin(); iter != rules.rend(); iter++) {
+        for (auto iter = rules.rbegin(); iter != rules.rend(); ++iter) {
             find_and_replace(current, iter->first, iter->second);
         }
     }

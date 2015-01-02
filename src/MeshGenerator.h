@@ -14,18 +14,20 @@
 
 class MeshGeneratorState {
 public:
+    MeshGeneratorState() : heading(ofVec3f(0, 1, 0)) {}
     ofVec3f position;
     ofVec3f previousPosition;
     ofVec3f heading;
     float angle;
     float edgeLength;
+    ofPtr<ofMesh> mesh;
 };
 
-class MeshGenerator : public Generator<ofMesh, MeshGeneratorState> {
+class MeshGenerator : public Generator<MeshGeneratorState> {
 public:
     MeshGenerator();
-    virtual void begin(ofMesh& mesh);
-    virtual void end(ofMesh& mesh);
+    virtual void begin(MeshGeneratorState& state);
+    virtual void end(MeshGeneratorState& state);
 };
 
 #endif /* defined(__burningbush__MeshGenerator__) */

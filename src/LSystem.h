@@ -15,10 +15,8 @@
 #include <stack>
 #include <vector>
 #include <tr1/functional>
-#include <ofTypes.h>
 
 using namespace std;
-
 
 typedef string Rule;
 typedef char RuleToken;
@@ -32,11 +30,10 @@ public:
     Rule generate(int iteration);
 };
 
-
-template<typename ResultType, typename StateType>
+template<typename StateType>
 class TokenData {
 public:
-    typedef tr1::function<void(ResultType&, StateType&)> TokenAction;
+    typedef tr1::function<void(StateType&)> TokenAction;
 
     TokenData(RuleToken t) { token = t; _startsGroup = false; _endsGroup = false;}
     TokenData& startsGroup() { _startsGroup = true; return *this; }
@@ -48,7 +45,7 @@ public:
     
     const wchar_t getToken() const { return token; }
     
-    void execute(ResultType& result, StateType& state) const { for (auto& action : _actions) { action(result, state); } }
+    void execute(StateType& state) const { for (auto& action : _actions) { action(state); } }
 protected:
     RuleToken token;
     vector<TokenAction> _actions;
@@ -58,21 +55,13 @@ private:
     TokenData(); // unimplemented
 };
 
-
-template<typename ResultType, typename StateType>
+template<typename StateType>
 class Generator {
 public:
+    typedef tr1::function<void(StateType&)> TokenAction;
+    typedef TokenData<StateType> Token;
     
-    typedef tr1::function<void(ResultType&, StateType&)> TokenAction;
-    typedef TokenData<ResultType, StateType> Token;
-    
-    Generator() { _system.reset(new LSystem()); }
-    
-    void setInitialState(StateType state) { _stateStack.push(state); }
     void add(const Token& token) { _tokens.insert(std::pair<wchar_t, Token>(token.getToken(), token)); }
-    
-    const LSystem& getSystem() const { return _system; }
-    LSystem& getSystem() { return *(_system.get()); }
     
     const Token* getToken(wchar_t tokenLetter) {
         auto iter = _tokens.find(tokenLetter);
@@ -82,44 +71,38 @@ public:
         return NULL;
     }
     
-    virtual void begin(ResultType& r) {}
-    virtual void end(ResultType& r) {};
+    virtual void begin(StateType& state) {}
+    virtual void end(StateType& state) {};
     
-    ResultType generate(int iterations) {
-        size_t n = _system->generate(iterations).size();
-        return generate(iterations, n);
+    void generate(LSystem& system, StateType& state, unsigned iterations) {
+        size_t n = system.generate(iterations).size();
+        return generate(system, state, iterations, n);
     }
     
-    ResultType generate(int iterations, int steps) {
-        ResultType r;
-        Rule str = _system->generate(iterations);
-        begin(r);
-        if (_stateStack.size() != 1) {
-            // did not call setInitialState!
-            return;
-        }
-        for (int i = 0; i < steps; i++) {
+    void generate(LSystem& system, StateType& state, unsigned iterations, unsigned steps) {
+        Rule str = system.generate(iterations);
+        stack<StateType> stateStack;
+        stateStack.push(state);
+        begin(stateStack.top());
+        for (unsigned i = 0; i < steps && i < str.size(); i++) {
             auto t = getToken(str[i]);
             if (t) {
                 if (t->shouldStartGroup()) {
-                    _stateStack.push(_stateStack.top());
+                    StateType newState = stateStack.top();
+                    stateStack.push(newState);
                 }
-                t->execute(r, _stateStack.top());
-                if (t->shouldEndGroup() && _stateStack.size() > 1) {
-                    _stateStack.pop();
+                t->execute(stateStack.top());
+                if (t->shouldEndGroup() && stateStack.size() > 1) {
+                    stateStack.pop();
                 }
             }
         }
-        end(r);
-        return r;
+        end(stateStack.top());
+        state = stateStack.top();
     }
     
 protected:
-    
-    ofPtr<LSystem> _system;
-    stack<StateType> _stateStack;
     map<wchar_t, Token> _tokens;
-    
 };
 
 #endif /* defined(__burningbush__LSystem__) */

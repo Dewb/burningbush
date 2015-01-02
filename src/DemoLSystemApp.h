@@ -1,11 +1,17 @@
 #pragma once
 
 #include "ofMain.h"
+#include "LineGenerator.h"
 #include "MeshGenerator.h"
 #include "TurntableCam.h"
 
-class ofApp : public ofBaseApp{
 
+typedef enum {
+    Line,
+    Mesh
+} Mode;
+
+class DemoLSystemApp : public ofBaseApp {
 public:
     void setup();
     void update();
@@ -21,7 +27,10 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
     
-    MeshGenerator mg;
-    ofMesh mesh;
+    LSystem system;
+    LineGenerator line_gen;
+    MeshGenerator mesh_gen;
+    ofPtr<ofMesh> mesh;
     ofxTurntableCam cam;
+    Mode mode;
 };
