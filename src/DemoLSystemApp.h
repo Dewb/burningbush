@@ -31,6 +31,7 @@ public:
     LineGenerator line_gen;
     MeshGenerator mesh_gen;
     ofPtr<ofMesh> mesh;
+    ofPolyRenderMode polyRenderMode;
     ofxTurntableCam cam;
     Mode mode;
 };

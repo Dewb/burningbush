@@ -66,7 +66,7 @@ void DemoLSystemApp::setup(){
     state.left = state.heading.crossed(state.up);
     state.angle = 22.5;
     state.segmentLength = 4.5;
-    state.segmentRadius = 1.2;
+    state.segmentRadius = 2.0;
 
     ColorBook* cb = new ColorBook();
     
@@ -99,6 +99,7 @@ void DemoLSystemApp::setup(){
     ofEnableAntiAliasing();
     
     mode = Line;
+    polyRenderMode = OF_MESH_FILL;
 }
 
 //--------------------------------------------------------------
@@ -109,7 +110,6 @@ void DemoLSystemApp::update(){
 void DemoLSystemApp::draw(){
     ofBackground(0, 0, 80);
     ofSetColor(200, 200, 180);
-    ofSetLineWidth(0.75);
     
     string title;
     int system = 0;
@@ -122,12 +122,16 @@ void DemoLSystemApp::draw(){
         state.edgeLength = 2.5;
         state.position = ofVec2f(ofGetWidth()/2, ofGetHeight() * 0.8);
         state.heading = ofVec3f(0, -1);
+        
+        ofSetLineWidth(0.75);
+        
         line_gen.generate(systems[system], state, 6);
     } else if (mode == Mesh) {
         system = 2;
         title = "MeshGenerator";
         cam.begin();
-        mesh->draw();
+        ofSetLineWidth(0.1);
+        mesh->draw(polyRenderMode);
         cam.end();
     }
     
@@ -148,6 +152,14 @@ void DemoLSystemApp::keyPressed(int key){
             mode = Mesh;
         } else if (mode == Mesh) {
             mode = Line;
+        }
+    } else if (key == 'm') {
+        if (polyRenderMode == OF_MESH_FILL) {
+            polyRenderMode = OF_MESH_WIREFRAME;
+        } else if (polyRenderMode == OF_MESH_POINTS) {
+            polyRenderMode = OF_MESH_FILL;
+        } else if (polyRenderMode == OF_MESH_WIREFRAME) {
+            polyRenderMode = OF_MESH_POINTS;
         }
     }
 }

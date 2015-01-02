@@ -193,7 +193,7 @@ namespace {
     }
     
     void decrease_diameter(MeshGeneratorState& state) {
-        state.segmentRadius *= 0.75;
+        state.segmentRadius *= 0.618;
     }
     
     void next_color(MeshGeneratorState& state) {
