@@ -1,5 +1,13 @@
 #include "DemoLSystemApp.h"
 
+template <typename T>
+string to_string ( T t )
+{
+    ostringstream ss;
+    ss << t;
+    return ss.str();
+}
+
 //--------------------------------------------------------------
 void DemoLSystemApp::setup(){
     
@@ -67,6 +75,22 @@ void DemoLSystemApp::setup(){
     system.setProperty("shiny", 1);
     systems.push_back(system);
     
+    system.reset();
+    system.axiom = "P";
+    system.addRule("P", "I+[P+O]--//[--L]I[++L]-[PO]++PO");
+    system.addRule("I", "FS[//&&L][//^^L]FS");
+    system.addRule("S", "SFS");
+    system.addRule("L", "['{+f-ff-f+|+f-ff-f}]");
+    system.addRule("O", "[&&&D''/W////W////W////W////W]");
+    system.addRule("D", "FF");
+    system.addRule("W", "['^!F][{&&&&-f+f|-f+f}]");
+    system.setProperty("N", 6);
+    system.setProperty("angle", 18.0);
+    system.setProperty("segmentLength", 3.0);
+    system.setProperty("segmentRadius", 0.5);
+    system.setProperty("colorBook", 1);
+    systems.push_back(system);
+    
     ofPtr<ColorBook> cb(new ColorBook());
     cb->addGradient(ofColor::saddleBrown, ofColor::brown, 4);
     cb->addGradient(ofColor(180, 110, 60), 5);
@@ -80,6 +104,13 @@ void DemoLSystemApp::setup(){
     cb->addGradient(ofColor::darkGreen, ofColor::forestGreen, 4);
     cb->addGradient(ofColor::lawnGreen, 4);
     cb->addGradient(ofColor::greenYellow, 6);
+    colorBooks.push_back(cb);
+    
+    cb.reset(new ColorBook());
+    cb->add(ofColor(0, 160, 0));
+    cb->add(ofColor(80, 200, 0));
+    cb->add(ofColor::lavenderBlush);
+    cb->add(ofColor::white);
     colorBooks.push_back(cb);
     
     ofEnableDepthTest();
@@ -136,6 +167,7 @@ void DemoLSystemApp::draw(){
     
     string title;
     LSystem& system = systems[currentSystem];
+    int iterations = fmax(0.0, system.getProperty("N") + iterationAdjustment);
 
     if (mode == Line) {
         title = "LineGenerator";
@@ -147,7 +179,7 @@ void DemoLSystemApp::draw(){
         state.position = ofVec2f(ofGetWidth()/2, ofGetHeight() * 0.8);
         
         ofSetLineWidth(0.75);
-        line_gen.generate(system, state, system.getProperty("N"));
+        line_gen.generate(system, state, iterations);
     } else if (mode == Mesh) {
         title = "MeshGenerator";
         
@@ -170,8 +202,33 @@ void DemoLSystemApp::draw(){
         ofDrawBitmapString(iter->first + " -> " + iter->second, 20, 45 + n);
         n += 15;
     }
+    ofDrawBitmapString("N = " + to_string(iterations), 20, 45 + n + 15);
     ofDrawBitmapString(title, 20, ofGetHeight() - 25);
     ofDrawBitmapString("SPACE to cycle modes", ofGetWidth() - 185, ofGetHeight() - 25);
+}
+
+void DemoLSystemApp::updateMesh() {
+    if (currentSystem <= lastLineSystem) {
+        mode = Line;
+        
+    } else {
+        mode = Mesh;
+        
+        LSystem& system = systems[currentSystem];
+        
+        MeshGeneratorState state;
+        state.left = state.heading.crossed(state.up);
+        state.angle = system.getProperty("angle");
+        state.segmentLength = system.getProperty("segmentLength");
+        state.segmentRadius = system.getProperty("segmentRadius");
+        if (system.hasProperty("colorBook") && system.getProperty("colorBook") < colorBooks.size()) {
+            state.colorBook = colorBooks[system.getProperty("colorBook")];
+        }
+        
+        int iterations = fmax(0.0, system.getProperty("N") + iterationAdjustment);
+        mesh_gen.generate(systems[currentSystem], state, iterations);
+        mesh = state.mesh;
+    }
 }
 
 //--------------------------------------------------------------
@@ -179,27 +236,9 @@ void DemoLSystemApp::keyPressed(int key){
     if (key == ' ') {
         
         currentSystem = (currentSystem + 1) % systems.size();
+        iterationAdjustment = 0;
         
-        if (currentSystem <= lastLineSystem) {
-            mode = Line;
-        
-        } else {
-            mode = Mesh;
-            
-            LSystem& system = systems[currentSystem];
-        
-            MeshGeneratorState state;
-            state.left = state.heading.crossed(state.up);
-            state.angle = system.getProperty("angle");
-            state.segmentLength = system.getProperty("segmentLength");
-            state.segmentRadius = system.getProperty("segmentRadius");
-            if (system.hasProperty("colorBook")) {
-                state.colorBook = colorBooks[system.getProperty("colorBook")];
-            }
-            
-            mesh_gen.generate(systems[currentSystem], state, system.getProperty("N"));
-            mesh = state.mesh;
-        }
+        updateMesh();
 
     } else if (key == 'm') {
         if (polyRenderMode == OF_MESH_FILL) {
@@ -209,6 +248,12 @@ void DemoLSystemApp::keyPressed(int key){
         } else if (polyRenderMode == OF_MESH_WIREFRAME) {
             polyRenderMode = OF_MESH_POINTS;
         }
+    } else if (key == '+') {
+        iterationAdjustment++;
+        updateMesh();
+    } else if (key == '-') {
+        iterationAdjustment--;
+        updateMesh();
     }
 }
 

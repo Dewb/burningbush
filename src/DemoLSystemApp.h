@@ -21,6 +21,8 @@ public:
     void setup();
     void update();
     void draw();
+    
+    void updateMesh();
 
     void keyPressed(int key);
     void keyReleased(int key);
@@ -44,6 +46,7 @@ public:
     MeshGenerator mesh_gen;
 
     int currentSystem;
+    int iterationAdjustment;
     int lastLineSystem;
     vector<LSystem> systems;
     ofPtrArray<ColorBook> colorBooks;
