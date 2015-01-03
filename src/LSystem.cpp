@@ -39,6 +39,19 @@ Rule LSystem::generate(int iterations) {
     return current;
 }
 
+float LSystem::getProperty(string name) const {
+    auto iter = properties.find(name);
+    if (iter != properties.end()) {
+        return iter->second;
+    } else {
+        return 0;
+    }
+}
+
 void LSystem::setProperty(string name, float value) {
     properties[name] = value;
+}
+
+bool LSystem::hasProperty(string name) const {
+    return properties.find(name) != properties.end();
 }

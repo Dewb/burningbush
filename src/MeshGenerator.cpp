@@ -88,7 +88,7 @@ ofColor MeshGeneratorState::getCurrentColor() {
     if (colorBook) {
         return colorBook->getColor(currentColorSeries, currentColor);
     } else {
-        return ofColor(220, 210, 180);
+        return ofColor(128, 128, 128);
     }
 }
 

@@ -11,6 +11,11 @@ typedef enum {
     Mesh
 } Mode;
 
+template<typename T>
+class ofPtrArray : public vector<ofPtr<T> > {
+public:
+};
+
 class DemoLSystemApp : public ofBaseApp {
 public:
     void setup();
@@ -26,12 +31,20 @@ public:
     void windowResized(int w, int h);
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
-    
-    vector<LSystem> systems;
+
+    ofxTurntableCam cam;
+    ofPolyRenderMode polyRenderMode;
+    Mode mode;
+
+    ofPtr<ofMesh> mesh;
+    ofLight headlight;
+    ofMaterial material;
+
     LineGenerator line_gen;
     MeshGenerator mesh_gen;
-    ofPtr<ofMesh> mesh;
-    ofPolyRenderMode polyRenderMode;
-    ofxTurntableCam cam;
-    Mode mode;
+
+    int currentSystem;
+    int lastLineSystem;
+    vector<LSystem> systems;
+    ofPtrArray<ColorBook> colorBooks;
 };

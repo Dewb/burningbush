@@ -33,6 +33,7 @@ public:
     
     void setProperty(string name, float value);
     float getProperty(string name) const;
+    bool hasProperty(string name) const;
 protected:
     map<string, float> properties;
 };
