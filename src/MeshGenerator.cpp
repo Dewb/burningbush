@@ -136,7 +136,11 @@ namespace {
         mesh->addColor(color3);
     }
     
-    void addPolygonToMesh(ofPtr<ofMesh> mesh, const vector<ofVec3f>& points, const vector<ofColor>& colors) {
+    void addPolygonToMesh(ofPtr<ofMesh> mesh, const vector<ofVec3f>& polyPoints, const vector<ofColor>& colors) {
+        auto points = polyPoints;
+        if (points.back() != points.front()) {
+            points.push_back(points.front());
+        }
         for (int i = 1; i < points.size() - 1; i++) {
             addTriangleToMesh(mesh, points[0], points[i], points[i + 1],
                                     colors[0], colors[i], colors[i + 1]);
