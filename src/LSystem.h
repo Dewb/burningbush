@@ -24,10 +24,17 @@ typedef basic_string<RuleToken> RuleString;
 class ProductionRule {
 public:
     ProductionRule() : probability(1.0) {}
+    
     RuleToken predecessor;
     RuleString successor;
+    
+    RuleString leftContext;
+    RuleString rightContext;
+    
     float probability;
 };
+
+std::ostream& operator<<(std::ostream& os, const ProductionRule& rule);
 
 class ProductionRuleGroup : public vector<ProductionRule> {
 public:
@@ -39,12 +46,17 @@ typedef map<RuleToken, ProductionRuleGroup> RuleSet;
 class LSystem {
 public:
     LSystem();
+    
     RuleString axiom;
     RuleSet rules;
-    void addRule(const RuleToken& match, const RuleString& replace);
+    RuleString ignoreContext;
+    
+    ProductionRule& addRule(const RuleToken& match, const RuleString& replace);
+    void addRule(const RuleString& leftContext, const RuleToken& match, const RuleString& rightContext, const RuleString& replace);
     void reset();
     
     RuleString generate(int iteration);
+
     void reseed(unsigned seed);
     void reseed();
     bool isStochastic() const;
@@ -52,7 +64,12 @@ public:
     void setProperty(string name, float value);
     float getProperty(string name) const;
     bool hasProperty(string name) const;
+
 protected:
+    bool leftContextMatches(const RuleString& leftContext, const RuleString& current, int position) const;
+    bool rightContextMatches(const RuleString& rightContext, const RuleString& current, int position) const;
+    void getMatchingRules(const RuleString& current, int position, ProductionRuleGroup& matched);
+    
     map<string, float> properties;
     unsigned seed;
 };

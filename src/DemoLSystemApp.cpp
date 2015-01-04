@@ -13,7 +13,24 @@ string to_string(T t, int precision = 2)
 void DemoLSystemApp::setup(){
     
     LSystem system;
-  
+
+    system.reset();
+    system.axiom = "F1F1F1";
+    system.ignoreContext = "+-F";
+    system.addRule("0", '0', "0", "0");
+    system.addRule("0", '0', "1", "1[+F1F1]");
+    system.addRule("0", '1', "0", "1");
+    system.addRule("0", '1', "1", "1");
+    system.addRule("1", '0', "1", "1F1");
+    system.addRule("1", '1', "0", "0");
+    system.addRule("1", '1', "1", "0");
+    system.addRule('+', "-");
+    system.addRule('-', "+");
+    system.setProperty("N", 10);
+    system.setProperty("angle", 22.5);
+    system.setProperty("edgeLength", 8.0);
+    systems.push_back(system);
+    
     system.reset();
     system.axiom = "F";
     system.addRule('F', "F[+F]F[-F]F");
