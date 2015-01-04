@@ -1,9 +1,10 @@
 #include "DemoLSystemApp.h"
 
 template <typename T>
-string to_string ( T t )
+string to_string(T t, int precision = 2)
 {
     ostringstream ss;
+    ss.precision(precision);
     ss << t;
     return ss.str();
 }
@@ -15,7 +16,9 @@ void DemoLSystemApp::setup(){
   
     system.reset();
     system.axiom = "F";
-    system.addRule("F", "F[+F]F[-F]F");
+    system.addRule('F', "F[+F]F[-F]F");
+    system.addRule('F', "F[+F]F");
+    system.addRule('F', "F[-F]F");
     system.setProperty("N", 5);
     system.setProperty("angle", 25.7);
     system.setProperty("edgeLength", 2.0);
@@ -23,7 +26,7 @@ void DemoLSystemApp::setup(){
     
     system.reset();
     system.axiom = "F";
-    system.addRule("F", "FF-[-F+F+F]+[+F-F-F]");
+    system.addRule('F', "FF-[-F+F+F]+[+F-F-F]");
     system.setProperty("N", 4);
     system.setProperty("angle", 22.5);
     system.setProperty("edgeLength", 10);
@@ -31,8 +34,8 @@ void DemoLSystemApp::setup(){
     
     system.reset();
     system.axiom = "X";
-    system.addRule("X", "F-[[X]+X]+F[+FX]-X");
-    system.addRule("F", "FF");
+    system.addRule('X', "F-[[X]+X]+F[+FX]-X");
+    system.addRule('F', "FF");
     system.setProperty("N", 6);
     system.setProperty("angle", 22.5);
     system.setProperty("edgeLength", 3);
@@ -40,8 +43,8 @@ void DemoLSystemApp::setup(){
     
     system.reset();
     system.axiom = "F+F+F+F";
-    system.addRule("F", "F+f-FF+F+FF+Ff+FF-f+FF-F-FF-Ff-FFF");
-    system.addRule("f", "ffffff");
+    system.addRule('F', "F+f-FF+F+FF+Ff+FF-f+FF-F-FF-Ff-FFF");
+    system.addRule('f', "ffffff");
     system.setProperty("N", 2);
     system.setProperty("angle", 90);
     system.setProperty("edgeLength", 9);
@@ -51,10 +54,10 @@ void DemoLSystemApp::setup(){
     
     system.reset();
     system.axiom = "A";
-    system.addRule("A", "[&FL!A]/////'[&FL!A]///////'[&FL!A]");
-    system.addRule("F", "S/////F");
-    system.addRule("S", "FL");
-    system.addRule("L", "[\"''^^{-f+`f+`f-|-f+'f+'f}]");
+    system.addRule('A', "[&FL!A]/////'[&FL!A]///////'[&FL!A]");
+    system.addRule('F', "S/////F");
+    system.addRule('S', "FL");
+    system.addRule('L', "[\"''^^{-f+`f+`f-|-f+'f+'f}]");
     system.setProperty("N", 7);
     system.setProperty("angle", 22.5);
     system.setProperty("segmentLength", 4.5);
@@ -64,10 +67,10 @@ void DemoLSystemApp::setup(){
     
     system.reset();
     system.axiom = "A";
-    system.addRule("A", "B-F+CFC+F-D&F^D-F+&&CFC+F+B//");
-    system.addRule("B", "A&F^CFB^F^D^^-F-D^|F^B|FC^F^A//");
-    system.addRule("C", "|D^|F^B-F+C^F^A&&FA&F^C+F+B^F^D//");
-    system.addRule("D", "|CFB-F+B|FA&F^A&&FB-F+B|FC//");
+    system.addRule('A', "B-F+CFC+F-D&F^D-F+&&CFC+F+B//");
+    system.addRule('B', "A&F^CFB^F^D^^-F-D^|F^B|FC^F^A//");
+    system.addRule('C', "|D^|F^B-F+C^F^A&&FA&F^C+F+B^F^D//");
+    system.addRule('D', "|CFB-F+B|FA&F^A&&FB-F+B|FC//");
     system.setProperty("N", 3);
     system.setProperty("angle", 90);
     system.setProperty("segmentLength", 10);
@@ -77,13 +80,15 @@ void DemoLSystemApp::setup(){
     
     system.reset();
     system.axiom = "P";
-    system.addRule("P", "I+[P+O]--//[--L]I[++L]-[PO]++PO");
-    system.addRule("I", "FS[//&&L][//^^L]FS");
-    system.addRule("S", "SFS");
-    system.addRule("L", "['{+f-ff-f+|+f-ff-f}]");
-    system.addRule("O", "[&&&D''/W////W////W////W////W]");
-    system.addRule("D", "FF");
-    system.addRule("W", "['^!F][{&&&&-f+f|-f+f}]");
+    system.addRule('P', "I+[P+O]--//[--L]I[++L]-[PO]++PO");
+    system.addRule('I', "FS[//&&L][//^^L]FS");
+    system.addRule('S', "S[//&&L][//^^L]FS");
+    system.addRule('S', "SFS");
+    system.addRule('S', "S");
+    system.addRule('L', "['{+f-ff-f+|+f-ff-f}]");
+    system.addRule('O', "[&&&D''/W////W////W////W////W]");
+    system.addRule('D', "FF");
+    system.addRule('W', "['^!F][{&&&&-f+f|-f+f}]");
     system.setProperty("N", 6);
     system.setProperty("angle", 18.0);
     system.setProperty("segmentLength", 3.0);
@@ -198,13 +203,23 @@ void DemoLSystemApp::draw(){
     
     ofDrawBitmapString(system.axiom, 20, 25);
     int n = 0;
-    for (auto iter = system.rules.begin(); iter != system.rules.end(); ++iter) {
-        ofDrawBitmapString(iter->first + " -> " + iter->second, 20, 45 + n);
-        n += 15;
+    for (auto& ruleGroup : system.rules) {
+        for (auto& rule : ruleGroup.second) {
+            if (ruleGroup.second.isStochastic()) {
+                ofDrawBitmapString(to_string(rule.probability/3.0), 40, 40 + n);
+            }
+            
+            ofDrawBitmapString(to_string(rule.predecessor) + " -----> " + rule.successor, 20, 45 + n);
+            
+            n += 15;
+        }
     }
     ofDrawBitmapString("N = " + to_string(iterations), 20, 45 + n + 15);
     ofDrawBitmapString(title, 20, ofGetHeight() - 25);
     ofDrawBitmapString("SPACE to cycle modes", ofGetWidth() - 185, ofGetHeight() - 25);
+    if (system.isStochastic()) {
+        ofDrawBitmapString("R to reseed stochastic system", ofGetWidth() - 257, ofGetHeight() - 42);
+    }
 }
 
 void DemoLSystemApp::updateMesh() {
@@ -253,6 +268,9 @@ void DemoLSystemApp::keyPressed(int key){
         updateMesh();
     } else if (key == '-') {
         iterationAdjustment--;
+        updateMesh();
+    } else if (key == 'r') {
+        systems[currentSystem].reseed();
         updateMesh();
     }
 }

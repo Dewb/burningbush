@@ -18,24 +18,43 @@
 
 using namespace std;
 
-typedef string Rule;
 typedef char RuleToken;
-typedef vector<pair<Rule, Rule> > RuleSet;
+typedef basic_string<RuleToken> RuleString;
+
+class ProductionRule {
+public:
+    ProductionRule() : probability(1.0) {}
+    RuleToken predecessor;
+    RuleString successor;
+    float probability;
+};
+
+class ProductionRuleGroup : public vector<ProductionRule> {
+public:
+    bool isStochastic() const { return size() > 1; }
+};
+
+typedef map<RuleToken, ProductionRuleGroup> RuleSet;
 
 class LSystem {
 public:
-    Rule axiom;
+    LSystem();
+    RuleString axiom;
     RuleSet rules;
-    void addRule(const Rule& match, const Rule& replace);
+    void addRule(const RuleToken& match, const RuleString& replace);
     void reset();
     
-    Rule generate(int iteration);
+    RuleString generate(int iteration);
+    void reseed(unsigned seed);
+    void reseed();
+    bool isStochastic() const;
     
     void setProperty(string name, float value);
     float getProperty(string name) const;
     bool hasProperty(string name) const;
 protected:
     map<string, float> properties;
+    unsigned seed;
 };
 
 template<typename StateType>
@@ -88,7 +107,7 @@ public:
     }
     
     void generate(LSystem& system, StateType& state, unsigned iterations, unsigned steps) {
-        Rule str = system.generate(iterations);
+        RuleString str = system.generate(iterations);
         stack<StateType> stateStack;
         stateStack.push(state);
         begin(stateStack.top());
