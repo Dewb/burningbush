@@ -29,7 +29,7 @@ void DemoLSystemApp::setup(){
     system.addRule('-', "+");
     system.setProperty("N", 30);
     system.setProperty("angle", 22.5);
-    system.setProperty("edgeLength", 4.0);
+    system.setProperty("edgeLength", 7.0);
     systems.push_back(system);
     
     system.reset();
@@ -47,7 +47,7 @@ void DemoLSystemApp::setup(){
     system.addRule('-', "+");
     system.setProperty("N", 30);
     system.setProperty("angle", 22.5);
-    system.setProperty("edgeLength", 4.0);
+    system.setProperty("edgeLength", 7.0);
     systems.push_back(system);
     
     system.reset();
@@ -65,7 +65,7 @@ void DemoLSystemApp::setup(){
     system.addRule('-', "+");
     system.setProperty("N", 26);
     system.setProperty("angle", 25.75);
-    system.setProperty("edgeLength", 8.0);
+    system.setProperty("edgeLength", 10.0);
     systems.push_back(system);
     
     system.reset();
@@ -73,7 +73,7 @@ void DemoLSystemApp::setup(){
     system.addRule('F', "F[+F]F[-F]F");
     system.addRule('F', "F[+F]F");
     system.addRule('F', "F[-F]F");
-    system.setProperty("N", 5);
+    system.setProperty("N", 6);
     system.setProperty("angle", 25.7);
     system.setProperty("edgeLength", 2.0);
     systems.push_back(system);
@@ -112,7 +112,7 @@ void DemoLSystemApp::setup(){
     system.addRule('A', "[&FL!A]/////'[&FL!A]///////'[&FL!A]");
     system.addRule('F', "S/////F");
     system.addRule('S', "FL");
-    system.addRule('L', "[\"''^^{-f+`f+`f-|-f+'f+'f}]");
+    system.addRule("FFFFFFFFFFFFFF", 'L', "", "[\"''^^{-f+`f+`f-|-f+'f+'f}]");
     system.setProperty("N", 7);
     system.setProperty("angle", 22.5);
     system.setProperty("segmentLength", 4.5);
