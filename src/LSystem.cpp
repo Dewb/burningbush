@@ -10,8 +10,20 @@
 #include <tr1/random>
 #include <iostream>
 
-LSystem::LSystem() {
-    seed = abs(rand());
+
+std::ostream& operator<<(std::ostream& os, const RuleToken& token) {
+    os << token.symbol;
+    if (!token.subscript.empty()) {
+        os << "_" << token.subscript;
+    }
+    return os;
+}
+
+std::ostream& operator<<(std::ostream& os, const RuleString& str) {
+    for (auto& token : str) {
+        os << token;
+    }
+    return os;
 }
 
 std::ostream& operator<<(std::ostream& os, const ProductionRule& rule) {
@@ -29,11 +41,77 @@ std::ostream& operator<<(std::ostream& os, const ProductionRule& rule) {
     return os;
 }
 
+bool RuleToken::operator<(const RuleToken& rhs) const {
+    return this->symbol < rhs.symbol;
+}
+
+bool RuleToken::operator>(const RuleToken& rhs) const {
+    return this->symbol > rhs.symbol;
+}
+
+bool RuleToken::operator==(const RuleToken& rhs) const {
+    return this->symbol == rhs.symbol;
+}
+
+bool RuleToken::operator!=(const RuleToken& rhs) const {
+    return this->symbol != rhs.symbol;
+}
+
+bool RuleToken::operator==(const string& rhs) const {
+    return this->symbol == rhs;
+}
+
+bool RuleToken::operator==(const char& rhs) const {
+    return this->symbol.size() == 1 && this->symbol[0] == rhs;
+}
+
+RuleToken parseRuleToken(const string& str, int pos = 0) {
+    RuleToken token(str[pos]);
+    if (pos + 2 < str.size() && str[pos + 1] == '_') {
+        token.subscript = str[pos + 2];
+    }
+    return token;
+}
+
+string to_string(const RuleString& rs) {
+    ostringstream ss;
+    for (const RuleToken& t : rs) {
+        ss << t;
+    }
+    return ss.str();
+}
+
+RuleString parseRuleString(const string& str) {
+    RuleString r;
+    for (int i = 0; i < str.size(); i++) {
+        RuleToken token = parseRuleToken(str, i);
+        r.push_back(token);
+    }
+    return r;
+}
+
+LSystem::LSystem() {
+    seed = abs(rand());
+}
+
+void LSystem::setAxiom(const RuleString& axiomString) {
+    axiom = axiomString;
+}
+
+void LSystem::setAxiom(const string& axiomString) {
+    axiom = parseRuleString(axiomString);
+}
+
+void LSystem::ignoreForContext(const RuleString& ignoreString) {
+    ignoreContext = ignoreString;
+}
+
+void LSystem::ignoreForContext(const string& ignoreString) {
+    ignoreContext = parseRuleString(ignoreString);
+}
 
 ProductionRule& LSystem::addRule(const RuleToken& predeccessor, const RuleString& successor) {
-    ProductionRule rule;
-    rule.predecessor = predeccessor;
-    rule.successor = successor;
+    ProductionRule rule(predeccessor, successor);
     
     if (rules.find(predeccessor) == rules.end()) {
         rules.insert(pair<RuleToken, ProductionRuleGroup>(predeccessor, ProductionRuleGroup()));
@@ -42,18 +120,37 @@ ProductionRule& LSystem::addRule(const RuleToken& predeccessor, const RuleString
     return rules[predeccessor].back();
 }
 
-void LSystem::addRule(const RuleString& leftContext, const RuleToken& predeccessor, const RuleString& rightContext, const RuleString& successor) {
- 
-    ProductionRule& rule = addRule(predeccessor, successor);
+ProductionRule& LSystem::addRule(const string& predecessor, const string& successor) {
+    return addRule(parseRuleToken(predecessor), parseRuleString(successor));
+}
+
+ProductionRule& LSystem::addRule(const char predecessor, const string& successor) {
+    return addRule(RuleToken(predecessor), parseRuleString(successor));
+}
+
+ProductionRule& LSystem::addRule(const RuleString& leftContext, const RuleToken& predecessor, const RuleString& rightContext, const RuleString& successor) {
+    
+    ProductionRule& rule = addRule(predecessor, successor);
     rule.leftContext = leftContext;
     rule.rightContext = rightContext;
+    return rule;
+}
+
+ProductionRule& LSystem::addRule(const string& leftContext, const string& predecessor, const string& rightContext, const string& successor) {
+    return addRule(parseRuleString(leftContext), parseRuleToken(predecessor),
+                   parseRuleString(rightContext), parseRuleString(successor));
+}
+
+ProductionRule& LSystem::addRule(const string& leftContext, const char predecessor, const string& rightContext, const string& successor) {
+    return addRule(parseRuleString(leftContext), RuleToken(predecessor),
+                   parseRuleString(rightContext), parseRuleString(successor));
 }
 
 
 void LSystem::reset() {
     rules.clear();
     properties.clear();
-    axiom = "";
+    axiom.clear();
 }
 
 void LSystem::reseed(unsigned newSeed) {
@@ -73,82 +170,55 @@ bool LSystem::isStochastic() const {
     return false;
 }
 
-
-bool LSystem::leftContextMatches(const RuleString& leftContext, const RuleString& current, int position) const {
-    if (position + 1 < leftContext.length()) {
-        return false;
+template <typename Iter>
+bool LSystem::contextMatches(const Iter& contextBegin, const Iter& contextEnd,
+                             const Iter& stringBegin, const Iter& stringEnd,
+                             bool reversed, bool followBranches) const {
+    auto currentPos = stringBegin;
+    auto contextPos = contextBegin;
+    char startBranch = '[';
+    char endBranch = ']';
+    if (reversed) {
+        swap(startBranch, endBranch);
     }
-    int matched = 0;
-    int currentPos = position;
-    int contextPos = leftContext.length() - 1;
-    while (currentPos >= 0 && contextPos >= 0) {
-        if(ignoreContext.find(current[currentPos]) != ignoreContext.npos) {
+    while (currentPos != stringEnd && contextPos != contextEnd) {
+        if(find(ignoreContext.begin(), ignoreContext.end(), *currentPos) != ignoreContext.end()) {
             // skip tokens in ignore string
-            currentPos--;
-        } else if (current[currentPos] == '[') {
-            // started inside a branch, continue on parent
-            currentPos--;
-        } else if (current[currentPos] == ']') {
-            // preceding branch definition, skip to start of branch
-            int matchesRequired = 1;
-            currentPos--;
-            while (matchesRequired > 0) {
-                if (current[currentPos] == ']') {
-                    matchesRequired++;
-                } else if (current[currentPos] == '[') {
-                    matchesRequired--;
-                }
-                currentPos--;
+            ++currentPos;
+        } else if (*currentPos == endBranch) {
+            if (followBranches) {
+                // branch ended without a context match
+                return false;
+            } else {
+                // continue on parent
+                ++currentPos;
             }
-        } else if (leftContext[contextPos] != current[currentPos]) {
-            // context did not match
-            return false;
-        } else {
-            // context does match so far
-            matched++;
-            currentPos--;
-            contextPos--;
-        }
-    }
-    if (contextPos == -1) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-bool LSystem::rightContextMatches(const RuleString& rightContext, const RuleString& current, int position) const {
-    if (current.length() - position + 1 < rightContext.length()) {
-        return false;
-    }
-    int currentPos = position;
-    int contextPos = 0;
-    while (currentPos < current.length() && contextPos < rightContext.length()) {
-        if(ignoreContext.find(current[currentPos]) != ignoreContext.npos) {
-            // skip tokens in ignore string
-            currentPos++;
-        } else if (current[currentPos] == ']') {
-            // branch ended without a context match
-            return false;
-        } else if (current[currentPos] == '[') {
-            // starting branch definition, follow both branches
+        } else if (*currentPos == startBranch) {
+            // starting branch definition, find the end
             int closeBracketsRequired = 1;
-            int branchEnd = currentPos + 1;
+            auto branchEnd = currentPos;
+            ++branchEnd;
             while (closeBracketsRequired > 0) {
-                if (current[branchEnd] == '[') {
+                if (*branchEnd == startBranch) {
                     closeBracketsRequired++;
-                } else if (current[branchEnd] == ']') {
+                } else if (*branchEnd == endBranch) {
                     closeBracketsRequired--;
                 }
-                branchEnd++;
+                ++branchEnd;
             }
-            RuleString insideBranch = current.substr(currentPos + 1, branchEnd - currentPos - 2);
-            RuleString outsideBranch = current.substr(branchEnd);
-            RuleString unmatched = rightContext.substr(contextPos);
-            return
-                rightContextMatches(unmatched, insideBranch, 0) ||
-                rightContextMatches(unmatched, outsideBranch, 0);
-        } else if (rightContext[contextPos] != current[currentPos]) {
+            if (followBranches) {
+                // check for a match on both branches
+                auto insideStart = ++currentPos;
+                auto insideEnd = branchEnd;
+                insideEnd--;
+                return
+                    contextMatches(contextPos, contextEnd, insideStart, insideEnd, reversed, followBranches) ||
+                    contextMatches(contextPos, contextEnd, branchEnd, stringEnd, reversed, followBranches);
+            } else {
+                // skip ahead to end
+                currentPos = branchEnd;
+            }
+        } else if (*contextPos != *currentPos) {
             // context did not match
             return false;
         } else {
@@ -157,28 +227,40 @@ bool LSystem::rightContextMatches(const RuleString& rightContext, const RuleStri
             contextPos++;
         }
     }
-    if (contextPos == rightContext.length()) {
+    if (contextPos == contextEnd) {
         return true;
     } else {
         return false;
     }
 }
 
-void LSystem::getMatchingRules(const RuleString& current, int position, ProductionRuleGroup& matched) {
-    RuleToken currentToken = current[position];
-    if (rules.find(currentToken) == rules.end()) {
+void LSystem::getMatchingRules(const RuleString& current, const RuleString::iterator& currentPos, ProductionRuleGroup& matched) {
+    if (rules.find(*currentPos) == rules.end()) {
         return;
     }
 
-    for (auto& rule : rules[currentToken]) {
-        if ((rule.leftContext.empty() || leftContextMatches(rule.leftContext, current, position - 1)) &&
-            (rule.rightContext.empty() || rightContextMatches(rule.rightContext, current, position + 1))) {
+    auto nextPos = currentPos;
+    nextPos++;
+    
+    for (auto& rule : rules[*currentPos]) {
+        if ((rule.leftContext.empty() ||
+                contextMatches<RuleString::const_reverse_iterator>(
+                    rule.leftContext.rbegin(), rule.leftContext.rend(),
+                    reverse_iterator<RuleString::iterator>(currentPos), current.rend(),
+                    true, false
+                )) &&
+            (rule.rightContext.empty() ||
+                contextMatches<RuleString::const_iterator>(
+                    rule.rightContext.begin(), rule.rightContext.end(),
+                    nextPos, current.end(),
+                    false, true
+                ))) {
              matched.push_back(rule);
         }
     }
 }
 
-typedef pair<int, RuleString> Replacement;
+typedef pair<RuleString::iterator, RuleString> Replacement;
 typedef vector<Replacement> Replacements;
 
 RuleString LSystem::generate(int iterations, bool logging) {
@@ -191,19 +273,18 @@ RuleString LSystem::generate(int iterations, bool logging) {
     Replacements replacements;
    
     while (iterations--) {
-        size_t position = 0;
         replacements.clear();
-        
-        while(position < current.length()) {
+        auto currentPos = current.begin();
+        while(currentPos != current.end()) {
             matchedRules.clear();
-            getMatchingRules(current, position, matchedRules);
+            getMatchingRules(current, currentPos, matchedRules);
             if (matchedRules.size()) {
                 if (!matchedRules.isStochastic()) {
                     // Basic case: just one matching rule
                     if (logging) {
                         cout << "Executing: " << matchedRules[0] << "\n";
                     }
-                    replacements.push_back(Replacement(position, matchedRules[0].successor));
+                    replacements.push_back(Replacement(currentPos, matchedRules[0].successor));
                 } else {
                     // Stochastic case: multiple rules
                     float totalProbability = 0;
@@ -219,19 +300,17 @@ RuleString LSystem::generate(int iterations, bool logging) {
                             if (logging) {
                                 cout << "Executing: " << rule << "\n";
                             }
-                            replacements.push_back(Replacement(position, rule.successor));
+                            replacements.push_back(Replacement(currentPos, rule.successor));
                             break;
                         }
                     }
                 }
             }
-            position++;
+            ++currentPos;
         }
         
-        int shift = 0;
         for (auto& repl : replacements) {
-            current.replace(repl.first + shift, 1, repl.second);
-            shift += repl.second.length() - 1;
+            current.insert(current.erase(repl.first), repl.second.begin(), repl.second.end());
         }
         
         if (logging) {

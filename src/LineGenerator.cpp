@@ -8,6 +8,15 @@
 
 #include "LineGenerator.h"
 
+LineGeneratorState::LineGeneratorState()
+: position(ofVec2f(0, 0))
+, previousPosition(ofVec2f(0, 0))
+, heading(ofVec2f(1, 0))
+, angle(90)
+, edgeLength(4.0)
+{
+}
+
 // These should be anon lambdas when oF supports C++11
 namespace {
     void forward(LineGeneratorState& state) {

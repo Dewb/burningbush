@@ -1,13 +1,5 @@
 #include "DemoLSystemApp.h"
 
-template <typename T>
-string to_string(T t, int precision = 2)
-{
-    ostringstream ss;
-    ss.precision(precision);
-    ss << t;
-    return ss.str();
-}
 
 //--------------------------------------------------------------
 void DemoLSystemApp::setup(){
@@ -15,8 +7,8 @@ void DemoLSystemApp::setup(){
     LSystem system;
 
     system.reset();
-    system.axiom = "F1F1F1";
-    system.ignoreContext = "+-F";
+    system.setAxiom("F1F1F1");
+    system.ignoreForContext("+-F");
     system.addRule("0", '0', "0", "0");
     system.addRule("0", '0', "1", "1[+F1F1]");
     system.addRule("0", '1', "0", "1");
@@ -33,8 +25,8 @@ void DemoLSystemApp::setup(){
     systems.push_back(system);
     
     system.reset();
-    system.axiom = "F1F1F1";
-    system.ignoreContext = "+-F";
+    system.setAxiom("F1F1F1");
+    system.ignoreForContext("+-F");
     system.addRule("0", '0', "0", "1");
     system.addRule("0", '0', "1", "1[-F1F1]");
     system.addRule("0", '1', "0", "1");
@@ -51,8 +43,8 @@ void DemoLSystemApp::setup(){
     systems.push_back(system);
     
     system.reset();
-    system.axiom = "F1F1F1";
-    system.ignoreContext = "+-F";
+    system.setAxiom("F1F1F1");
+    system.ignoreForContext("+-F");
     system.addRule("0", '0', "0", "0");
     system.addRule("0", '0', "1", "1");
     system.addRule("0", '1', "0", "0");
@@ -69,7 +61,7 @@ void DemoLSystemApp::setup(){
     systems.push_back(system);
     
     system.reset();
-    system.axiom = "F";
+    system.setAxiom("F");
     system.addRule('F', "F[+F]F[-F]F");
     system.addRule('F', "F[+F]F");
     system.addRule('F', "F[-F]F");
@@ -79,7 +71,7 @@ void DemoLSystemApp::setup(){
     systems.push_back(system);
     
     system.reset();
-    system.axiom = "F";
+    system.setAxiom("F");
     system.addRule('F', "FF-[-F+F+F]+[+F-F-F]");
     system.setProperty("N", 4);
     system.setProperty("angle", 22.5);
@@ -87,7 +79,7 @@ void DemoLSystemApp::setup(){
     systems.push_back(system);
     
     system.reset();
-    system.axiom = "X";
+    system.setAxiom("X");
     system.addRule('X', "F-[[X]+X]+F[+FX]-X");
     system.addRule('F', "FF");
     system.setProperty("N", 6);
@@ -96,7 +88,7 @@ void DemoLSystemApp::setup(){
     systems.push_back(system);
     
     system.reset();
-    system.axiom = "F+F+F+F";
+    system.setAxiom("F+F+F+F");
     system.addRule('F', "F+f-FF+F+FF+Ff+FF-f+FF-F-FF-Ff-FFF");
     system.addRule('f', "ffffff");
     system.setProperty("N", 2);
@@ -107,8 +99,8 @@ void DemoLSystemApp::setup(){
     lastLineSystem = systems.size() - 1;
     
     system.reset();
-    system.axiom = "A";
-    system.ignoreContext = "&L!A/S'\"^+-`|";
+    system.setAxiom("A");
+    system.ignoreForContext("&L!A/S'\"^+-`|");
     system.addRule('A', "[&FL!A]/////'[&FL!A]///////'[&FL!A]");
     system.addRule('F', "S/////F");
     system.addRule('S', "FL");
@@ -121,7 +113,7 @@ void DemoLSystemApp::setup(){
     systems.push_back(system);
     
     system.reset();
-    system.axiom = "A";
+    system.setAxiom("A");
     system.addRule('A', "B-F+CFC+F-D&F^D-F+&&CFC+F+B//");
     system.addRule('B', "A&F^CFB^F^D^^-F-D^|F^B|FC^F^A//");
     system.addRule('C', "|D^|F^B-F+C^F^A&&FA&F^C+F+B^F^D//");
@@ -134,7 +126,7 @@ void DemoLSystemApp::setup(){
     systems.push_back(system);
     
     system.reset();
-    system.axiom = "P";
+    system.setAxiom("P");
     system.addRule('P', "I+[P+O]--//[--L]I[++L]-[PO]++PO");
     system.addRule('I', "FS[//&&L][//^^L]FS");
     system.addRule('S', "S[//&&L][//^^L]FS");
@@ -252,15 +244,15 @@ void DemoLSystemApp::draw(){
         cam.end();
     }
     
-    ofDrawBitmapString(system.axiom, 20, 25);
+    ofDrawBitmapString(to_string(system.getAxiom()), 20, 25);
     int n = 0;
-    for (auto& ruleGroup : system.rules) {
+    for (auto& ruleGroup : system.getRules()) {
         for (auto& rule : ruleGroup.second) {
             if (ruleGroup.second.isStochastic()) {
                 ofDrawBitmapString(to_string(rule.probability/3.0), 40, 40 + n);
             }
             
-            ofDrawBitmapString(to_string(rule.predecessor) + " -----> " + rule.successor, 20, 45 + n);
+            ofDrawBitmapString(to_string(rule.predecessor) + " -----> " + to_string(rule.successor), 20, 45 + n);
             
             n += 15;
         }

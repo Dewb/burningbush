@@ -14,6 +14,8 @@
 
 class LineGeneratorState {
 public:
+    LineGeneratorState();
+    
     ofVec2f position;
     ofVec2f previousPosition;
     ofVec2f heading;
