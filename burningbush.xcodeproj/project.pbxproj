@@ -138,6 +138,7 @@
 		5B8B64C71A5A9BAA006F6EB9 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../tests/main.cpp; sourceTree = "<group>"; };
 		5B8B8A601A5AADC8007F24F6 /* libgtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgtest.a; path = "Dependencies/gtest-1.7.0/lib/osx/libgtest.a"; sourceTree = SOURCE_ROOT; };
 		5B8B8A761A5AB8CE007F24F6 /* LSystemUnitTests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LSystemUnitTests; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B8B8A771A5B4DC7007F24F6 /* LSystemGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSystemGenerator.h; sourceTree = "<group>"; };
 		5B8CA1151A5643D300885B53 /* LineGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LineGenerator.cpp; sourceTree = "<group>"; };
 		5B8CA1161A5643D300885B53 /* LineGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineGenerator.h; sourceTree = "<group>"; };
 		5BB4E6151A4D35020047F957 /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Syphon.framework; path = ../of_v0.8.4_osx_release/addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework; sourceTree = "<group>"; };
@@ -549,6 +550,7 @@
 				5BB4E61B1A4D35770047F957 /* LSystem.h */,
 				5BB4EA201A50B86D0047F957 /* MeshGenerator.cpp */,
 				5BB4EA211A50B86D0047F957 /* MeshGenerator.h */,
+				5B8B8A771A5B4DC7007F24F6 /* LSystemGenerator.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;

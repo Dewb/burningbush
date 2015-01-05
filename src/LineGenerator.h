@@ -9,7 +9,7 @@
 #ifndef __burningbush__LineGenerator__
 #define __burningbush__LineGenerator__
 
-#include "LSystem.h"
+#include "LSystemGenerator.h"
 #include <ofGraphics.h>
 
 class LineGeneratorState {

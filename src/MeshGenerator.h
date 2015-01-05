@@ -9,7 +9,7 @@
 #ifndef __burningbush__MeshGenerator__
 #define __burningbush__MeshGenerator__
 
-#include "LSystem.h"
+#include "LSystemGenerator.h"
 #include <ofMesh.h>
 
 class ColorBook {
