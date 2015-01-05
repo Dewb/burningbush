@@ -118,7 +118,7 @@ public:
     virtual void begin(StateType& state) {}
     virtual void end(StateType& state) {};
     
-    void generate(LSystem& system, StateType& state, unsigned iterations, unsigned steps = -1) {
+    void generate(LSystem& system, StateType& state, unsigned iterations, int steps = -1) {
         RuleString str = system.generate(iterations);
         if (steps < 0 || steps > str.size()) {
             steps = str.size();

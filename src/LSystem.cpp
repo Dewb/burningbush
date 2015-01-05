@@ -75,10 +75,10 @@ bool LSystem::isStochastic() const {
 
 
 bool LSystem::leftContextMatches(const RuleString& leftContext, const RuleString& current, int position) const {
-    if (position < leftContext.length()) {
+    if (position + 1 < leftContext.length()) {
         return false;
     }
-    int currentPos = position - 1;
+    int currentPos = position;
     int contextPos = leftContext.length() - 1;
     while (currentPos >= 0 && contextPos >= 0) {
         if(ignoreContext.find(current[currentPos]) != ignoreContext.npos) {
@@ -107,10 +107,10 @@ bool LSystem::leftContextMatches(const RuleString& leftContext, const RuleString
 }
 
 bool LSystem::rightContextMatches(const RuleString& rightContext, const RuleString& current, int position) const {
-    if (current.length() - position < rightContext.length()) {
+    if (current.length() - position + 1 < rightContext.length()) {
         return false;
     }
-    int currentPos = position + 1;
+    int currentPos = position;
     int contextPos = 0;
     while (currentPos < current.length() && contextPos < rightContext.length()) {
         if(ignoreContext.find(current[currentPos]) != ignoreContext.npos) {
@@ -126,7 +126,7 @@ bool LSystem::rightContextMatches(const RuleString& rightContext, const RuleStri
             RuleString insideBranch = current.substr(currentPos + 1, branchEnd - currentPos - 1);
             RuleString outsideBranch = current.substr(branchEnd + 1);
             return
-                //rightContextMatches(unmatched, insideBranch, 0) ||
+                rightContextMatches(unmatched, insideBranch, 0) ||
                 rightContextMatches(unmatched, outsideBranch, 0);
         } else if (rightContext[contextPos] != current[currentPos]) {
             // context did not match
@@ -151,8 +151,8 @@ void LSystem::getMatchingRules(const RuleString& current, int position, Producti
     }
 
     for (auto& rule : rules[currentToken]) {
-        if ((rule.leftContext.empty() || leftContextMatches(rule.leftContext, current, position)) &&
-            (rule.rightContext.empty() || rightContextMatches(rule.rightContext, current, position))) {
+        if ((rule.leftContext.empty() || leftContextMatches(rule.leftContext, current, position - 1)) &&
+            (rule.rightContext.empty() || rightContextMatches(rule.rightContext, current, position + 1))) {
              matched.push_back(rule);
         }
     }
