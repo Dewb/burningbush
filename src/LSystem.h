@@ -118,17 +118,15 @@ public:
     virtual void begin(StateType& state) {}
     virtual void end(StateType& state) {};
     
-    void generate(LSystem& system, StateType& state, unsigned iterations) {
-        size_t n = system.generate(iterations).size();
-        return generate(system, state, iterations, n);
-    }
-    
-    void generate(LSystem& system, StateType& state, unsigned iterations, unsigned steps) {
+    void generate(LSystem& system, StateType& state, unsigned iterations, unsigned steps = -1) {
         RuleString str = system.generate(iterations);
+        if (steps < 0 || steps > str.size()) {
+            steps = str.size();
+        }
         stack<StateType> stateStack;
         stateStack.push(state);
         begin(stateStack.top());
-        for (unsigned i = 0; i < steps && i < str.size(); i++) {
+        for (unsigned i = 0; i < steps; i++) {
             auto t = getToken(str[i]);
             if (t) {
                 if (t->shouldStartGroup()) {
