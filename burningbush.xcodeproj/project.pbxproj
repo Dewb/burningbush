@@ -16,6 +16,9 @@
 		412B10C711B4D0F417FA6622 /* ofxSyphonClient.mm in Sources */ = {isa = PBXBuildFile; fileRef = FCE7A187CCD1B6E0DCBA3011 /* ofxSyphonClient.mm */; };
 		495F8C52F365D1DCF4215EC7 /* ofxBulletCone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D934E1FF36AC015DB7170864 /* ofxBulletCone.cpp */; };
 		56AA5CFEAFD9FE4144118BE6 /* ofxBulletConvexShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1DCFABF82FBE21C9201C177F /* ofxBulletConvexShape.cpp */; };
+		5B8B8A731A5AB811007F24F6 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B8B64C71A5A9BAA006F6EB9 /* main.cpp */; };
+		5B8B8A741A5AB814007F24F6 /* LSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BB4E61A1A4D35770047F957 /* LSystem.cpp */; };
+		5B8B8A751A5AB817007F24F6 /* libgtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B8B8A601A5AADC8007F24F6 /* libgtest.a */; };
 		5B8CA1171A5643D300885B53 /* LineGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B8CA1151A5643D300885B53 /* LineGenerator.cpp */; };
 		5BB4E6161A4D35020047F957 /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BB4E6151A4D35020047F957 /* Syphon.framework */; };
 		5BB4E6171A4D352B0047F957 /* Syphon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5BB4E6151A4D35020047F957 /* Syphon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -81,6 +84,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		5B8B8A6A1A5AB7D3007F24F6 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		E4C2427710CC5ABF004149E2 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -123,6 +135,9 @@
 		577BC5F79506C3E1848ED723 /* tinyxml.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = tinyxml.h; path = ../of_v0.8.4_osx_release/addons/ofxXmlSettings/libs/tinyxml.h; sourceTree = SOURCE_ROOT; };
 		579E2D74470CB3A8F41E7772 /* ofxAutoReloadedShader.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxAutoReloadedShader.cpp; path = ../of_v0.8.4_osx_release/addons/ofxAutoReloadedShader/src/ofxAutoReloadedShader.cpp; sourceTree = SOURCE_ROOT; };
 		59C3D07D400A49BA386A1DC1 /* ofxBulletCapsule.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxBulletCapsule.h; path = ../of_v0.8.4_osx_release/addons/ofxBullet/src/shapes/ofxBulletCapsule.h; sourceTree = SOURCE_ROOT; };
+		5B8B64C71A5A9BAA006F6EB9 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../tests/main.cpp; sourceTree = "<group>"; };
+		5B8B8A601A5AADC8007F24F6 /* libgtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgtest.a; path = "Dependencies/gtest-1.7.0/lib/osx/libgtest.a"; sourceTree = SOURCE_ROOT; };
+		5B8B8A761A5AB8CE007F24F6 /* LSystemUnitTests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LSystemUnitTests; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B8CA1151A5643D300885B53 /* LineGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LineGenerator.cpp; sourceTree = "<group>"; };
 		5B8CA1161A5643D300885B53 /* LineGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineGenerator.h; sourceTree = "<group>"; };
 		5BB4E6151A4D35020047F957 /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Syphon.framework; path = ../of_v0.8.4_osx_release/addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework; sourceTree = "<group>"; };
@@ -196,6 +211,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		5B8B8A691A5AB7D3007F24F6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B8B8A751A5AB817007F24F6 /* libgtest.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E4B69B590A3A1756003C02F2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -338,6 +361,16 @@
 				272EF8E0A093B711B412B93E /* ofxBulletRaycastData.h */,
 			);
 			name = events;
+			sourceTree = "<group>";
+		};
+		5B8B64C61A5A9BAA006F6EB9 /* tests */ = {
+			isa = PBXGroup;
+			children = (
+				5B8B8A601A5AADC8007F24F6 /* libgtest.a */,
+				5B8B64C71A5A9BAA006F6EB9 /* main.cpp */,
+			);
+			name = tests;
+			path = LSystemUnitTests;
 			sourceTree = "<group>";
 		};
 		65F3085962B3A8825746C3C2 /* Syphon */ = {
@@ -493,10 +526,12 @@
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				E4EB6923138AFD0F00A09F29 /* Project.xcconfig */,
 				E4B69E1C0A3A1BDC003C02F2 /* src */,
+				5B8B64C61A5A9BAA006F6EB9 /* tests */,
 				E4EEC9E9138DF44700A80321 /* openFrameworks */,
 				BB4B014C10F69532006C3DED /* addons */,
 				E45BE5980E8CC70C009D7055 /* frameworks */,
 				E4B69B5B0A3A1756003C02F2 /* burningbushDebug.app */,
+				5B8B8A761A5AB8CE007F24F6 /* LSystemUnitTests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -530,6 +565,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		5B8B8A6B1A5AB7D3007F24F6 /* LSystemUnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5B8B8A701A5AB7D3007F24F6 /* Build configuration list for PBXNativeTarget "LSystemUnitTests" */;
+			buildPhases = (
+				5B8B8A681A5AB7D3007F24F6 /* Sources */,
+				5B8B8A691A5AB7D3007F24F6 /* Frameworks */,
+				5B8B8A6A1A5AB7D3007F24F6 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LSystemUnitTests;
+			productName = LSystemsUnitTests;
+			productReference = 5B8B8A761A5AB8CE007F24F6 /* LSystemUnitTests */;
+			productType = "com.apple.product-type.tool";
+		};
 		E4B69B5A0A3A1756003C02F2 /* burningbush */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "burningbush" */;
@@ -556,6 +608,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0460;
+				TargetAttributes = {
+					5B8B8A6B1A5AB7D3007F24F6 = {
+						CreatedOnToolsVersion = 6.1;
+					};
+				};
 			};
 			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "burningbush" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -579,6 +636,7 @@
 			projectRoot = "";
 			targets = (
 				E4B69B5A0A3A1756003C02F2 /* burningbush */,
+				5B8B8A6B1A5AB7D3007F24F6 /* LSystemUnitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -610,6 +668,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		5B8B8A681A5AB7D3007F24F6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B8B8A731A5AB811007F24F6 /* main.cpp in Sources */,
+				5B8B8A741A5AB814007F24F6 /* LSystem.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E4B69B580A3A1756003C02F2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -663,6 +730,90 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		5B8B8A711A5AB7D3007F24F6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "libstdc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "Dependencies/gtest-1.7.0/include";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Dependencies/gtest-1.7.0/lib/osx",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		5B8B8A721A5AB7D3007F24F6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "libstdc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "Dependencies/gtest-1.7.0/include";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Dependencies/gtest-1.7.0/lib/osx",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		E4B69B4E0A3A1720003C02F2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E4EB6923138AFD0F00A09F29 /* Project.xcconfig */;
@@ -989,6 +1140,7 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_50)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_52)",
+					"$(PROJECT_DIR)/libs/gtest/lib/osx",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)Debug";
 				WRAPPER_EXTENSION = app;
@@ -1075,6 +1227,7 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_49)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_50)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
+					"$(PROJECT_DIR)/libs/gtest/lib/osx",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -1084,6 +1237,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		5B8B8A701A5AB7D3007F24F6 /* Build configuration list for PBXNativeTarget "LSystemUnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5B8B8A711A5AB7D3007F24F6 /* Debug */,
+				5B8B8A721A5AB7D3007F24F6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "burningbush" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
