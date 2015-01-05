@@ -191,6 +191,10 @@ void DemoLSystemApp::setup(){
     headlight.setSpecularColor(ofColor(255, 255, 255));
     headlight.setDiffuseColor(ofColor(180, 100, 180));
     material.setShininess(7);
+    
+    drawListIndex = glGenLists(1);
+    
+    updateMesh();
 }
 
 ofVec3f getMeshCenter(ofPtr<ofMesh> mesh) {
@@ -231,18 +235,10 @@ void DemoLSystemApp::draw(){
 
     if (mode == Line) {
         title = "LineGenerator";
-        
-        LineGeneratorState state;
-        state.angle = system.getProperty("angle");
-        state.edgeLength = system.getProperty("edgeLength");        
-        state.heading = ofVec3f(0, -1);
-        state.position = ofVec2f(ofGetWidth()/2, ofGetHeight() * 0.8);
-        
-        ofSetLineWidth(0.75);
-        line_gen.generate(system, state, iterations);
+        glLineWidth(0.5);
+        glCallList(drawListIndex);
     } else if (mode == Mesh) {
         title = "MeshGenerator";
-        
         cam.begin();
         ofSetLineWidth(0.1);
         if (system.getProperty("shiny")) {
@@ -278,13 +274,28 @@ void DemoLSystemApp::draw(){
 }
 
 void DemoLSystemApp::updateMesh() {
+    
+    LSystem& system = systems[currentSystem];
+    int iterations = fmax(0.0, system.getProperty("N") + iterationAdjustment);
+
     if (currentSystem <= lastLineSystem) {
         mode = Line;
         
+        glNewList(drawListIndex, GL_COMPILE);
+        
+        LineGeneratorState state;
+        state.angle = system.getProperty("angle");
+        state.edgeLength = system.getProperty("edgeLength");
+        state.heading = ofVec3f(0, -1);
+        state.position = ofVec2f(ofGetWidth()/2, ofGetHeight() * 0.8);
+        
+        ofSetLineWidth(0.75);
+        line_gen.generate(system, state, iterations);
+        
+        glEndList();
+        
     } else {
         mode = Mesh;
-        
-        LSystem& system = systems[currentSystem];
         
         MeshGeneratorState state;
         state.left = state.heading.crossed(state.up);
@@ -295,7 +306,6 @@ void DemoLSystemApp::updateMesh() {
             state.colorBook = colorBooks[system.getProperty("colorBook")];
         }
         
-        int iterations = fmax(0.0, system.getProperty("N") + iterationAdjustment);
         mesh_gen.generate(systems[currentSystem], state, iterations);
         mesh = state.mesh;
     }

@@ -38,6 +38,7 @@ public:
     ofPolyRenderMode polyRenderMode;
     Mode mode;
 
+    unsigned int drawListIndex;
     ofPtr<ofMesh> mesh;
     ofLight headlight;
     ofMaterial material;
