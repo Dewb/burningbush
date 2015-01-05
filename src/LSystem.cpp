@@ -78,6 +78,7 @@ bool LSystem::leftContextMatches(const RuleString& leftContext, const RuleString
     if (position + 1 < leftContext.length()) {
         return false;
     }
+    int matched = 0;
     int currentPos = position;
     int contextPos = leftContext.length() - 1;
     while (currentPos >= 0 && contextPos >= 0) {
@@ -89,12 +90,22 @@ bool LSystem::leftContextMatches(const RuleString& leftContext, const RuleString
             currentPos--;
         } else if (current[currentPos] == ']') {
             // preceding branch definition, skip to start of branch
-            currentPos = current.rfind('[', currentPos) - 1;
+            int matchesRequired = 1;
+            currentPos--;
+            while (matchesRequired > 0) {
+                if (current[currentPos] == ']') {
+                    matchesRequired++;
+                } else if (current[currentPos] == '[') {
+                    matchesRequired--;
+                }
+                currentPos--;
+            }
         } else if (leftContext[contextPos] != current[currentPos]) {
             // context did not match
             return false;
         } else {
             // context does match so far
+            matched++;
             currentPos--;
             contextPos--;
         }
@@ -121,10 +132,19 @@ bool LSystem::rightContextMatches(const RuleString& rightContext, const RuleStri
             return false;
         } else if (current[currentPos] == '[') {
             // starting branch definition, follow both branches
+            int closeBracketsRequired = 1;
+            int branchEnd = currentPos + 1;
+            while (closeBracketsRequired > 0) {
+                if (current[branchEnd] == '[') {
+                    closeBracketsRequired++;
+                } else if (current[branchEnd] == ']') {
+                    closeBracketsRequired--;
+                }
+                branchEnd++;
+            }
+            RuleString insideBranch = current.substr(currentPos + 1, branchEnd - currentPos - 2);
+            RuleString outsideBranch = current.substr(branchEnd);
             RuleString unmatched = rightContext.substr(contextPos);
-            int branchEnd = current.find(']', currentPos);
-            RuleString insideBranch = current.substr(currentPos + 1, branchEnd - currentPos - 1);
-            RuleString outsideBranch = current.substr(branchEnd + 1);
             return
                 rightContextMatches(unmatched, insideBranch, 0) ||
                 rightContextMatches(unmatched, outsideBranch, 0);

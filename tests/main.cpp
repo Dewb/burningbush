@@ -66,10 +66,28 @@ TEST(LSystem, ContextSkipBranches) {
     EXPECT_EQ("a[x]+[x]c", system.generate(1, true));
 }
 
+TEST(LSystem, LeftContextSkipNestedBranches) {
+    LSystem system;
+    system.axiom = "aaa[xy[xxyb][[xxb]cc]]b";
+    system.addRule("aaa", 'b', "", "+"); // should match
+    system.addRule("b", 'c', "", "+");   // should not match
+    
+    EXPECT_EQ("aaa[xy[xxyb][[xxb]cc]]+", system.generate(1, true));
+}
+
 TEST(LSystem, RightContextEnterBranch) {
     LSystem system;
     system.axiom = "a[x]b[x]c";
     system.addRule("a", 'b', "x", "+");
     
     EXPECT_EQ("a[x]+[x]c", system.generate(1, true));
+}
+
+TEST(LSystem, RightContextEnterNestedBranch) {
+    LSystem system;
+    system.axiom = "a[x]b[x[y[za]f]d]c";
+    system.addRule("a", 'b', "xyz", "+");
+    system.addRule("b", 'x', "yf", "+");
+    
+    EXPECT_EQ("a[x]+[+[y[za]f]d]c", system.generate(1, true));
 }
