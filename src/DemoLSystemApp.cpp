@@ -21,13 +21,50 @@ void DemoLSystemApp::setup(){
     system.addRule("0", '0', "1", "1[+F1F1]");
     system.addRule("0", '1', "0", "1");
     system.addRule("0", '1', "1", "1");
+    system.addRule("1", '0', "0", "0");
     system.addRule("1", '0', "1", "1F1");
     system.addRule("1", '1', "0", "0");
     system.addRule("1", '1', "1", "0");
     system.addRule('+', "-");
     system.addRule('-', "+");
-    system.setProperty("N", 10);
+    system.setProperty("N", 30);
     system.setProperty("angle", 22.5);
+    system.setProperty("edgeLength", 4.0);
+    systems.push_back(system);
+    
+    system.reset();
+    system.axiom = "F1F1F1";
+    system.ignoreContext = "+-F";
+    system.addRule("0", '0', "0", "1");
+    system.addRule("0", '0', "1", "1[-F1F1]");
+    system.addRule("0", '1', "0", "1");
+    system.addRule("0", '1', "1", "1");
+    system.addRule("1", '0', "0", "0");
+    system.addRule("1", '0', "1", "1F1");
+    system.addRule("1", '1', "0", "1");
+    system.addRule("1", '1', "1", "0");
+    system.addRule('+', "-");
+    system.addRule('-', "+");
+    system.setProperty("N", 30);
+    system.setProperty("angle", 22.5);
+    system.setProperty("edgeLength", 4.0);
+    systems.push_back(system);
+    
+    system.reset();
+    system.axiom = "F1F1F1";
+    system.ignoreContext = "+-F";
+    system.addRule("0", '0', "0", "0");
+    system.addRule("0", '0', "1", "1");
+    system.addRule("0", '1', "0", "0");
+    system.addRule("0", '1', "1", "1[+F1F1]");
+    system.addRule("1", '0', "0", "0");
+    system.addRule("1", '0', "1", "1F1");
+    system.addRule("1", '1', "0", "0");
+    system.addRule("1", '1', "1", "0");
+    system.addRule('+', "-");
+    system.addRule('-', "+");
+    system.setProperty("N", 26);
+    system.setProperty("angle", 25.75);
     system.setProperty("edgeLength", 8.0);
     systems.push_back(system);
     
@@ -71,6 +108,7 @@ void DemoLSystemApp::setup(){
     
     system.reset();
     system.axiom = "A";
+    system.ignoreContext = "&L!A/S'\"^+-`|";
     system.addRule('A', "[&FL!A]/////'[&FL!A]///////'[&FL!A]");
     system.addRule('F', "S/////F");
     system.addRule('S', "FL");

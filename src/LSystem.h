@@ -55,7 +55,7 @@ public:
     void addRule(const RuleString& leftContext, const RuleToken& match, const RuleString& rightContext, const RuleString& replace);
     void reset();
     
-    RuleString generate(int iteration);
+    RuleString generate(int iteration, bool logging = true);
 
     void reseed(unsigned seed);
     void reseed();

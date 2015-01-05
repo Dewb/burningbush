@@ -75,26 +75,26 @@ bool LSystem::isStochastic() const {
 
 
 bool LSystem::leftContextMatches(const RuleString& leftContext, const RuleString& current, int position) const {
-    int lcl = leftContext.length();
-    if (position < lcl) {
+    if (position < leftContext.length()) {
         return false;
     }
     int currentPos = position - 1;
-    int contextPos = lcl - 1;
+    int contextPos = leftContext.length() - 1;
     while (currentPos >= 0 && contextPos >= 0) {
-        while(currentPos >= 0 && ignoreContext.find(current[currentPos]) != ignoreContext.npos)
+        if(ignoreContext.find(current[currentPos]) != ignoreContext.npos) {
+            // skip tokens in ignore string
             currentPos--;
-        /*
-        if (current[currentPos] == ']') {
-            currentPos = current.rfind('[', currentPos);
-            RuleString outsideBranch = current.substr(0, branchStart);
-            return leftContextMatches(unmatched, outsideBranch, outsideBranch.size() - 1);
-        }
-         */
-        if (currentPos >= 0) {
-            if (leftContext[contextPos] != current[currentPos]) {
-                return false;
-            }
+        } else if (current[currentPos] == '[') {
+            // started inside a branch, continue on parent
+            currentPos--;
+        } else if (current[currentPos] == ']') {
+            // preceding branch definition, skip to start of branch
+            currentPos = current.rfind('[', currentPos) - 1;
+        } else if (leftContext[contextPos] != current[currentPos]) {
+            // context did not match
+            return false;
+        } else {
+            // context does match so far
             currentPos--;
             contextPos--;
         }
@@ -107,35 +107,37 @@ bool LSystem::leftContextMatches(const RuleString& leftContext, const RuleString
 }
 
 bool LSystem::rightContextMatches(const RuleString& rightContext, const RuleString& current, int position) const {
-    int rcl = rightContext.length();
-    if (position < rcl) {
+    if (current.length() - position < rightContext.length()) {
         return false;
     }
     int currentPos = position + 1;
     int contextPos = 0;
-    while (currentPos < current.size() && contextPos < rcl) {
-        while(currentPos < current.size() && ignoreContext.find(current[currentPos]) != ignoreContext.npos)
+    while (currentPos < current.length() && contextPos < rightContext.length()) {
+        if(ignoreContext.find(current[currentPos]) != ignoreContext.npos) {
+            // skip tokens in ignore string
             currentPos++;
-        /*
-        if (current[currentPos] == '[') {
+        } else if (current[currentPos] == ']') {
+            // branch ended without a context match
+            return false;
+        } else if (current[currentPos] == '[') {
+            // starting branch definition, follow both branches
             RuleString unmatched = rightContext.substr(contextPos);
-            int branchEnd = current.find('[', currentPos);
+            int branchEnd = current.find(']', currentPos);
             RuleString insideBranch = current.substr(currentPos + 1, branchEnd - currentPos - 1);
             RuleString outsideBranch = current.substr(branchEnd + 1);
             return
-                rightContextMatches(unmatched, insideBranch, 0) ||
+                //rightContextMatches(unmatched, insideBranch, 0) ||
                 rightContextMatches(unmatched, outsideBranch, 0);
-        }
-        */
-        if (currentPos < current.size()) {
-            if (rightContext[contextPos] != current[currentPos]) {
-                return false;
-            }
+        } else if (rightContext[contextPos] != current[currentPos]) {
+            // context did not match
+            return false;
+        } else {
+            // context does match so far
             currentPos++;
             contextPos++;
         }
     }
-    if (contextPos == rcl) {
+    if (contextPos == rightContext.length()) {
         return true;
     } else {
         return false;
@@ -159,7 +161,7 @@ void LSystem::getMatchingRules(const RuleString& current, int position, Producti
 typedef pair<int, RuleString> Replacement;
 typedef vector<Replacement> Replacements;
 
-RuleString LSystem::generate(int iterations) {
+RuleString LSystem::generate(int iterations, bool logging) {
     RuleString current = axiom;
     
     tr1::ranlux_base_01 generator(seed);
@@ -178,7 +180,9 @@ RuleString LSystem::generate(int iterations) {
             if (matchedRules.size()) {
                 if (!matchedRules.isStochastic()) {
                     // Basic case: just one matching rule
-                    cout << "Executing: " << matchedRules[0] << "\n";
+                    if (logging) {
+                        cout << "Executing: " << matchedRules[0] << "\n";
+                    }
                     replacements.push_back(Replacement(position, matchedRules[0].successor));
                 } else {
                     // Stochastic case: multiple rules
@@ -192,7 +196,9 @@ RuleString LSystem::generate(int iterations) {
                     for (auto& rule : matchedRules) {
                         s += rule.probability;
                         if (s > p) {
-                            cout << "Executing: " << rule << "\n";
+                            if (logging) {
+                                cout << "Executing: " << rule << "\n";
+                            }
                             replacements.push_back(Replacement(position, rule.successor));
                             break;
                         }
@@ -208,7 +214,9 @@ RuleString LSystem::generate(int iterations) {
             shift += repl.second.length() - 1;
         }
         
-        cout << current << "\n";
+        if (logging) {
+            cout << current << "\n";
+        }
     }
     return current;
 }
