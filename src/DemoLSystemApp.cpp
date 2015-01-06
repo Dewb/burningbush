@@ -62,9 +62,9 @@ void DemoLSystemApp::setup(){
     
     system.reset();
     system.setAxiom("F");
-    system.addRule('F', "F[+F]F[-F]F");
-    system.addRule('F', "F[+F]F");
-    system.addRule('F', "F[-F]F");
+    system.addRule('F', "F[+F]F[-F]F", 0.333);
+    system.addRule('F', "F[+F]F", 0.333);
+    system.addRule('F', "F[-F]F", 0.334);
     system.setProperty("N", 6);
     system.setProperty("angle", 25.7);
     system.setProperty("edgeLength", 2.0);
@@ -129,9 +129,9 @@ void DemoLSystemApp::setup(){
     system.setAxiom("P");
     system.addRule('P', "I+[P+O]--//[--L]I[++L]-[PO]++PO");
     system.addRule('I', "FS[//&&L][//^^L]FS");
-    system.addRule('S', "S[//&&L][//^^L]FS");
-    system.addRule('S', "SFS");
-    system.addRule('S', "S");
+    system.addRule('S', "S[//&&L][//^^L]FS", 0.333);
+    system.addRule('S', "SFS", 0.333);
+    system.addRule('S', "S", 0.334);
     system.addRule('L', "['{+f-ff-f+|+f-ff-f}]");
     system.addRule('O', "[&&&D''/W////W////W////W////W]");
     system.addRule('D', "FF");
@@ -245,14 +245,20 @@ void DemoLSystemApp::draw(){
     }
     
     ofDrawBitmapString(to_string(system.getAxiom()), 20, 25);
+
+    string arrow = " --> ";
+    if (system.isStochastic()) {
+        arrow = " -----> ";
+    }
+    
     int n = 0;
     for (auto& ruleGroup : system.getRules()) {
         for (auto& rule : ruleGroup.second) {
             if (ruleGroup.second.isStochastic()) {
-                ofDrawBitmapString(to_string(rule.probability/3.0), 40, 40 + n);
+                ofDrawBitmapString(to_string(rule.probability), 40, 40 + n);
             }
             
-            ofDrawBitmapString(to_string(rule.predecessor) + " -----> " + to_string(rule.successor), 20, 45 + n);
+            ofDrawBitmapString(to_string(rule.predecessor) + arrow + to_string(rule.successor), 20, 45 + n);
             
             n += 15;
         }

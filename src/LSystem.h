@@ -38,7 +38,6 @@ typedef list<RuleToken> RuleString;
 
 class ProductionRule {
 public:
-    ProductionRule(const RuleToken& pred) : predecessor(pred), probability(1.0) {}
     ProductionRule(const RuleToken& pred, const RuleString& succ) : predecessor(pred), successor(succ), probability(1.0) {}
     
     RuleToken predecessor;
@@ -48,13 +47,17 @@ public:
     RuleString rightContext;
     
     float probability;
+    
+    bool isStochastic() const   {
+        return probability < 1.0;
+    }
 };
 
 std::ostream& operator<<(std::ostream& os, const ProductionRule& rule);
 
 class ProductionRuleGroup : public vector<ProductionRule> {
 public:
-    bool isStochastic() const { return size() > 1; }
+    bool isStochastic() const;
 };
 
 typedef map<RuleToken, ProductionRuleGroup> RuleSet;
@@ -70,12 +73,12 @@ public:
     void ignoreForContext(const RuleString& ignoreString);
     void ignoreForContext(const string& ignoreString);
     
-    ProductionRule& addRule(const RuleToken& predecessor, const RuleString& successor);
-    ProductionRule& addRule(const string& predecessor, const string& successor);
-    ProductionRule& addRule(const char predecessor, const string& successor);
-    ProductionRule& addRule(const RuleString& leftContext, const RuleToken& predecessor, const RuleString& rightContext, const RuleString& successor);
-    ProductionRule& addRule(const string& leftContext, const string& predecessor, const string& rightContext, const string& successor);
-    ProductionRule& addRule(const string& leftContext, const char predecessor, const string& rightContext, const string& successor);
+    ProductionRule& addRule(const RuleToken& predecessor, const RuleString& successor, float prob = 1.0);
+    ProductionRule& addRule(const string& predecessor, const string& successor, float prob = 1.0);
+    ProductionRule& addRule(const char predecessor, const string& successor, float prob = 1.0);
+    ProductionRule& addRule(const RuleString& leftContext, const RuleToken& predecessor, const RuleString& rightContext, const RuleString& successor, float prob = 1.0);
+    ProductionRule& addRule(const string& leftContext, const string& predecessor, const string& rightContext, const string& successor, float prob = 1.0);
+    ProductionRule& addRule(const string& leftContext, const char predecessor, const string& rightContext, const string& successor, float prob = 1.0);
     const RuleSet& getRules() const { return rules; }
     
     RuleString generate(int iteration, bool logging = true);
@@ -104,6 +107,10 @@ protected:
     unsigned seed;
 };
 
+string to_string(const ProductionRule& prod);
+string to_string(const RuleToken& rt);
+string to_string(const RuleString& rs);
+
 template <typename T>
 string to_string(T t, int precision = 2)
 {
@@ -112,8 +119,6 @@ string to_string(T t, int precision = 2)
     ss << t;
     return ss.str();
 }
-
-string to_string(const RuleString& rs);
 
 
 #endif /* defined(__burningbush__LSystem__) */

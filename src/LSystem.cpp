@@ -41,6 +41,26 @@ std::ostream& operator<<(std::ostream& os, const ProductionRule& rule) {
     return os;
 }
 
+string to_string(const RuleToken& rt) {
+    ostringstream ss;
+    ss << rt;
+    return ss.str();
+}
+
+string to_string(const RuleString& rs) {
+    ostringstream ss;
+    for (const RuleToken& t : rs) {
+        ss << t;
+    }
+    return ss.str();
+}
+
+string to_string(const ProductionRule& pr) {
+    ostringstream ss;
+    ss << pr;
+    return ss.str();
+}
+
 bool RuleToken::operator<(const RuleToken& rhs) const {
     return this->symbol < rhs.symbol;
 }
@@ -73,14 +93,6 @@ RuleToken parseRuleToken(const string& str, int pos = 0) {
     return token;
 }
 
-string to_string(const RuleString& rs) {
-    ostringstream ss;
-    for (const RuleToken& t : rs) {
-        ss << t;
-    }
-    return ss.str();
-}
-
 RuleString parseRuleString(const string& str) {
     RuleString r;
     for (int i = 0; i < str.size(); i++) {
@@ -88,6 +100,15 @@ RuleString parseRuleString(const string& str) {
         r.push_back(token);
     }
     return r;
+}
+
+bool ProductionRuleGroup::isStochastic() const {
+    for (auto& item : *this) {
+        if (item.isStochastic()) {
+            return true;
+        }
+    }
+    return false;
 }
 
 LSystem::LSystem() {
@@ -110,40 +131,42 @@ void LSystem::ignoreForContext(const string& ignoreString) {
     ignoreContext = parseRuleString(ignoreString);
 }
 
-ProductionRule& LSystem::addRule(const RuleToken& predeccessor, const RuleString& successor) {
+ProductionRule& LSystem::addRule(const RuleToken& predeccessor, const RuleString& successor, float prob) {
     ProductionRule rule(predeccessor, successor);
     
     if (rules.find(predeccessor) == rules.end()) {
         rules.insert(pair<RuleToken, ProductionRuleGroup>(predeccessor, ProductionRuleGroup()));
     }
+    rule.probability = prob;
+    
     rules[predeccessor].push_back(rule);
     return rules[predeccessor].back();
 }
 
-ProductionRule& LSystem::addRule(const string& predecessor, const string& successor) {
-    return addRule(parseRuleToken(predecessor), parseRuleString(successor));
+ProductionRule& LSystem::addRule(const string& predecessor, const string& successor, float prob) {
+    return addRule(parseRuleToken(predecessor), parseRuleString(successor), prob);
 }
 
-ProductionRule& LSystem::addRule(const char predecessor, const string& successor) {
-    return addRule(RuleToken(predecessor), parseRuleString(successor));
+ProductionRule& LSystem::addRule(const char predecessor, const string& successor, float prob) {
+    return addRule(RuleToken(predecessor), parseRuleString(successor), prob);
 }
 
-ProductionRule& LSystem::addRule(const RuleString& leftContext, const RuleToken& predecessor, const RuleString& rightContext, const RuleString& successor) {
+ProductionRule& LSystem::addRule(const RuleString& leftContext, const RuleToken& predecessor, const RuleString& rightContext, const RuleString& successor, float prob) {
     
-    ProductionRule& rule = addRule(predecessor, successor);
+    ProductionRule& rule = addRule(predecessor, successor, prob);
     rule.leftContext = leftContext;
     rule.rightContext = rightContext;
     return rule;
 }
 
-ProductionRule& LSystem::addRule(const string& leftContext, const string& predecessor, const string& rightContext, const string& successor) {
+ProductionRule& LSystem::addRule(const string& leftContext, const string& predecessor, const string& rightContext, const string& successor, float prob) {
     return addRule(parseRuleString(leftContext), parseRuleToken(predecessor),
-                   parseRuleString(rightContext), parseRuleString(successor));
+                   parseRuleString(rightContext), parseRuleString(successor), prob);
 }
 
-ProductionRule& LSystem::addRule(const string& leftContext, const char predecessor, const string& rightContext, const string& successor) {
+ProductionRule& LSystem::addRule(const string& leftContext, const char predecessor, const string& rightContext, const string& successor, float prob) {
     return addRule(parseRuleString(leftContext), RuleToken(predecessor),
-                   parseRuleString(rightContext), parseRuleString(successor));
+                   parseRuleString(rightContext), parseRuleString(successor), prob);
 }
 
 
