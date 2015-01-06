@@ -86,6 +86,7 @@ public:
     void reset();
     void reseed(unsigned seed);
     void reseed();
+    unsigned getSeed() const { return seed; }
     bool isStochastic() const;
     
     void setProperty(string name, float value);

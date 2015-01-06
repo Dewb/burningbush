@@ -149,7 +149,6 @@ namespace {
     
 }
 
-// These should be anon lambdas when oF supports C++11
 namespace {
     
     void forward(MeshGeneratorState& state) {
@@ -218,6 +217,7 @@ namespace {
     void begin_polygon(MeshGeneratorState& state) {
         // history should already be clear because it isn't copied, but just in case
         state.pointHistory.clear();
+        state.colorHistory.clear();
         state.pointHistory.push_back(state.position);
         state.colorHistory.push_back(state.getCurrentColor());
     }

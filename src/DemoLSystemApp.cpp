@@ -67,7 +67,7 @@ void DemoLSystemApp::setup(){
     system.addRule('F', "F[-F]F", 0.334);
     system.setProperty("N", 6);
     system.setProperty("angle", 25.7);
-    system.setProperty("edgeLength", 2.0);
+    system.setProperty("edgeLength", 3.0);
     systems.push_back(system);
     
     system.reset();
@@ -257,13 +257,25 @@ void DemoLSystemApp::draw(){
             if (ruleGroup.second.isStochastic()) {
                 ofDrawBitmapString(to_string(rule.probability), 40, 40 + n);
             }
+            string left = "", right = "";
+            if (!rule.leftContext.empty()) {
+                left = to_string(rule.leftContext) + " < ";
+            }
+            if (!rule.rightContext.empty()) {
+                right = " > " + to_string(rule.rightContext);
+            }
             
-            ofDrawBitmapString(to_string(rule.predecessor) + arrow + to_string(rule.successor), 20, 45 + n);
+            ofDrawBitmapString(left + to_string(rule.predecessor) + right + arrow + to_string(rule.successor),
+                               20, 45 + n);
             
             n += 15;
         }
     }
     ofDrawBitmapString("N = " + to_string(iterations), 20, 45 + n + 15);
+    if (system.isStochastic()) {
+        ofDrawBitmapString("seed = " + to_string(system.getSeed()), 20, 45 + n + 30);
+    }
+    
     ofDrawBitmapString(title, 20, ofGetHeight() - 25);
     ofDrawBitmapString("SPACE to cycle modes", ofGetWidth() - 185, ofGetHeight() - 25);
     if (system.isStochastic()) {
