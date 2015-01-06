@@ -41,11 +41,11 @@ namespace {
 }
 
 LineGenerator::LineGenerator() {
-    add(Token('F').action(forward_draw));
-    add(Token('f').action(forward));
-    add(Token('+').action(rotate_ccw));
-    add(Token('-').action(rotate_cw));
-    add(Token('[').startsGroup());
-    add(Token(']').endsGroup());
+    add(Symbol('F').action(forward_draw));
+    add(Symbol('f').action(forward));
+    add(Symbol('+').action(rotate_ccw));
+    add(Symbol('-').action(rotate_cw));
+    add(Symbol('[').startsGroup());
+    add(Symbol(']').endsGroup());
 }
 

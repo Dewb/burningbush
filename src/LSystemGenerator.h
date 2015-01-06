@@ -12,14 +12,14 @@
 #include "LSystem.h"
 
 template<typename StateType>
-class TokenData {
+class SymbolData {
 public:
-    typedef tr1::function<void(StateType&)> TokenAction;
+    typedef tr1::function<void(StateType&)> SymbolAction;
     
-    TokenData(RuleToken t) : token(t) { _startsGroup = false; _endsGroup = false;}
-    TokenData& startsGroup() { _startsGroup = true; return *this; }
-    TokenData& endsGroup() { _endsGroup = true; return *this; }
-    TokenData& action(const TokenAction& action) { _actions.push_back(action); return *this; }
+    SymbolData(RuleToken t) : token(t) { _startsGroup = false; _endsGroup = false;}
+    SymbolData& startsGroup() { _startsGroup = true; return *this; }
+    SymbolData& endsGroup() { _endsGroup = true; return *this; }
+    SymbolData& action(const SymbolAction& action) { _actions.push_back(action); return *this; }
     
     bool shouldStartGroup() const { return _startsGroup; }
     bool shouldEndGroup() const { return _endsGroup; }
@@ -29,24 +29,24 @@ public:
     void execute(StateType& state) const { for (auto& action : _actions) { action(state); } }
 protected:
     RuleToken token;
-    vector<TokenAction> _actions;
+    vector<SymbolAction> _actions;
     bool _startsGroup;
     bool _endsGroup;
 private:
-    TokenData(); // unimplemented
+    SymbolData(); // unimplemented
 };
 
 template<typename StateType>
 class Generator {
 public:
-    typedef tr1::function<void(StateType&)> TokenAction;
-    typedef TokenData<StateType> Token;
+    typedef tr1::function<void(StateType&)> SymbolAction;
+    typedef SymbolData<StateType> Symbol;
     
-    void add(const Token& token) { _tokens.insert(std::pair<RuleToken, Token>(token.getToken(), token)); }
+    void add(const Symbol& token) { _symbols.insert(std::pair<RuleToken, Symbol>(token.getToken(), token)); }
     
-    const Token* getToken(const RuleToken& systemToken) {
-        for (auto iter = _tokens.begin(); iter != _tokens.end(); iter++) {
-            if (systemToken.symbol == iter->first.symbol) {
+    const Symbol* getSymbol(const RuleToken& token) {
+        for (auto iter = _symbols.begin(); iter != _symbols.end(); iter++) {
+            if (token.symbol == iter->first.symbol) {
                 return &(iter->second);
             }
         }
@@ -67,14 +67,14 @@ public:
         auto iter = ruleStr.begin();
         unsigned i = 0;
         while(i < steps && iter != ruleStr.end()) {
-            auto t = getToken(*iter);
-            if (t) {
-                if (t->shouldStartGroup()) {
+            auto sym = getSymbol(*iter);
+            if (sym) {
+                if (sym->shouldStartGroup()) {
                     StateType newState = stateStack.top();
                     stateStack.push(newState);
                 }
-                t->execute(stateStack.top());
-                if (t->shouldEndGroup() && stateStack.size() > 1) {
+                sym->execute(stateStack.top());
+                if (sym->shouldEndGroup() && stateStack.size() > 1) {
                     stateStack.pop();
                 }
             }
@@ -86,7 +86,7 @@ public:
     }
     
 protected:
-    map<RuleToken, Token> _tokens;
+    map<RuleToken, Symbol> _symbols;
 };
 
 #endif

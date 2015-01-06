@@ -229,23 +229,23 @@ namespace {
 }
 
 MeshGenerator::MeshGenerator() {
-    add(Token('F').action(forward_draw));
-    add(Token('f').action(forward));
-    add(Token('+').action(turn_left));
-    add(Token('-').action(turn_right));
-    add(Token('&').action(pitch_down));
-    add(Token('^').action(pitch_up));
-    add(Token('\\').action(roll_left));
-    add(Token('/').action(roll_right));
-    add(Token('|').action(turn_around));
-    add(Token('!').action(decrease_diameter));
-    add(Token('\'').action(next_color));
-    add(Token('`').action(previous_color));
-    add(Token('"').action(next_color_series));
-    add(Token('[').startsGroup());
-    add(Token(']').endsGroup());
-    add(Token('{').startsGroup().action(begin_polygon));
-    add(Token('}').endsGroup().action(end_polygon));
+    add(Symbol('F').action(forward_draw));
+    add(Symbol('f').action(forward));
+    add(Symbol('+').action(turn_left));
+    add(Symbol('-').action(turn_right));
+    add(Symbol('&').action(pitch_down));
+    add(Symbol('^').action(pitch_up));
+    add(Symbol('\\').action(roll_left));
+    add(Symbol('/').action(roll_right));
+    add(Symbol('|').action(turn_around));
+    add(Symbol('!').action(decrease_diameter));
+    add(Symbol('\'').action(next_color));
+    add(Symbol('`').action(previous_color));
+    add(Symbol('"').action(next_color_series));
+    add(Symbol('[').startsGroup());
+    add(Symbol(']').endsGroup());
+    add(Symbol('{').startsGroup().action(begin_polygon));
+    add(Symbol('}').endsGroup().action(end_polygon));
 }
 
 void MeshGenerator::begin(MeshGeneratorState& state) {
