@@ -203,28 +203,25 @@ void DemoLSystemApp::setup(){
 }
 
 ofVec3f getMeshCenter(ofPtr<ofMesh> mesh) {
-    if(mesh->getVertices().size() == 0) {
+    auto& v = mesh->getVertices();
+    if(v.size() == 0) {
         return ofVec3f(0, 0, 0);
     }
-    
     ofVec3f minV(MAXFLOAT, MAXFLOAT, MAXFLOAT);
     ofVec3f maxV(-MAXFLOAT, -MAXFLOAT, -MAXFLOAT);
-    for(unsigned int i = 0; i < mesh->getVertices().size(); i++) {
-        minV.x = min(minV.x, mesh->getVertices()[i].x);
-        minV.y = min(minV.y, mesh->getVertices()[i].y);
-        minV.z = min(minV.z, mesh->getVertices()[i].z);
-        maxV.x = max(maxV.x, mesh->getVertices()[i].x);
-        maxV.y = max(maxV.y, mesh->getVertices()[i].y);
-        maxV.z = max(maxV.z, mesh->getVertices()[i].z);
+    for(unsigned int i = 0; i < v.size(); i++) {
+        minV.x = min(minV.x, v[i].x);
+        minV.y = min(minV.y, v[i].y);
+        minV.z = min(minV.z, v[i].z);
+        maxV.x = max(maxV.x, v[i].x);
+        maxV.y = max(maxV.y, v[i].y);
+        maxV.z = max(maxV.z, v[i].z);
     }
     return 0.5 * (minV + maxV);
 }
 
 //--------------------------------------------------------------
 void DemoLSystemApp::update(){
-    if (mesh) {
-        cam.setTarget(getMeshCenter(mesh));
-    }
     cam.setDistance(250);
     headlight.setPosition(cam.getPosition());
 }
@@ -337,6 +334,8 @@ void DemoLSystemApp::updateMesh() {
         
         mesh_gen.generate(systems[currentSystem], state, iterations);
         mesh = state.mesh;
+        
+        cam.setTarget(getMeshCenter(mesh));
     }
 }
 
