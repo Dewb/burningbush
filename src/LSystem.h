@@ -81,7 +81,7 @@ public:
     ProductionRule& addRule(const string& leftContext, const char predecessor, const string& rightContext, const string& successor, float prob = 1.0);
     const RuleSet& getRules() const { return rules; }
     
-    RuleString generate(int iteration, bool logging = true);
+    RuleString generate(int iteration, bool logging = false);
     
     void reset();
     void reseed(unsigned seed);
@@ -100,7 +100,7 @@ protected:
     template <typename Iter>
     bool contextMatches(const Iter& contextBegin, const Iter& contextEnd,
                         const Iter& stringBegin, const Iter& stringEnd,
-                        bool reversed, bool followBranches) const;
+                        bool reversed, bool followBranches, int* pTrunkLength = NULL) const;
     void getMatchingRules(const RuleString& current, const RuleString::iterator& currentPos, ProductionRuleGroup& matched);
     
     map<string, float> properties;

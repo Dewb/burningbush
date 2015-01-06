@@ -21,7 +21,7 @@ void DemoLSystemApp::setup(){
     system.addRule('-', "+");
     system.setProperty("N", 30);
     system.setProperty("angle", 22.5);
-    system.setProperty("edgeLength", 7.0);
+    system.setProperty("edgeLength", 5.0);
     systems.push_back(system);
     
     system.reset();

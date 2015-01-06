@@ -196,7 +196,7 @@ bool LSystem::isStochastic() const {
 template <typename Iter>
 bool LSystem::contextMatches(const Iter& contextBegin, const Iter& contextEnd,
                              const Iter& stringBegin, const Iter& stringEnd,
-                             bool reversed, bool followBranches) const {
+                             bool reversed, bool followBranches, int* pTrunkLength) const {
     auto currentPos = stringBegin;
     auto contextPos = contextBegin;
     char startBranch = '[';
@@ -204,6 +204,8 @@ bool LSystem::contextMatches(const Iter& contextBegin, const Iter& contextEnd,
     if (reversed) {
         swap(startBranch, endBranch);
     }
+    int trunkLength = 0;
+    
     while (currentPos != stringEnd && contextPos != contextEnd) {
         if(find(ignoreContext.begin(), ignoreContext.end(), *currentPos) != ignoreContext.end()) {
             // skip tokens in ignore string
@@ -234,9 +236,19 @@ bool LSystem::contextMatches(const Iter& contextBegin, const Iter& contextEnd,
                 auto insideStart = ++currentPos;
                 auto insideEnd = branchEnd;
                 insideEnd--;
-                return
-                    contextMatches(contextPos, contextEnd, insideStart, insideEnd, reversed, followBranches) ||
-                    contextMatches(contextPos, contextEnd, branchEnd, stringEnd, reversed, followBranches);
+                int moreTrunkLength = 0;
+                // Prefer staying on this trunk/branch
+                if (contextMatches(contextPos, contextEnd, branchEnd, stringEnd, reversed, followBranches, &moreTrunkLength)) {
+                    if (pTrunkLength) {
+                        *pTrunkLength = trunkLength + moreTrunkLength;
+                    }
+                    return true;
+                } else if (contextMatches(contextPos, contextEnd, insideStart, insideEnd, reversed, followBranches)) {
+                    if (pTrunkLength) {
+                        *pTrunkLength = trunkLength;
+                    }
+                    return true;
+                }
             } else {
                 // skip ahead to end
                 currentPos = branchEnd;
@@ -248,9 +260,13 @@ bool LSystem::contextMatches(const Iter& contextBegin, const Iter& contextEnd,
             // context does match so far
             currentPos++;
             contextPos++;
+            trunkLength++;
         }
     }
     if (contextPos == contextEnd) {
+        if (pTrunkLength) {
+            *pTrunkLength = trunkLength;
+        }
         return true;
     } else {
         return false;
@@ -265,21 +281,58 @@ void LSystem::getMatchingRules(const RuleString& current, const RuleString::iter
     auto nextPos = currentPos;
     nextPos++;
     
+    // If a context-free and a contextual rule match, prefer the contextual;
+    // if multiple contextual rules match, prefer the longer one;
+    // if multiple contextual rules of the same length match, prefer the one on the axial branch (trunk)
+    ProductionRuleGroup contextFreeMatches;
+    ProductionRuleGroup contextualMatches;
+    int contextMatchLength = 0;
+    int trunkMatchLength = 0;
+    
     for (auto& rule : rules[*currentPos]) {
-        if ((rule.leftContext.empty() ||
-                contextMatches<RuleString::const_reverse_iterator>(
+        if (rule.leftContext.empty() && rule.rightContext.empty()) {
+            contextFreeMatches.push_back(rule);
+        } else {
+            if (!rule.leftContext.empty() &&
+                !contextMatches<RuleString::const_reverse_iterator>(
                     rule.leftContext.rbegin(), rule.leftContext.rend(),
                     reverse_iterator<RuleString::iterator>(currentPos), current.rend(),
-                    true, false
-                )) &&
-            (rule.rightContext.empty() ||
-                contextMatches<RuleString::const_iterator>(
+                    true, false)) {
+                continue;
+            }
+            int rightTrunkLength = 0;
+            if (!rule.rightContext.empty() &&
+                !contextMatches<RuleString::const_iterator>(
                     rule.rightContext.begin(), rule.rightContext.end(),
                     nextPos, current.end(),
-                    false, true
-                ))) {
-             matched.push_back(rule);
+                    false, true, &rightTrunkLength)) {
+                continue;
+            }
+
+            int contextLength = rule.leftContext.size() + rule.rightContext.size();
+            int trunkLength = rule.leftContext.size() + rightTrunkLength;
+            
+            if (contextLength > contextMatchLength) {
+                contextualMatches.clear();
+                contextualMatches.push_back(rule);
+                contextMatchLength = contextLength;
+                trunkMatchLength = trunkLength;
+            } else if (contextLength == contextMatchLength) {
+                if (trunkLength > trunkMatchLength) {
+                    contextualMatches.clear();
+                    contextualMatches.push_back(rule);
+                    trunkMatchLength = trunkLength;
+                } else if (trunkLength == trunkMatchLength) {
+                    contextualMatches.push_back(rule);
+                }
+            }
         }
+    }
+    
+    if (contextualMatches.size()) {
+        matched = contextualMatches;
+    } else {
+        matched = contextFreeMatches;
     }
 }
 
@@ -317,13 +370,13 @@ RuleString LSystem::generate(int iterations, bool logging) {
                     float d = distribution(generator);
                     float p = d * totalProbability;
                     float s = 0;
-                    for (auto& rule : matchedRules) {
-                        s += rule.probability;
+                    for (auto iter = matchedRules.rbegin(); iter != matchedRules.rend(); ++iter) {
+                        s += (*iter).probability;
                         if (s > p) {
                             if (logging) {
-                                cout << "Executing: " << rule << "\n";
+                                cout << "Executing: " << *iter << "\n";
                             }
-                            replacements.push_back(Replacement(currentPos, rule.successor));
+                            replacements.push_back(Replacement(currentPos, (*iter).successor));
                             break;
                         }
                     }
