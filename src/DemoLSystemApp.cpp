@@ -1,8 +1,9 @@
 #include "DemoLSystemApp.h"
+#include "ParagraphFormatter.h"
 
 
 //--------------------------------------------------------------
-void DemoLSystemApp::setup(){
+void DemoLSystemApp::createSystems() {
     
     LSystem system;
 
@@ -177,13 +178,15 @@ void DemoLSystemApp::setup(){
     cb->add(ofColor::lavenderBlush);
     cb->add(ofColor::white);
     colorBooks.push_back(cb);
+}
+
+void DemoLSystemApp::setup() {
     
+    createSystems();
+
     ofEnableDepthTest();
     ofEnableSmoothing();
     ofEnableAntiAliasing();
-    
-    //cam.setRotation(0.0, 0.0);
-    //cam.setupPerspective(false);
     
     ofEnableAlphaBlending();
     ofEnableAntiAliasing();
@@ -192,7 +195,13 @@ void DemoLSystemApp::setup(){
     mode = Line;
     polyRenderMode = OF_MESH_FILL;
     
+    normalFont.reset(new ofTrueTypeFont());
+    normalFont->loadFont("Courier New Bold.ttf", 12, false, false, true);
+    smallFont.reset(new ofTrueTypeFont());
+    smallFont->loadFont("verdana.ttf", 4, false, false, true);
+    
     headlight.setPointLight();
+    headlight.setAttenuation(0.1, 0.1, 0.1);
     headlight.setSpecularColor(ofColor(255, 255, 255));
     headlight.setDiffuseColor(ofColor(180, 100, 180));
     material.setShininess(7);
@@ -223,7 +232,8 @@ ofVec3f getMeshCenter(ofPtr<ofMesh> mesh) {
 //--------------------------------------------------------------
 void DemoLSystemApp::update(){
     cam.setDistance(250);
-    headlight.setPosition(cam.getPosition());
+    //headlight.setPosition(cam.getPosition());
+    headlight.setPosition(0, 0, 0);
 }
 
 //--------------------------------------------------------------
@@ -231,42 +241,41 @@ void DemoLSystemApp::draw(){
     ofBackground(0, 0, 80);
     ofSetColor(200, 200, 180);
     
-    string title;
+    string generatorName;
     LSystem& system = systems[currentSystem];
     int iterations = fmax(0.0, system.getProperty("N") + iterationAdjustment);
 
     if (mode == Line) {
-        title = "LineGenerator";
+        generatorName = "LineGenerator";
         glLineWidth(0.5);
         glCallList(drawListIndex);
     } else if (mode == Mesh) {
-        title = "MeshGenerator";
+        generatorName = "MeshGenerator";
         cam.begin();
         ofSetLineWidth(0.1);
         if (system.getProperty("shiny")) {
             ofEnableLighting();
             headlight.enable();
-            material.begin();
+            //material.begin();
         }
         mesh->draw(polyRenderMode);
         ofDisableLighting();
-        material.end();
+        //material.end();
         cam.end();
     }
     
-    ofDrawBitmapString(to_string(system.getAxiom()), 20, 25);
-
+    ParagraphFormatter para(20, 25, NULL, NULL);
+    
+    para.printLine(to_string(system.getAxiom()));
+    para.breakParagraph();
+    
     string arrow = " --> ";
     if (system.isStochastic()) {
-        arrow = " -----> ";
+        arrow = " ------> ";
     }
     
-    int n = 0;
     for (auto& ruleGroup : system.getRules()) {
         for (auto& rule : ruleGroup.second) {
-            if (ruleGroup.second.isStochastic()) {
-                ofDrawBitmapString(to_string(rule.probability), 40, 40 + n);
-            }
             string left = "", right = "";
             if (!rule.leftContext.empty()) {
                 left = to_string(rule.leftContext) + " < ";
@@ -274,22 +283,31 @@ void DemoLSystemApp::draw(){
             if (!rule.rightContext.empty()) {
                 right = " > " + to_string(rule.rightContext);
             }
-            
-            ofDrawBitmapString(left + to_string(rule.predecessor) + right + arrow + to_string(rule.successor),
-                               20, 45 + n);
-            
-            n += 15;
+
+            string super = "";
+            if (ruleGroup.second.isStochastic()) {
+                super = to_string(rule.probability);
+            }
+            string beforeArrow = left + to_string(rule.predecessor) + right;
+            para.printLine(beforeArrow + arrow + to_string(rule.successor), super, beforeArrow.size() + 2);
         }
     }
-    ofDrawBitmapString("N = " + to_string(iterations), 20, 45 + n + 15);
+    
+    para.breakParagraph();
+    para.printLine("N = " + to_string(iterations));
     if (system.isStochastic()) {
-        ofDrawBitmapString("seed = " + to_string(system.getSeed()), 20, 45 + n + 30);
+        para.printLine("seed = " + to_string(system.getSeed()));
     }
     
-    ofDrawBitmapString(title, 20, ofGetHeight() - 25);
-    ofDrawBitmapString("SPACE to cycle modes", ofGetWidth() - 185, ofGetHeight() - 25);
+    para.restart(20, ofGetHeight() - 25, ParagraphFormatter::LowerLeft);
+    para.printLine(generatorName);
+    para.printLine(system.getTitle());
+
+    para.restart(ofGetWidth() - 20, ofGetHeight() - 25, ParagraphFormatter::LowerRight);
+    
+    para.printLine("SPACE to cycle modes");
     if (system.isStochastic()) {
-        ofDrawBitmapString("R to reseed stochastic system", ofGetWidth() - 257, ofGetHeight() - 42);
+        para.printLine("R to reseed stochastic system");
     }
 }
 

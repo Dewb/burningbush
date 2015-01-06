@@ -92,7 +92,9 @@ public:
     void setProperty(string name, float value);
     float getProperty(string name) const;
     bool hasProperty(string name) const;
-
+    
+    void setTitle(const string& strTitle) { title = strTitle; }
+    const string& getTitle() const { return title; }
 protected:
     RuleString axiom;
     RuleSet rules;
@@ -106,6 +108,7 @@ protected:
     
     map<string, float> properties;
     unsigned seed;
+    string title;
 };
 
 string to_string(const ProductionRule& prod);

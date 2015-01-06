@@ -16,8 +16,10 @@ class ofPtrArray : public vector<ofPtr<T> > {
 public:
 };
 
+
 class DemoLSystemApp : public ofBaseApp {
 public:
+    void createSystems();
     void setup();
     void update();
     void draw();
@@ -42,6 +44,8 @@ public:
     ofPtr<ofMesh> mesh;
     ofLight headlight;
     ofMaterial material;
+    ofPtr<ofTrueTypeFont> normalFont;
+    ofPtr<ofTrueTypeFont> smallFont;
 
     LineGenerator line_gen;
     MeshGenerator mesh_gen;

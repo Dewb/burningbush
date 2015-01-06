@@ -26,6 +26,7 @@
 		5BB4E61C1A4D35770047F957 /* LSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BB4E61A1A4D35770047F957 /* LSystem.cpp */; };
 		5BB4EA1E1A4EC2A40047F957 /* TurntableCam.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BB4EA1D1A4EC2A40047F957 /* TurntableCam.cpp */; };
 		5BB4EA221A50B86D0047F957 /* MeshGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BB4EA201A50B86D0047F957 /* MeshGenerator.cpp */; };
+		5BE87C2D1A5C58A300C819C3 /* ParagraphFormatter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BE87C2B1A5C58A300C819C3 /* ParagraphFormatter.cpp */; };
 		66810C01C7565033ADB09359 /* ofxLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCE74B76815262F7E72DB951 /* ofxLabel.cpp */; };
 		7EFCFE727D9DE492780174E1 /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B4FBB646797B9F2C403446BE /* ofxXmlSettings.cpp */; };
 		8201A890AD02970095ED78A5 /* ofxBulletBaseShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B07AF4D8A881DD5FA79B405A /* ofxBulletBaseShape.cpp */; };
@@ -149,6 +150,8 @@
 		5BB4EA1D1A4EC2A40047F957 /* TurntableCam.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TurntableCam.cpp; sourceTree = "<group>"; };
 		5BB4EA201A50B86D0047F957 /* MeshGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MeshGenerator.cpp; sourceTree = "<group>"; };
 		5BB4EA211A50B86D0047F957 /* MeshGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeshGenerator.h; sourceTree = "<group>"; };
+		5BE87C2B1A5C58A300C819C3 /* ParagraphFormatter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParagraphFormatter.cpp; sourceTree = "<group>"; };
+		5BE87C2C1A5C58A300C819C3 /* ParagraphFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParagraphFormatter.h; sourceTree = "<group>"; };
 		5DB652E32897B769172551DF /* ofxBulletWorldRigid.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxBulletWorldRigid.h; path = ../of_v0.8.4_osx_release/addons/ofxBullet/src/ofxBulletWorldRigid.h; sourceTree = SOURCE_ROOT; };
 		5F2D8B8933F63261A069EC98 /* ofxBulletCollisionData.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxBulletCollisionData.h; path = ../of_v0.8.4_osx_release/addons/ofxBullet/src/events/ofxBulletCollisionData.h; sourceTree = SOURCE_ROOT; };
 		611C077288D9FB517864116E /* ofxBulletCapsule.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxBulletCapsule.cpp; path = ../of_v0.8.4_osx_release/addons/ofxBullet/src/shapes/ofxBulletCapsule.cpp; sourceTree = SOURCE_ROOT; };
@@ -551,6 +554,8 @@
 				5BB4EA201A50B86D0047F957 /* MeshGenerator.cpp */,
 				5BB4EA211A50B86D0047F957 /* MeshGenerator.h */,
 				5B8B8A771A5B4DC7007F24F6 /* LSystemGenerator.h */,
+				5BE87C2B1A5C58A300C819C3 /* ParagraphFormatter.cpp */,
+				5BE87C2C1A5C58A300C819C3 /* ParagraphFormatter.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -692,6 +697,7 @@
 				5BB4E6191A4D355D0047F957 /* SyphonNameboundClient.m in Sources */,
 				181852019B0A9DEA7D78D274 /* ofxPanel.cpp in Sources */,
 				EE0AFEED578C90CDB485FBB7 /* ofxSlider.cpp in Sources */,
+				5BE87C2D1A5C58A300C819C3 /* ParagraphFormatter.cpp in Sources */,
 				0B79D1370C521A99743B84F8 /* ofxSliderGroup.cpp in Sources */,
 				FBA20CC9B0626C7D5A9D5F9C /* ofxToggle.cpp in Sources */,
 				7EFCFE727D9DE492780174E1 /* ofxXmlSettings.cpp in Sources */,
@@ -1246,6 +1252,7 @@
 				5B8B8A721A5AB7D3007F24F6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "burningbush" */ = {
 			isa = XCConfigurationList;
