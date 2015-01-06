@@ -88,12 +88,25 @@ void DemoLSystemApp::setup(){
     systems.push_back(system);
     
     system.reset();
+    system.setAxiom("F_l");
+    system.addRule("F_l", "F_l+F_r++F_r-F_l--F_lF_l-F_r+");
+    system.addRule("F_r", "-F_l+F_rF_r++F_r+F_l--F_l-F_r");
+    system.setProperty("N", 4);
+    system.setProperty("angle", 60);
+    system.setProperty("edgeLength", 7);
+    system.setProperty("position_x", 0.33);
+    system.setProperty("position_y", -0.25);
+    systems.push_back(system);
+    
+    system.reset();
     system.setAxiom("F+F+F+F");
     system.addRule('F', "F+f-FF+F+FF+Ff+FF-f+FF-F-FF-Ff-FFF");
     system.addRule('f', "ffffff");
     system.setProperty("N", 2);
     system.setProperty("angle", 90);
     system.setProperty("edgeLength", 9);
+    system.setProperty("position_x", 0.33);
+    system.setProperty("position_y", 0.33);
     systems.push_back(system);
     
     lastLineSystem = systems.size() - 1;
@@ -298,6 +311,12 @@ void DemoLSystemApp::updateMesh() {
         state.edgeLength = system.getProperty("edgeLength");
         state.heading = ofVec3f(0, -1);
         state.position = ofVec2f(ofGetWidth()/2, ofGetHeight() * 0.8);
+        if (system.hasProperty("position_x")) {
+            state.position.x = ofGetWidth() * (0.5 + 0.5 * system.getProperty("position_x"));
+        }
+        if (system.hasProperty("position_y")) {
+            state.position.y = ofGetHeight() * (0.5 + 0.5 * system.getProperty("position_y"));
+        }
         
         ofSetLineWidth(0.75);
         line_gen.generate(system, state, iterations);

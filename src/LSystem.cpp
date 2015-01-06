@@ -62,19 +62,35 @@ string to_string(const ProductionRule& pr) {
 }
 
 bool RuleToken::operator<(const RuleToken& rhs) const {
-    return this->symbol < rhs.symbol;
+    if (this->symbol == rhs.symbol) {
+        return this->subscript < rhs.subscript;
+    } else {
+        return this->symbol < rhs.symbol;
+    }
 }
 
 bool RuleToken::operator>(const RuleToken& rhs) const {
-    return this->symbol > rhs.symbol;
+    if (this->symbol == rhs.symbol) {
+        return this->subscript > rhs.subscript;
+    } else {
+        return this->symbol > rhs.symbol;
+    }
 }
 
 bool RuleToken::operator==(const RuleToken& rhs) const {
-    return this->symbol == rhs.symbol;
+    if (this->symbol == rhs.symbol) {
+        return this->subscript == rhs.subscript;
+    } else {
+        return false;
+    }
 }
 
 bool RuleToken::operator!=(const RuleToken& rhs) const {
-    return this->symbol != rhs.symbol;
+    if (this->symbol == rhs.symbol) {
+        return this->subscript != rhs.subscript;
+    } else {
+        return true;
+    }
 }
 
 bool RuleToken::operator==(const string& rhs) const {
@@ -85,18 +101,28 @@ bool RuleToken::operator==(const char& rhs) const {
     return this->symbol.size() == 1 && this->symbol[0] == rhs;
 }
 
-RuleToken parseRuleToken(const string& str, int pos = 0) {
+RuleToken parseRuleToken(const string& str, int* pStartPosition = NULL) {
+    int pos = 0;
+    if (pStartPosition) {
+        pos = *pStartPosition;
+    }
     RuleToken token(str[pos]);
-    if (pos + 2 < str.size() && str[pos + 1] == '_') {
-        token.subscript = str[pos + 2];
+    pos++;
+    if (pos + 1 < str.size() && str[pos] == '_') {
+        token.subscript = str[pos + 1];
+        pos += 2;
+    }
+    if (pStartPosition) {
+        *pStartPosition = pos;
     }
     return token;
 }
 
 RuleString parseRuleString(const string& str) {
     RuleString r;
-    for (int i = 0; i < str.size(); i++) {
-        RuleToken token = parseRuleToken(str, i);
+    int i = 0;
+    while(i < str.size()) {
+        RuleToken token = parseRuleToken(str, &i);
         r.push_back(token);
     }
     return r;

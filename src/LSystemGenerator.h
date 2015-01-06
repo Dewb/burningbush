@@ -44,10 +44,11 @@ public:
     
     void add(const Token& token) { _tokens.insert(std::pair<RuleToken, Token>(token.getToken(), token)); }
     
-    const Token* getToken(const RuleToken& tokenLetter) {
-        auto iter = _tokens.find(tokenLetter);
-        if (iter != _tokens.end()) {
-            return &(iter->second);
+    const Token* getToken(const RuleToken& systemToken) {
+        for (auto iter = _tokens.begin(); iter != _tokens.end(); iter++) {
+            if (systemToken.symbol == iter->first.symbol) {
+                return &(iter->second);
+            }
         }
         return NULL;
     }

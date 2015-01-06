@@ -91,3 +91,12 @@ TEST(LSystem, RightContextEnterNestedBranch) {
     
     EXPECT_EQ("a[x]+[+[y[za]f]d]c", to_string(system.generate(1, true)));
 }
+
+TEST(LSystem, SubscriptMatching) {
+    LSystem system;
+    system.setAxiom("F_c/F/F_a");
+    system.addRule("F_a", "+F_b");
+    system.addRule("F_b", "-F_a");
+    
+    EXPECT_EQ("F_c/F/+-+-F_a", to_string(system.generate(4, true)));
+}
