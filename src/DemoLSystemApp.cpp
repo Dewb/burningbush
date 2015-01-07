@@ -110,6 +110,19 @@ void DemoLSystemApp::createSystems() {
     system.setProperty("position_y", 0.33);
     systems.push_back(system);
     
+    system.reset();
+    system.setAxiom("[F_a]++[F_a]++[F_a]++[F_a]++[F_a]");
+    system.addRule("F_a", "+F_b--F_d[---F_c--F_a]+");
+    system.addRule("F_b", "-F_c++F_a[+++F_b++F_d]-");
+    system.addRule("F_c", "F_b++F_d----F_a[-F_b----F_c]++");
+    system.addRule("F_d", "--F_b++++F_c[+F_d++++F_a]--F_a");
+    system.setProperty("N", 6);
+    system.setProperty("angle", 36);
+    system.setProperty("edgeLength", 10);
+    system.setProperty("position_x", 0);
+    system.setProperty("position_y", 0);
+    systems.push_back(system);
+    
     lastLineSystem = systems.size() - 1;
     
     system.reset();
@@ -208,6 +221,7 @@ void DemoLSystemApp::setup() {
     
     drawListIndex = glGenLists(1);
     
+    currentSystem = 0;
     updateMesh();
 }
 
