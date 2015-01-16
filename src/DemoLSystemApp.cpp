@@ -23,7 +23,7 @@ void DemoLSystemApp::createSystems() {
     system.setProperty("N", 30);
     system.setProperty("angle", 22.5);
     system.setProperty("edgeLength", 5.0);
-    systems.push_back(system);
+    systems.push_back(make_pair(system, GeneratorTypeLine));
     
     system.reset();
     system.setAxiom("F1F1F1");
@@ -41,7 +41,7 @@ void DemoLSystemApp::createSystems() {
     system.setProperty("N", 30);
     system.setProperty("angle", 22.5);
     system.setProperty("edgeLength", 7.0);
-    systems.push_back(system);
+    systems.push_back(make_pair(system, GeneratorTypeLine));
     
     system.reset();
     system.setAxiom("F1F1F1");
@@ -59,7 +59,7 @@ void DemoLSystemApp::createSystems() {
     system.setProperty("N", 26);
     system.setProperty("angle", 25.75);
     system.setProperty("edgeLength", 10.0);
-    systems.push_back(system);
+    systems.push_back(make_pair(system, GeneratorTypeLine));
     
     system.reset();
     system.setAxiom("F");
@@ -69,7 +69,7 @@ void DemoLSystemApp::createSystems() {
     system.setProperty("N", 6);
     system.setProperty("angle", 25.7);
     system.setProperty("edgeLength", 3.0);
-    systems.push_back(system);
+    systems.push_back(make_pair(system, GeneratorTypeLine));
     
     system.reset();
     system.setAxiom("F");
@@ -77,7 +77,7 @@ void DemoLSystemApp::createSystems() {
     system.setProperty("N", 4);
     system.setProperty("angle", 22.5);
     system.setProperty("edgeLength", 10);
-    systems.push_back(system);
+    systems.push_back(make_pair(system, GeneratorTypeLine));
     
     system.reset();
     system.setAxiom("X");
@@ -86,7 +86,7 @@ void DemoLSystemApp::createSystems() {
     system.setProperty("N", 6);
     system.setProperty("angle", 22.5);
     system.setProperty("edgeLength", 3);
-    systems.push_back(system);
+    systems.push_back(make_pair(system, GeneratorTypeLine));
     
     system.reset();
     system.setAxiom("F_l");
@@ -97,7 +97,7 @@ void DemoLSystemApp::createSystems() {
     system.setProperty("edgeLength", 7);
     system.setProperty("position_x", 0.33);
     system.setProperty("position_y", -0.25);
-    systems.push_back(system);
+    systems.push_back(make_pair(system, GeneratorTypeLine));
     
     system.reset();
     system.setAxiom("F+F+F+F");
@@ -108,7 +108,7 @@ void DemoLSystemApp::createSystems() {
     system.setProperty("edgeLength", 9);
     system.setProperty("position_x", 0.33);
     system.setProperty("position_y", 0.33);
-    systems.push_back(system);
+    systems.push_back(make_pair(system, GeneratorTypeLine));
     
     system.reset();
     system.setAxiom("[F_a]++[F_a]++[F_a]++[F_a]++[F_a]");
@@ -121,9 +121,7 @@ void DemoLSystemApp::createSystems() {
     system.setProperty("edgeLength", 10);
     system.setProperty("position_x", 0);
     system.setProperty("position_y", 0);
-    systems.push_back(system);
-    
-    lastLineSystem = systems.size() - 1;
+    systems.push_back(make_pair(system, GeneratorTypeLine));
     
     system.reset();
     system.setAxiom("A");
@@ -137,7 +135,7 @@ void DemoLSystemApp::createSystems() {
     system.setProperty("segmentLength", 4.5);
     system.setProperty("segmentRadius", 2);
     system.setProperty("colorBook", 0);
-    systems.push_back(system);
+    systems.push_back(make_pair(system, GeneratorTypeMesh));
     
     system.reset();
     system.setAxiom("A");
@@ -150,7 +148,7 @@ void DemoLSystemApp::createSystems() {
     system.setProperty("segmentLength", 10);
     system.setProperty("segmentRadius", 2);
     system.setProperty("shiny", 1);
-    systems.push_back(system);
+    systems.push_back(make_pair(system, GeneratorTypeMesh));
     
     system.reset();
     system.setAxiom("P");
@@ -168,7 +166,7 @@ void DemoLSystemApp::createSystems() {
     system.setProperty("segmentLength", 3.0);
     system.setProperty("segmentRadius", 0.5);
     system.setProperty("colorBook", 1);
-    systems.push_back(system);
+    systems.push_back(make_pair(system, GeneratorTypeMesh));
     
     ofPtr<ColorBook> cb(new ColorBook());
     cb->addGradient(ofColor::saddleBrown, ofColor::brown, 4);
@@ -205,7 +203,6 @@ void DemoLSystemApp::setup() {
     ofEnableAntiAliasing();
     ofSetSmoothLighting(true);
     
-    mode = Line;
     polyRenderMode = OF_MESH_FILL;
     
     normalFont.reset(new ofTrueTypeFont());
@@ -256,14 +253,16 @@ void DemoLSystemApp::draw(){
     ofSetColor(200, 200, 180);
     
     string generatorName;
-    LSystem& system = systems[currentSystem];
+    LSystem& system = systems[currentSystem].first;
+    GeneratorType mode = systems[currentSystem].second;
+    
     int iterations = fmax(0.0, system.getProperty("N") + iterationAdjustment);
 
-    if (mode == Line) {
+    if (mode == GeneratorTypeLine) {
         generatorName = "LineGenerator";
         glLineWidth(0.5);
         glCallList(drawListIndex);
-    } else if (mode == Mesh) {
+    } else if (mode == GeneratorTypeMesh) {
         generatorName = "MeshGenerator";
         cam.begin();
         ofSetLineWidth(0.1);
@@ -327,11 +326,12 @@ void DemoLSystemApp::draw(){
 
 void DemoLSystemApp::updateMesh() {
     
-    LSystem& system = systems[currentSystem];
+    LSystem& system = systems[currentSystem].first;
+    GeneratorType mode = systems[currentSystem].second;
+
     int iterations = fmax(0.0, system.getProperty("N") + iterationAdjustment);
 
-    if (currentSystem <= lastLineSystem) {
-        mode = Line;
+    if (mode == GeneratorTypeLine) {
         
         glNewList(drawListIndex, GL_COMPILE);
         
@@ -352,8 +352,7 @@ void DemoLSystemApp::updateMesh() {
         
         glEndList();
         
-    } else {
-        mode = Mesh;
+    } else if (mode == GeneratorTypeMesh) {
         
         MeshGeneratorState state;
         state.left = state.heading.crossed(state.up);
@@ -364,7 +363,7 @@ void DemoLSystemApp::updateMesh() {
             state.colorBook = colorBooks[system.getProperty("colorBook")];
         }
         
-        mesh_gen.generate(systems[currentSystem], state, iterations);
+        mesh_gen.generate(system, state, iterations);
         mesh = state.mesh;
         
         cam.setTarget(getMeshCenter(mesh));
@@ -395,7 +394,7 @@ void DemoLSystemApp::keyPressed(int key){
         iterationAdjustment--;
         updateMesh();
     } else if (key == 'r') {
-        systems[currentSystem].reseed();
+        systems[currentSystem].first.reseed();
         updateMesh();
     }
 }

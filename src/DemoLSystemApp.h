@@ -5,16 +5,15 @@
 #include "MeshGenerator.h"
 #include "TurntableCam.h"
 
-
-typedef enum {
-    Line,
-    Mesh
-} Mode;
-
 template<typename T>
 class ofPtrArray : public vector<ofPtr<T> > {
 public:
 };
+
+typedef enum {
+    GeneratorTypeLine,
+    GeneratorTypeMesh
+} GeneratorType;
 
 
 class DemoLSystemApp : public ofBaseApp {
@@ -38,7 +37,6 @@ public:
 
     ofxTurntableCam cam;
     ofPolyRenderMode polyRenderMode;
-    Mode mode;
 
     unsigned int drawListIndex;
     ofPtr<ofMesh> mesh;
@@ -52,7 +50,7 @@ public:
 
     int currentSystem;
     int iterationAdjustment;
-    int lastLineSystem;
-    vector<LSystem> systems;
+
+    vector<pair<LSystem, GeneratorType> > systems;
     ofPtrArray<ColorBook> colorBooks;
 };
