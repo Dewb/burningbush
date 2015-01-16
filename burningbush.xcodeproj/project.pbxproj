@@ -136,7 +136,7 @@
 		577BC5F79506C3E1848ED723 /* tinyxml.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = tinyxml.h; path = ../of_v0.8.4_osx_release/addons/ofxXmlSettings/libs/tinyxml.h; sourceTree = SOURCE_ROOT; };
 		579E2D74470CB3A8F41E7772 /* ofxAutoReloadedShader.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxAutoReloadedShader.cpp; path = ../of_v0.8.4_osx_release/addons/ofxAutoReloadedShader/src/ofxAutoReloadedShader.cpp; sourceTree = SOURCE_ROOT; };
 		59C3D07D400A49BA386A1DC1 /* ofxBulletCapsule.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxBulletCapsule.h; path = ../of_v0.8.4_osx_release/addons/ofxBullet/src/shapes/ofxBulletCapsule.h; sourceTree = SOURCE_ROOT; };
-		5B8B64C71A5A9BAA006F6EB9 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../tests/main.cpp; sourceTree = "<group>"; };
+		5B8B64C71A5A9BAA006F6EB9 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = tests/main.cpp; sourceTree = "<group>"; };
 		5B8B8A601A5AADC8007F24F6 /* libgtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgtest.a; path = "Dependencies/gtest-1.7.0/lib/osx/libgtest.a"; sourceTree = SOURCE_ROOT; };
 		5B8B8A761A5AB8CE007F24F6 /* LSystemUnitTests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LSystemUnitTests; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B8B8A771A5B4DC7007F24F6 /* LSystemGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSystemGenerator.h; sourceTree = "<group>"; };
