@@ -324,6 +324,39 @@ void DemoLSystemApp::draw(){
     }
 }
 
+void DemoLSystemApp::saveVectorFile() {
+    
+    LSystem& system = systems[currentSystem].first;
+    GeneratorType mode = systems[currentSystem].second;
+    
+    int iterations = fmax(0.0, system.getProperty("N") + iterationAdjustment);
+    
+    if (mode == GeneratorTypeLine) {
+        
+        auto result = ofSystemSaveDialog(system.getTitle(), "Save EPS file");
+        if (!result.bSuccess) {
+            return;
+        }
+        
+        VectorFileGeneratorState state;
+        state.filename = result.getPath();
+        state.angle = system.getProperty("angle");
+        state.edgeLength = system.getProperty("edgeLength");
+        state.heading = 0;
+        state.position = ofVec2f(ofGetWidth()/2, ofGetHeight() * 0.8);
+        if (system.hasProperty("position_x")) {
+            state.position.x = ofGetWidth() * (0.5 + 0.5 * system.getProperty("position_x"));
+        }
+        if (system.hasProperty("position_y")) {
+            state.position.y = ofGetHeight() * (0.5 + 0.5 * system.getProperty("position_y"));
+        }
+        
+        ofSetLineWidth(0.75);
+        vector_gen.generate(system, state, iterations);
+    }
+
+}
+
 void DemoLSystemApp::updateMesh() {
     
     LSystem& system = systems[currentSystem].first;
@@ -338,7 +371,7 @@ void DemoLSystemApp::updateMesh() {
         LineGeneratorState state;
         state.angle = system.getProperty("angle");
         state.edgeLength = system.getProperty("edgeLength");
-        state.heading = ofVec3f(0, -1);
+        state.heading = ofVec2f(0, -1);
         state.position = ofVec2f(ofGetWidth()/2, ofGetHeight() * 0.8);
         if (system.hasProperty("position_x")) {
             state.position.x = ofGetWidth() * (0.5 + 0.5 * system.getProperty("position_x"));
@@ -396,6 +429,8 @@ void DemoLSystemApp::keyPressed(int key){
     } else if (key == 'r') {
         systems[currentSystem].first.reseed();
         updateMesh();
+    } else if (key == 's') {
+        saveVectorFile();
     }
 }
 

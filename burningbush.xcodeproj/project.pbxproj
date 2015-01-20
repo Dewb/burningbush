@@ -19,13 +19,18 @@
 		5B8B8A731A5AB811007F24F6 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B8B64C71A5A9BAA006F6EB9 /* main.cpp */; };
 		5B8B8A741A5AB814007F24F6 /* LSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BB4E61A1A4D35770047F957 /* LSystem.cpp */; };
 		5B8B8A751A5AB817007F24F6 /* libgtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B8B8A601A5AADC8007F24F6 /* libgtest.a */; };
-		5B8CA1171A5643D300885B53 /* LineGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B8CA1151A5643D300885B53 /* LineGenerator.cpp */; };
+		5B8CA1171A5643D300885B53 /* VectorFileGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B8CA1151A5643D300885B53 /* VectorFileGenerator.cpp */; };
 		5BB4E6161A4D35020047F957 /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BB4E6151A4D35020047F957 /* Syphon.framework */; };
 		5BB4E6171A4D352B0047F957 /* Syphon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5BB4E6151A4D35020047F957 /* Syphon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5BB4E6191A4D355D0047F957 /* SyphonNameboundClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB4E6181A4D355D0047F957 /* SyphonNameboundClient.m */; };
 		5BB4E61C1A4D35770047F957 /* LSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BB4E61A1A4D35770047F957 /* LSystem.cpp */; };
 		5BB4EA1E1A4EC2A40047F957 /* TurntableCam.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BB4EA1D1A4EC2A40047F957 /* TurntableCam.cpp */; };
 		5BB4EA221A50B86D0047F957 /* MeshGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BB4EA201A50B86D0047F957 /* MeshGenerator.cpp */; };
+		5BCB2DF01A6DF4130042DFF4 /* ofxVectorGraphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BCB2DEA1A6DF4130042DFF4 /* ofxVectorGraphics.cpp */; };
+		5BCB2DF11A6DF4130042DFF4 /* CreEPS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BCB2DED1A6DF4130042DFF4 /* CreEPS.cpp */; };
+		5BCB2DF21A6DF4130042DFF4 /* ofxVectorGraphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BCB2DEA1A6DF4130042DFF4 /* ofxVectorGraphics.cpp */; };
+		5BCB2DF31A6DF4130042DFF4 /* CreEPS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BCB2DED1A6DF4130042DFF4 /* CreEPS.cpp */; };
+		5BCB2DF71A6F07D90042DFF4 /* LineGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BCB2DF51A6F07D90042DFF4 /* LineGenerator.cpp */; };
 		5BE87C2D1A5C58A300C819C3 /* ParagraphFormatter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BE87C2B1A5C58A300C819C3 /* ParagraphFormatter.cpp */; };
 		66810C01C7565033ADB09359 /* ofxLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCE74B76815262F7E72DB951 /* ofxLabel.cpp */; };
 		7EFCFE727D9DE492780174E1 /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B4FBB646797B9F2C403446BE /* ofxXmlSettings.cpp */; };
@@ -140,8 +145,8 @@
 		5B8B8A601A5AADC8007F24F6 /* libgtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgtest.a; path = "Dependencies/gtest-1.7.0/lib/osx/libgtest.a"; sourceTree = SOURCE_ROOT; };
 		5B8B8A761A5AB8CE007F24F6 /* LSystemUnitTests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LSystemUnitTests; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B8B8A771A5B4DC7007F24F6 /* LSystemGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSystemGenerator.h; sourceTree = "<group>"; };
-		5B8CA1151A5643D300885B53 /* LineGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LineGenerator.cpp; sourceTree = "<group>"; };
-		5B8CA1161A5643D300885B53 /* LineGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineGenerator.h; sourceTree = "<group>"; };
+		5B8CA1151A5643D300885B53 /* VectorFileGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VectorFileGenerator.cpp; sourceTree = "<group>"; };
+		5B8CA1161A5643D300885B53 /* VectorFileGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VectorFileGenerator.h; sourceTree = "<group>"; };
 		5BB4E6151A4D35020047F957 /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Syphon.framework; path = ../of_v0.8.4_osx_release/addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework; sourceTree = "<group>"; };
 		5BB4E6181A4D355D0047F957 /* SyphonNameboundClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SyphonNameboundClient.m; path = ../of_v0.8.4_osx_release/addons/ofxSyphon/libs/Syphon/src/SyphonNameboundClient.m; sourceTree = "<group>"; };
 		5BB4E61A1A4D35770047F957 /* LSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LSystem.cpp; sourceTree = "<group>"; };
@@ -150,6 +155,13 @@
 		5BB4EA1D1A4EC2A40047F957 /* TurntableCam.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TurntableCam.cpp; sourceTree = "<group>"; };
 		5BB4EA201A50B86D0047F957 /* MeshGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MeshGenerator.cpp; sourceTree = "<group>"; };
 		5BB4EA211A50B86D0047F957 /* MeshGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeshGenerator.h; sourceTree = "<group>"; };
+		5BCB2DEA1A6DF4130042DFF4 /* ofxVectorGraphics.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxVectorGraphics.cpp; sourceTree = "<group>"; };
+		5BCB2DEB1A6DF4130042DFF4 /* ofxVectorGraphics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxVectorGraphics.h; sourceTree = "<group>"; };
+		5BCB2DED1A6DF4130042DFF4 /* CreEPS.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CreEPS.cpp; sourceTree = "<group>"; };
+		5BCB2DEE1A6DF4130042DFF4 /* CreEPS.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CreEPS.hpp; sourceTree = "<group>"; };
+		5BCB2DEF1A6DF4130042DFF4 /* CreEPS_Types.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CreEPS_Types.hpp; sourceTree = "<group>"; };
+		5BCB2DF51A6F07D90042DFF4 /* LineGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LineGenerator.cpp; sourceTree = "<group>"; };
+		5BCB2DF61A6F07D90042DFF4 /* LineGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineGenerator.h; sourceTree = "<group>"; };
 		5BE87C2B1A5C58A300C819C3 /* ParagraphFormatter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParagraphFormatter.cpp; sourceTree = "<group>"; };
 		5BE87C2C1A5C58A300C819C3 /* ParagraphFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParagraphFormatter.h; sourceTree = "<group>"; };
 		5DB652E32897B769172551DF /* ofxBulletWorldRigid.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxBulletWorldRigid.h; path = ../of_v0.8.4_osx_release/addons/ofxBullet/src/ofxBulletWorldRigid.h; sourceTree = SOURCE_ROOT; };
@@ -377,6 +389,36 @@
 			path = LSystemUnitTests;
 			sourceTree = "<group>";
 		};
+		5BCB2DE81A6DF4130042DFF4 /* ofxVectorGraphics */ = {
+			isa = PBXGroup;
+			children = (
+				5BCB2DE91A6DF4130042DFF4 /* src */,
+				5BCB2DEC1A6DF4130042DFF4 /* libs */,
+			);
+			name = ofxVectorGraphics;
+			sourceTree = "<group>";
+		};
+		5BCB2DE91A6DF4130042DFF4 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				5BCB2DEA1A6DF4130042DFF4 /* ofxVectorGraphics.cpp */,
+				5BCB2DEB1A6DF4130042DFF4 /* ofxVectorGraphics.h */,
+			);
+			name = src;
+			path = ../of_v0.8.4_osx_release/addons/ofxVectorGraphics/src;
+			sourceTree = "<group>";
+		};
+		5BCB2DEC1A6DF4130042DFF4 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				5BCB2DED1A6DF4130042DFF4 /* CreEPS.cpp */,
+				5BCB2DEE1A6DF4130042DFF4 /* CreEPS.hpp */,
+				5BCB2DEF1A6DF4130042DFF4 /* CreEPS_Types.hpp */,
+			);
+			name = libs;
+			path = ../of_v0.8.4_osx_release/addons/ofxVectorGraphics/libs;
+			sourceTree = "<group>";
+		};
 		65F3085962B3A8825746C3C2 /* Syphon */ = {
 			isa = PBXGroup;
 			children = (
@@ -450,6 +492,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				5BCB2DE81A6DF4130042DFF4 /* ofxVectorGraphics */,
 				480A780D8D0308AE4A368801 /* ofxGui */,
 				1F4FB5C423662B96ADFDCC0B /* ofxXmlSettings */,
 				38A85F4B8B6D987F0B0390B2 /* ofxAutoReloadedShader */,
@@ -542,8 +585,10 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				5B8CA1151A5643D300885B53 /* LineGenerator.cpp */,
-				5B8CA1161A5643D300885B53 /* LineGenerator.h */,
+				5BCB2DF51A6F07D90042DFF4 /* LineGenerator.cpp */,
+				5BCB2DF61A6F07D90042DFF4 /* LineGenerator.h */,
+				5B8CA1151A5643D300885B53 /* VectorFileGenerator.cpp */,
+				5B8CA1161A5643D300885B53 /* VectorFileGenerator.h */,
 				5BB4EA1C1A4EC2A40047F957 /* TurntableCam.h */,
 				5BB4EA1D1A4EC2A40047F957 /* TurntableCam.cpp */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
@@ -679,6 +724,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5BCB2DF21A6DF4130042DFF4 /* ofxVectorGraphics.cpp in Sources */,
+				5BCB2DF31A6DF4130042DFF4 /* CreEPS.cpp in Sources */,
 				5B8B8A731A5AB811007F24F6 /* main.cpp in Sources */,
 				5B8B8A741A5AB814007F24F6 /* LSystem.cpp in Sources */,
 			);
@@ -705,13 +752,15 @@
 				A5BF54CACA9C2F0BA2DB1131 /* tinyxml.cpp in Sources */,
 				5BB4E61C1A4D35770047F957 /* LSystem.cpp in Sources */,
 				8E4B38BFD068409CC33E8EF4 /* tinyxmlerror.cpp in Sources */,
+				5BCB2DF01A6DF4130042DFF4 /* ofxVectorGraphics.cpp in Sources */,
 				AB8A4587A21CD2325D587E8A /* tinyxmlparser.cpp in Sources */,
 				3597A483223FB91820171167 /* ofxAutoReloadedShader.cpp in Sources */,
 				AED49BD2FFBA271B116C071B /* ofxBulletJoint.cpp in Sources */,
 				F752B704F54E9F3C50E1CFA9 /* ofxBulletWorldRigid.cpp in Sources */,
 				B8ECA4BE5ACC7E2DD8A4BB45 /* GLDebugDrawer.cpp in Sources */,
 				8201A890AD02970095ED78A5 /* ofxBulletBaseShape.cpp in Sources */,
-				5B8CA1171A5643D300885B53 /* LineGenerator.cpp in Sources */,
+				5B8CA1171A5643D300885B53 /* VectorFileGenerator.cpp in Sources */,
+				5BCB2DF71A6F07D90042DFF4 /* LineGenerator.cpp in Sources */,
 				BFFA2CF9BFC1126CD1EE7E6C /* ofxBulletBox.cpp in Sources */,
 				0C303DF99B91B8BFBAAFD887 /* ofxBulletCapsule.cpp in Sources */,
 				495F8C52F365D1DCF4215EC7 /* ofxBulletCone.cpp in Sources */,
@@ -720,6 +769,7 @@
 				07FD8A689FBE1BC0F1C490B4 /* ofxBulletCustomShape.cpp in Sources */,
 				BBC1ADDCA2AA2A6E753EA6C4 /* ofxBulletCylinder.cpp in Sources */,
 				8E05DE1FDF98ADCA0045649E /* ofxBulletSphere.cpp in Sources */,
+				5BCB2DF11A6DF4130042DFF4 /* CreEPS.cpp in Sources */,
 				8C3E8E74CAB474E306E42E77 /* ofxBulletStaticPlane.cpp in Sources */,
 				412B10C711B4D0F417FA6622 /* ofxSyphonClient.mm in Sources */,
 				DCB975B922C1402BADD9612C /* ofxSyphonServer.mm in Sources */,
@@ -779,6 +829,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
@@ -819,6 +870,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};
@@ -1151,6 +1203,7 @@
 					"$(PROJECT_DIR)/libs/gtest/lib/osx",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)Debug";
+				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1238,6 +1291,7 @@
 					"$(PROJECT_DIR)/libs/gtest/lib/osx",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

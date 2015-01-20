@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "LineGenerator.h"
 #include "MeshGenerator.h"
+#include "VectorFileGenerator.h"
 #include "TurntableCam.h"
 
 template<typename T>
@@ -24,6 +25,7 @@ public:
     void draw();
     
     void updateMesh();
+    void saveVectorFile();
 
     void keyPressed(int key);
     void keyReleased(int key);
@@ -47,6 +49,7 @@ public:
 
     LineGenerator line_gen;
     MeshGenerator mesh_gen;
+    VectorFileGenerator vector_gen;
 
     int currentSystem;
     int iterationAdjustment;
