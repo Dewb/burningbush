@@ -78,7 +78,7 @@ MeshGeneratorState::MeshGeneratorState()
 , left(ofVec3f(1, 0, 0))
 , currentColor(0)
 , currentColorSeries(0)
-, inPolygonNode(true)
+, inPolygonNode(false)
 {
 }
 
@@ -97,7 +97,7 @@ MeshGeneratorState::MeshGeneratorState(const MeshGeneratorState& other) {
     mesh = other.mesh;
     // pointHistory not copied
     // colorHistory not copied
-    // inPolygonNode not copied
+    inPolygonNode = false;
 }
 
 ofColor MeshGeneratorState::getCurrentColor() {
