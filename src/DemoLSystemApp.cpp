@@ -123,13 +123,41 @@ void DemoLSystemApp::createSystems() {
     system.setProperty("position_y", 0);
     systems.push_back(make_pair(system, GeneratorTypeLine));
     
+    /*
+    system.reset();
+    system.setAxiom("'[f_a]++[f_a]++[f_a]++[f_a]++[f_a]");
+    system.addRule("f_a", "+{f_b--f_d[---f_c--f_a]}f_b--f_d+");
+    system.addRule("f_b", "-{'f_c++f_a[+++f_b++f_d]}f_c++f_a-");
+    system.addRule("f_c", "f_b++{f_d----f_a[-f_b----f_c]}f_d----f_a++");
+    system.addRule("f_d", "--{f_b++++f_c[+f_d++++f_a]}f_b++++f_c--f_a");
+    system.setProperty("N", 5);
+    system.setProperty("angle", 36);
+    system.setProperty("segmentLength", 10);
+    system.setProperty("segmentRadius", 1);
+    system.setProperty("colorBook", 2);
+    systems.push_back(make_pair(system, GeneratorTypeMesh));
+    */
+    
+    system.reset();
+    system.setAxiom("x");
+    system.addRule("x", "@!+{F[|\"'y]--F['|x][|+@f#''x]---['''x]F--[\"''y]F}");
+    system.addRule("y", "@!++{[\"x]F|+F[|'y]-[''y]F|+F[|\"'x]}");
+    system.addRule("F", "f");
+    system.setProperty("N", 5);
+    system.setProperty("angle", 36);
+    system.setProperty("segmentLength", 150);
+    system.setProperty("segmentRadius", 1.2);
+    system.setProperty("colorBook", 3);
+    systems.push_back(make_pair(system, GeneratorTypeMesh));
+
+    
     system.reset();
     system.setAxiom("A");
     system.ignoreForContext("&L!A/S'\"^+-`|");
     system.addRule('A', "[&FL!A]/////'[&FL!A]///////'[&FL!A]");
     system.addRule('F', "S/////F");
     system.addRule('S', "FL");
-    system.addRule("FFFFFFFFFFFFFF", 'L', "", "[\"''^^{-f+`f+`f-|-f+'f+'f}]");
+    system.addRule("FFFFFFFFFFFFFF", 'L', "", "[\"''^^{-F+`F+`F-|-F+'F+'F}]");
     system.setProperty("N", 7);
     system.setProperty("angle", 22.5);
     system.setProperty("segmentLength", 4.5);
@@ -157,10 +185,10 @@ void DemoLSystemApp::createSystems() {
     system.addRule('S', "S[//&&L][//^^L]FS", 0.333);
     system.addRule('S', "SFS", 0.333);
     system.addRule('S', "S", 0.334);
-    system.addRule('L', "['{+f-ff-f+|+f-ff-f}]");
+    system.addRule('L', "['{+F-FF-F+|+F-FF-F}]");
     system.addRule('O', "[&&&D''/W////W////W////W////W]");
     system.addRule('D', "FF");
-    system.addRule('W', "['^!F][{&&&&-f+f|-f+f}]");
+    system.addRule('W', "['^!F][{&&&&-F+F|-F+F}]");
     system.setProperty("N", 6);
     system.setProperty("angle", 18.0);
     system.setProperty("segmentLength", 3.0);
@@ -188,6 +216,22 @@ void DemoLSystemApp::createSystems() {
     cb->add(ofColor(80, 200, 0));
     cb->add(ofColor::lavenderBlush);
     cb->add(ofColor::white);
+    colorBooks.push_back(cb);
+    
+    cb.reset(new ColorBook());
+    cb->add(ofColor::white);
+    cb->add(ofColor::red);
+    cb->add(ofColor::orange);
+    cb->add(ofColor::maroon);
+    cb->add(ofColor::olive);
+    colorBooks.push_back(cb);
+    
+    cb.reset(new ColorBook());
+    cb->add(ofColor::cornsilk);
+    cb->addGradient(ofColor::blueViolet, 8);
+    cb->nextSeries();
+    cb->add(ofColor::paleGreen);
+    cb->addGradient(ofColor::forestGreen, 8);
     colorBooks.push_back(cb);
 }
 

@@ -20,6 +20,8 @@ public:
     void addGradient(const ofColor& next, int steps = 3);
     void nextSeries();
     const ofColor& getColor(int series, int index);
+    int getNumSeries() const;
+    int getNumColors(int series) const;
 protected:
     vector<vector<ofColor> > colors;
 };
@@ -45,6 +47,7 @@ public:
     int currentColorSeries;
     
     ofColor getCurrentColor();
+    bool inPolygonNode;
     
     ofPtr<ofMesh> mesh;
 };

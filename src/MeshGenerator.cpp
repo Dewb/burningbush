@@ -60,12 +60,25 @@ void ColorBook::nextSeries() {
     colors.push_back(vector<ofColor>());
 }
 
+int ColorBook::getNumSeries() const {
+    return colors.size();
+}
+
+int ColorBook::getNumColors(int series) const {
+    if (series < colors.size() && series >= 0) {
+        return colors[series].size();
+    } else {
+        return 0;
+    }
+}
+
 MeshGeneratorState::MeshGeneratorState()
 : heading(ofVec3f(0, 1, 0))
 , up(ofVec3f(0, 0, 1))
 , left(ofVec3f(1, 0, 0))
 , currentColor(0)
 , currentColorSeries(0)
+, inPolygonNode(true)
 {
 }
 
@@ -82,11 +95,16 @@ MeshGeneratorState::MeshGeneratorState(const MeshGeneratorState& other) {
     currentColor = other.currentColor;
     currentColorSeries = other.currentColorSeries;
     mesh = other.mesh;
+    // pointHistory not copied
+    // colorHistory not copied
+    // inPolygonNode not copied
 }
 
 ofColor MeshGeneratorState::getCurrentColor() {
     if (colorBook) {
-        return colorBook->getColor(currentColorSeries, currentColor);
+        int series = currentColorSeries % colorBook->getNumSeries();
+        int color = currentColor % colorBook->getNumColors(series);
+        return colorBook->getColor(series, color);
     } else {
         return ofColor(128, 128, 128);
     }
@@ -153,15 +171,18 @@ namespace {
     
     void forward(MeshGeneratorState& state) {
         state.position += state.heading.normalized() * state.segmentLength;
-        state.pointHistory.push_back(state.position);
-        state.colorHistory.push_back(state.getCurrentColor());
     }
 
     void forward_draw(MeshGeneratorState& state) {
         ofVec3f previous = state.position;
-        forward(state);        
-        addSegmentToMesh(state.mesh, state.position, previous, state.segmentRadius, state.getCurrentColor());
-    }                                                                                                                                                                                                       
+        forward(state);
+        if (!state.inPolygonNode) {
+            addSegmentToMesh(state.mesh, state.position, previous, state.segmentRadius, state.getCurrentColor());
+        } else {
+            state.pointHistory.push_back(state.position);
+            state.colorHistory.push_back(state.getCurrentColor());
+        }
+    }
 
     void turn_left(MeshGeneratorState& state) {
         state.heading.rotate(state.angle, state.up);
@@ -199,7 +220,15 @@ namespace {
     }
     
     void decrease_diameter(MeshGeneratorState& state) {
-        state.segmentRadius *= 0.618;
+        state.segmentRadius *= 0.618034;
+    }
+    
+    void increase_length(MeshGeneratorState& state) {
+        state.segmentLength *= (1.0 / 0.618034);
+    }
+    
+    void decrease_length(MeshGeneratorState& state) {
+        state.segmentLength *= 0.618034;
     }
     
     void next_color(MeshGeneratorState& state) {
@@ -211,13 +240,12 @@ namespace {
     }
     
     void next_color_series(MeshGeneratorState& state) {
+        //state.currentColor = 0;
         state.currentColorSeries++;
     }
 
     void begin_polygon(MeshGeneratorState& state) {
-        // history should already be clear because it isn't copied, but just in case
-        state.pointHistory.clear();
-        state.colorHistory.clear();
+        state.inPolygonNode = true;
         state.pointHistory.push_back(state.position);
         state.colorHistory.push_back(state.getCurrentColor());
     }
@@ -239,6 +267,8 @@ MeshGenerator::MeshGenerator() {
     add(Symbol('/').action(roll_right));
     add(Symbol('|').action(turn_around));
     add(Symbol('!').action(decrease_diameter));
+    add(Symbol('@').action(decrease_length));
+    add(Symbol('#').action(increase_length));
     add(Symbol('\'').action(next_color));
     add(Symbol('`').action(previous_color));
     add(Symbol('"').action(next_color_series));
