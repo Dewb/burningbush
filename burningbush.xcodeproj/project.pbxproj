@@ -16,7 +16,7 @@
 		412B10C711B4D0F417FA6622 /* ofxSyphonClient.mm in Sources */ = {isa = PBXBuildFile; fileRef = FCE7A187CCD1B6E0DCBA3011 /* ofxSyphonClient.mm */; };
 		495F8C52F365D1DCF4215EC7 /* ofxBulletCone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D934E1FF36AC015DB7170864 /* ofxBulletCone.cpp */; };
 		56AA5CFEAFD9FE4144118BE6 /* ofxBulletConvexShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1DCFABF82FBE21C9201C177F /* ofxBulletConvexShape.cpp */; };
-		5B8B8A731A5AB811007F24F6 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B8B64C71A5A9BAA006F6EB9 /* main.cpp */; };
+		5B25A82A1A70676F00691C35 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B8B64C71A5A9BAA006F6EB9 /* main.cpp */; };
 		5B8B8A741A5AB814007F24F6 /* LSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BB4E61A1A4D35770047F957 /* LSystem.cpp */; };
 		5B8B8A751A5AB817007F24F6 /* libgtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B8B8A601A5AADC8007F24F6 /* libgtest.a */; };
 		5B8CA1171A5643D300885B53 /* VectorFileGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B8CA1151A5643D300885B53 /* VectorFileGenerator.cpp */; };
@@ -28,8 +28,6 @@
 		5BB4EA221A50B86D0047F957 /* MeshGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BB4EA201A50B86D0047F957 /* MeshGenerator.cpp */; };
 		5BCB2DF01A6DF4130042DFF4 /* ofxVectorGraphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BCB2DEA1A6DF4130042DFF4 /* ofxVectorGraphics.cpp */; };
 		5BCB2DF11A6DF4130042DFF4 /* CreEPS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BCB2DED1A6DF4130042DFF4 /* CreEPS.cpp */; };
-		5BCB2DF21A6DF4130042DFF4 /* ofxVectorGraphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BCB2DEA1A6DF4130042DFF4 /* ofxVectorGraphics.cpp */; };
-		5BCB2DF31A6DF4130042DFF4 /* CreEPS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BCB2DED1A6DF4130042DFF4 /* CreEPS.cpp */; };
 		5BCB2DF71A6F07D90042DFF4 /* LineGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BCB2DF51A6F07D90042DFF4 /* LineGenerator.cpp */; };
 		5BE87C2D1A5C58A300C819C3 /* ParagraphFormatter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BE87C2B1A5C58A300C819C3 /* ParagraphFormatter.cpp */; };
 		66810C01C7565033ADB09359 /* ofxLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCE74B76815262F7E72DB951 /* ofxLabel.cpp */; };
@@ -141,7 +139,7 @@
 		577BC5F79506C3E1848ED723 /* tinyxml.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = tinyxml.h; path = ../of_v0.8.4_osx_release/addons/ofxXmlSettings/libs/tinyxml.h; sourceTree = SOURCE_ROOT; };
 		579E2D74470CB3A8F41E7772 /* ofxAutoReloadedShader.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxAutoReloadedShader.cpp; path = ../of_v0.8.4_osx_release/addons/ofxAutoReloadedShader/src/ofxAutoReloadedShader.cpp; sourceTree = SOURCE_ROOT; };
 		59C3D07D400A49BA386A1DC1 /* ofxBulletCapsule.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxBulletCapsule.h; path = ../of_v0.8.4_osx_release/addons/ofxBullet/src/shapes/ofxBulletCapsule.h; sourceTree = SOURCE_ROOT; };
-		5B8B64C71A5A9BAA006F6EB9 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = tests/main.cpp; sourceTree = "<group>"; };
+		5B8B64C71A5A9BAA006F6EB9 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		5B8B8A601A5AADC8007F24F6 /* libgtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgtest.a; path = "Dependencies/gtest-1.7.0/lib/osx/libgtest.a"; sourceTree = SOURCE_ROOT; };
 		5B8B8A761A5AB8CE007F24F6 /* LSystemUnitTests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LSystemUnitTests; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B8B8A771A5B4DC7007F24F6 /* LSystemGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSystemGenerator.h; sourceTree = "<group>"; };
@@ -385,8 +383,7 @@
 				5B8B8A601A5AADC8007F24F6 /* libgtest.a */,
 				5B8B64C71A5A9BAA006F6EB9 /* main.cpp */,
 			);
-			name = tests;
-			path = LSystemUnitTests;
+			path = tests;
 			sourceTree = "<group>";
 		};
 		5BCB2DE81A6DF4130042DFF4 /* ofxVectorGraphics */ = {
@@ -724,9 +721,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5BCB2DF21A6DF4130042DFF4 /* ofxVectorGraphics.cpp in Sources */,
-				5BCB2DF31A6DF4130042DFF4 /* CreEPS.cpp in Sources */,
-				5B8B8A731A5AB811007F24F6 /* main.cpp in Sources */,
+				5B25A82A1A70676F00691C35 /* main.cpp in Sources */,
 				5B8B8A741A5AB814007F24F6 /* LSystem.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
