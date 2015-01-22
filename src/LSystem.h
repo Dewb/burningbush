@@ -81,7 +81,7 @@ public:
     ProductionRule& addRule(const string& leftContext, const char predecessor, const string& rightContext, const string& successor, float prob = 1.0);
     const RuleSet& getRules() const { return rules; }
     
-    RuleString generate(int iteration, bool logging = false);
+    RuleString generate(int iteration, bool logging = true);
     
     void reset();
     void reseed(unsigned seed);

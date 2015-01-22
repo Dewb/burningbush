@@ -4,6 +4,7 @@
 #include "LineGenerator.h"
 #include "MeshGenerator.h"
 #include "VectorFileGenerator.h"
+#include "FloorplanGenerator.h"
 #include "TurntableCam.h"
 
 template<typename T>
@@ -13,7 +14,8 @@ public:
 
 typedef enum {
     GeneratorTypeLine,
-    GeneratorTypeMesh
+    GeneratorTypeMesh,
+    GeneratorTypeFloorplan
 } GeneratorType;
 
 
@@ -50,6 +52,7 @@ public:
     LineGenerator line_gen;
     MeshGenerator mesh_gen;
     VectorFileGenerator vector_gen;
+    FloorplanGenerator floorplan_gen;
 
     int currentSystem;
     int iterationAdjustment;

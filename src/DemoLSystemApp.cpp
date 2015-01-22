@@ -10,6 +10,24 @@ void DemoLSystemApp::createSystems() {
     LSystem system;
 
     system.reset();
+    system.setAxiom("E[CV][B]");
+    system.addRule("B", "B[B]", 0.4);
+    system.addRule("B", "CP_dS", 0.2);
+    system.addRule("B", "CP_lS", 0.2);
+    system.addRule("B", "CP_rS", 0.2);
+    system.addRule("P_d", "C[+F][-F]P_d", 0.8);
+    system.addRule("P_d", "C[+F][-F]", 0.2);
+    system.addRule("P_l", "C[+F]P_l", 0.8);
+    system.addRule("P_l", "C[+F]", 0.2);
+    system.addRule("P_r", "C[-F]P_r", 0.8);
+    system.addRule("P_r", "C[-F]", 0.2);
+    system.addRule("C", "C+", 0.1);
+    system.addRule("C", "C-", 0.1);
+    system.addRule("C", "C", 0.8);
+    system.setProperty("N", 3);
+    systems.push_back(make_pair(system, GeneratorTypeFloorplan));
+    system.reset();
+    
     system.setAxiom("F1F1F1");
     system.ignoreForContext("+-F");
     system.addRule("0", '0', "0", "0");
@@ -308,6 +326,15 @@ void DemoLSystemApp::draw(){
         generatorName = "LineGenerator";
         glLineWidth(0.5);
         glCallList(drawListIndex);
+    } else if (mode == GeneratorTypeFloorplan) {
+        generatorName = "FloorplanGenerator";
+        glLineWidth(0.5);
+        glEnable(GL_NORMALIZE);
+        glPushMatrix();
+        glTranslatef(400, 400, 0);
+        glScalef(8.0, 8.0, 8.0);
+        glCallList(drawListIndex);
+        glPopMatrix();
     } else if (mode == GeneratorTypeMesh) {
         generatorName = "MeshGenerator";
         cam.begin();
@@ -465,6 +492,16 @@ void DemoLSystemApp::updateMesh() {
         mesh = result->mesh;
         
         cam.setTarget(getMeshCenter(mesh));
+    } else if (mode == GeneratorTypeFloorplan) {
+        
+        glNewList(drawListIndex, GL_COMPILE);
+        
+        FloorplanGeneratorState state;
+        state.position = ofVec2f(0, 0);
+        state.results.reset(new vector<Space>());
+        floorplan_gen.generate(system, state, iterations);
+        
+        glEndList();
     }
 }
 

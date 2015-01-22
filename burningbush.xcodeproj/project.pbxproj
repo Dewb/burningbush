@@ -30,6 +30,7 @@
 		5BCB2DF11A6DF4130042DFF4 /* CreEPS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BCB2DED1A6DF4130042DFF4 /* CreEPS.cpp */; };
 		5BCB2DF71A6F07D90042DFF4 /* LineGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BCB2DF51A6F07D90042DFF4 /* LineGenerator.cpp */; };
 		5BDC7D011A70866D00CA5097 /* VectorFileMeshResult.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BDC7CFF1A70866D00CA5097 /* VectorFileMeshResult.cpp */; };
+		5BDC7D041A717D1E00CA5097 /* FloorplanGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BDC7D021A717D1E00CA5097 /* FloorplanGenerator.cpp */; };
 		5BE87C2D1A5C58A300C819C3 /* ParagraphFormatter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BE87C2B1A5C58A300C819C3 /* ParagraphFormatter.cpp */; };
 		5BEC72481A70754F00894162 /* ofMeshResult.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC72461A70754F00894162 /* ofMeshResult.cpp */; };
 		66810C01C7565033ADB09359 /* ofxLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCE74B76815262F7E72DB951 /* ofxLabel.cpp */; };
@@ -164,6 +165,8 @@
 		5BCB2DF61A6F07D90042DFF4 /* LineGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineGenerator.h; sourceTree = "<group>"; };
 		5BDC7CFF1A70866D00CA5097 /* VectorFileMeshResult.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VectorFileMeshResult.cpp; sourceTree = "<group>"; };
 		5BDC7D001A70866D00CA5097 /* VectorFileMeshResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VectorFileMeshResult.h; sourceTree = "<group>"; };
+		5BDC7D021A717D1E00CA5097 /* FloorplanGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FloorplanGenerator.cpp; sourceTree = "<group>"; };
+		5BDC7D031A717D1E00CA5097 /* FloorplanGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FloorplanGenerator.h; sourceTree = "<group>"; };
 		5BE87C2B1A5C58A300C819C3 /* ParagraphFormatter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParagraphFormatter.cpp; sourceTree = "<group>"; };
 		5BE87C2C1A5C58A300C819C3 /* ParagraphFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParagraphFormatter.h; sourceTree = "<group>"; };
 		5BEC72461A70754F00894162 /* ofMeshResult.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofMeshResult.cpp; sourceTree = "<group>"; };
@@ -449,6 +452,8 @@
 				5BEC72461A70754F00894162 /* ofMeshResult.cpp */,
 				5BDC7D001A70866D00CA5097 /* VectorFileMeshResult.h */,
 				5BDC7CFF1A70866D00CA5097 /* VectorFileMeshResult.cpp */,
+				5BDC7D021A717D1E00CA5097 /* FloorplanGenerator.cpp */,
+				5BDC7D031A717D1E00CA5097 /* FloorplanGenerator.h */,
 			);
 			name = generators;
 			sourceTree = "<group>";
@@ -765,6 +770,7 @@
 				66810C01C7565033ADB09359 /* ofxLabel.cpp in Sources */,
 				5BB4E6191A4D355D0047F957 /* SyphonNameboundClient.m in Sources */,
 				181852019B0A9DEA7D78D274 /* ofxPanel.cpp in Sources */,
+				5BDC7D041A717D1E00CA5097 /* FloorplanGenerator.cpp in Sources */,
 				EE0AFEED578C90CDB485FBB7 /* ofxSlider.cpp in Sources */,
 				5BE87C2D1A5C58A300C819C3 /* ParagraphFormatter.cpp in Sources */,
 				0B79D1370C521A99743B84F8 /* ofxSliderGroup.cpp in Sources */,
