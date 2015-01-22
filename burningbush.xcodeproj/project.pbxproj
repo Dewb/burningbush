@@ -419,6 +419,35 @@
 			path = ../of_v0.8.4_osx_release/addons/ofxVectorGraphics/libs;
 			sourceTree = "<group>";
 		};
+		5BEC72491A70803500894162 /* app */ = {
+			isa = PBXGroup;
+			children = (
+				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
+				E4B69E1F0A3A1BDC003C02F2 /* DemoLSystemApp.h */,
+				E4B69E1E0A3A1BDC003C02F2 /* DemoLSystemApp.cpp */,
+				5BE87C2C1A5C58A300C819C3 /* ParagraphFormatter.h */,
+				5BE87C2B1A5C58A300C819C3 /* ParagraphFormatter.cpp */,
+				5BB4EA1C1A4EC2A40047F957 /* TurntableCam.h */,
+				5BB4EA1D1A4EC2A40047F957 /* TurntableCam.cpp */,
+			);
+			name = app;
+			sourceTree = "<group>";
+		};
+		5BEC724A1A70805B00894162 /* generators */ = {
+			isa = PBXGroup;
+			children = (
+				5BCB2DF61A6F07D90042DFF4 /* LineGenerator.h */,
+				5BCB2DF51A6F07D90042DFF4 /* LineGenerator.cpp */,
+				5B8CA1161A5643D300885B53 /* VectorFileGenerator.h */,
+				5B8CA1151A5643D300885B53 /* VectorFileGenerator.cpp */,
+				5BB4EA211A50B86D0047F957 /* MeshGenerator.h */,
+				5BB4EA201A50B86D0047F957 /* MeshGenerator.cpp */,
+				5BEC72471A70754F00894162 /* ofMeshResult.h */,
+				5BEC72461A70754F00894162 /* ofMeshResult.cpp */,
+			);
+			name = generators;
+			sourceTree = "<group>";
+		};
 		65F3085962B3A8825746C3C2 /* Syphon */ = {
 			isa = PBXGroup;
 			children = (
@@ -585,24 +614,11 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				5BCB2DF51A6F07D90042DFF4 /* LineGenerator.cpp */,
-				5BCB2DF61A6F07D90042DFF4 /* LineGenerator.h */,
-				5B8CA1151A5643D300885B53 /* VectorFileGenerator.cpp */,
-				5B8CA1161A5643D300885B53 /* VectorFileGenerator.h */,
-				5BB4EA1C1A4EC2A40047F957 /* TurntableCam.h */,
-				5BB4EA1D1A4EC2A40047F957 /* TurntableCam.cpp */,
-				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
-				E4B69E1E0A3A1BDC003C02F2 /* DemoLSystemApp.cpp */,
-				E4B69E1F0A3A1BDC003C02F2 /* DemoLSystemApp.h */,
-				5BB4E61A1A4D35770047F957 /* LSystem.cpp */,
+				5BEC72491A70803500894162 /* app */,
+				5BEC724A1A70805B00894162 /* generators */,
 				5BB4E61B1A4D35770047F957 /* LSystem.h */,
-				5BB4EA201A50B86D0047F957 /* MeshGenerator.cpp */,
-				5BB4EA211A50B86D0047F957 /* MeshGenerator.h */,
+				5BB4E61A1A4D35770047F957 /* LSystem.cpp */,
 				5B8B8A771A5B4DC7007F24F6 /* LSystemGenerator.h */,
-				5BE87C2B1A5C58A300C819C3 /* ParagraphFormatter.cpp */,
-				5BE87C2C1A5C58A300C819C3 /* ParagraphFormatter.h */,
-				5BEC72461A70754F00894162 /* ofMeshResult.cpp */,
-				5BEC72471A70754F00894162 /* ofMeshResult.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
