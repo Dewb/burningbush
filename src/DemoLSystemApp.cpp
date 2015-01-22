@@ -1,6 +1,7 @@
 #include "DemoLSystemApp.h"
 #include "ParagraphFormatter.h"
 #include "ofMeshResult.h"
+#include "VectorFileMeshResult.h"
 
 
 //--------------------------------------------------------------
@@ -376,15 +377,14 @@ void DemoLSystemApp::saveVectorFile() {
     
     int iterations = fmax(0.0, system.getProperty("N") + iterationAdjustment);
     
+    auto fileResult = ofSystemSaveDialog(system.getTitle(), "Save EPS file");
+    if (!fileResult.bSuccess) {
+        return;
+    }
+    
     if (mode == GeneratorTypeLine) {
-        
-        auto result = ofSystemSaveDialog(system.getTitle(), "Save EPS file");
-        if (!result.bSuccess) {
-            return;
-        }
-        
         VectorFileGeneratorState state;
-        state.filename = result.getPath();
+        state.filename = fileResult.getPath();
         state.angle = system.getProperty("angle");
         state.edgeLength = system.getProperty("edgeLength");
         state.heading = 0;
@@ -398,6 +398,23 @@ void DemoLSystemApp::saveVectorFile() {
         
         ofSetLineWidth(0.75);
         vector_gen.generate(system, state, iterations);
+    } else if (mode == GeneratorTypeMesh) {
+        
+        MeshGeneratorState state;
+        state.left = state.heading.crossed(state.up);
+        state.angle = system.getProperty("angle");
+        state.segmentLength = system.getProperty("segmentLength");
+        state.segmentRadius = system.getProperty("segmentRadius");
+        if (system.hasProperty("colorBook") && system.getProperty("colorBook") < colorBooks.size()) {
+            state.colorBook = colorBooks[system.getProperty("colorBook")];
+        }
+        
+        auto result = new VectorFileMeshResult();
+        result->filename = fileResult.getPath();
+        result->scale = 500;
+        state.result.reset(result);
+        
+        mesh_gen.generate(system, state, iterations);
     }
 
 }

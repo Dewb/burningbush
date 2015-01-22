@@ -29,6 +29,7 @@
 		5BCB2DF01A6DF4130042DFF4 /* ofxVectorGraphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BCB2DEA1A6DF4130042DFF4 /* ofxVectorGraphics.cpp */; };
 		5BCB2DF11A6DF4130042DFF4 /* CreEPS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BCB2DED1A6DF4130042DFF4 /* CreEPS.cpp */; };
 		5BCB2DF71A6F07D90042DFF4 /* LineGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BCB2DF51A6F07D90042DFF4 /* LineGenerator.cpp */; };
+		5BDC7D011A70866D00CA5097 /* VectorFileMeshResult.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BDC7CFF1A70866D00CA5097 /* VectorFileMeshResult.cpp */; };
 		5BE87C2D1A5C58A300C819C3 /* ParagraphFormatter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BE87C2B1A5C58A300C819C3 /* ParagraphFormatter.cpp */; };
 		5BEC72481A70754F00894162 /* ofMeshResult.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC72461A70754F00894162 /* ofMeshResult.cpp */; };
 		66810C01C7565033ADB09359 /* ofxLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCE74B76815262F7E72DB951 /* ofxLabel.cpp */; };
@@ -161,6 +162,8 @@
 		5BCB2DEF1A6DF4130042DFF4 /* CreEPS_Types.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CreEPS_Types.hpp; sourceTree = "<group>"; };
 		5BCB2DF51A6F07D90042DFF4 /* LineGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LineGenerator.cpp; sourceTree = "<group>"; };
 		5BCB2DF61A6F07D90042DFF4 /* LineGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineGenerator.h; sourceTree = "<group>"; };
+		5BDC7CFF1A70866D00CA5097 /* VectorFileMeshResult.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VectorFileMeshResult.cpp; sourceTree = "<group>"; };
+		5BDC7D001A70866D00CA5097 /* VectorFileMeshResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VectorFileMeshResult.h; sourceTree = "<group>"; };
 		5BE87C2B1A5C58A300C819C3 /* ParagraphFormatter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParagraphFormatter.cpp; sourceTree = "<group>"; };
 		5BE87C2C1A5C58A300C819C3 /* ParagraphFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParagraphFormatter.h; sourceTree = "<group>"; };
 		5BEC72461A70754F00894162 /* ofMeshResult.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofMeshResult.cpp; sourceTree = "<group>"; };
@@ -444,6 +447,8 @@
 				5BB4EA201A50B86D0047F957 /* MeshGenerator.cpp */,
 				5BEC72471A70754F00894162 /* ofMeshResult.h */,
 				5BEC72461A70754F00894162 /* ofMeshResult.cpp */,
+				5BDC7D001A70866D00CA5097 /* VectorFileMeshResult.h */,
+				5BDC7CFF1A70866D00CA5097 /* VectorFileMeshResult.cpp */,
 			);
 			name = generators;
 			sourceTree = "<group>";
@@ -777,6 +782,7 @@
 				B8ECA4BE5ACC7E2DD8A4BB45 /* GLDebugDrawer.cpp in Sources */,
 				8201A890AD02970095ED78A5 /* ofxBulletBaseShape.cpp in Sources */,
 				5B8CA1171A5643D300885B53 /* VectorFileGenerator.cpp in Sources */,
+				5BDC7D011A70866D00CA5097 /* VectorFileMeshResult.cpp in Sources */,
 				5BCB2DF71A6F07D90042DFF4 /* LineGenerator.cpp in Sources */,
 				BFFA2CF9BFC1126CD1EE7E6C /* ofxBulletBox.cpp in Sources */,
 				0C303DF99B91B8BFBAAFD887 /* ofxBulletCapsule.cpp in Sources */,
