@@ -94,7 +94,7 @@ MeshGeneratorState::MeshGeneratorState(const MeshGeneratorState& other) {
     colorBook = other.colorBook;
     currentColor = other.currentColor;
     currentColorSeries = other.currentColorSeries;
-    mesh = other.mesh;
+    result = other.result;
     // pointHistory not copied
     // colorHistory not copied
     inPolygonNode = false;
@@ -110,62 +110,6 @@ ofColor MeshGeneratorState::getCurrentColor() {
     }
 }
 
-namespace {
-    
-    void mergeIntoMesh(ofMesh& target, const ofMesh& newMesh, const ofMatrix4x4& transform) {
-        int startIndex = target.getVertices().size();
-        for (auto& index : newMesh.getIndices()) {
-            target.addIndex(index + startIndex);
-        }
-        for (auto& v : newMesh.getVertices()) {
-            target.addVertex(v * transform);
-        }
-        for (auto& c : newMesh.getColors()) {
-            target.addColor(c);
-        }
-    }
-    
-    void addSegmentToMesh(ofPtr<ofMesh> mesh, const ofVec3f& pt1, const ofVec3f& pt2, float radius, const ofColor& color) {
-        float length = (pt1 - pt2).length();
-        ofMesh segmentMesh = ofMesh::cylinder(radius, length, 8, 1, 2, true, OF_PRIMITIVE_TRIANGLES);
-        for (auto& v : segmentMesh.getVertices()) {
-            segmentMesh.addColor(color);
-        }
-
-        ofMatrix4x4 shiftOrigin;
-        shiftOrigin.makeTranslationMatrix(ofVec3f(0, length * 0.5, 0));
-        ofMatrix4x4 orient;
-        orient.makeRotationMatrix(ofVec3f(0, 1, 0), pt2 - pt1);
-        orient.translate(pt1);
-        mergeIntoMesh(*(mesh.get()), segmentMesh, shiftOrigin * orient);
-    }
-
-    void addTriangleToMesh(ofPtr<ofMesh> mesh, const ofVec3f& a, const ofVec3f& b, const ofVec3f& c,
-                           const ofColor& color1, const ofColor& color2, const ofColor& color3) {
-        unsigned start = mesh->getVertices().size();
-        mesh->addIndex(start + 0);
-        mesh->addIndex(start + 1);
-        mesh->addIndex(start + 2);
-        mesh->addVertex(a);
-        mesh->addVertex(b);
-        mesh->addVertex(c);
-        mesh->addColor(color1);
-        mesh->addColor(color2);
-        mesh->addColor(color3);
-    }
-    
-    void addPolygonToMesh(ofPtr<ofMesh> mesh, const vector<ofVec3f>& polyPoints, const vector<ofColor>& colors) {
-        auto points = polyPoints;
-        if (points.back() != points.front()) {
-            points.push_back(points.front());
-        }
-        for (int i = 1; i < points.size() - 1; i++) {
-            addTriangleToMesh(mesh, points[0], points[i], points[i + 1],
-                                    colors[0], colors[i], colors[i + 1]);
-        }
-    }
-    
-}
 
 namespace {
     
@@ -177,7 +121,9 @@ namespace {
         ofVec3f previous = state.position;
         forward(state);
         if (!state.inPolygonNode) {
-            addSegmentToMesh(state.mesh, state.position, previous, state.segmentRadius, state.getCurrentColor());
+            if (state.result) {
+                state.result->addSegment(state.position, previous, state.segmentRadius, state.getCurrentColor());
+            }
         } else {
             state.pointHistory.push_back(state.position);
             state.colorHistory.push_back(state.getCurrentColor());
@@ -251,7 +197,9 @@ namespace {
     }
 
     void end_polygon(MeshGeneratorState& state) {
-        addPolygonToMesh(state.mesh, state.pointHistory, state.colorHistory);
+        if (state.result) {
+            state.result->addPolygon(state.pointHistory, state.colorHistory);
+        }
     }
 
 }
@@ -279,12 +227,13 @@ MeshGenerator::MeshGenerator() {
 }
 
 void MeshGenerator::begin(MeshGeneratorState& state) {
-    state.mesh.reset(new ofMesh());
-    state.mesh->setMode(OF_PRIMITIVE_TRIANGLES);
-    state.mesh->enableIndices();
-    state.mesh->enableColors();
+    if (state.result) {
+        state.result->begin();
+    }
 }
 
 void MeshGenerator::end(MeshGeneratorState& state) {
-    //state.mesh->mergeDuplicateVertices();
+    if (state.result) {
+        state.result->end();
+    }
 }

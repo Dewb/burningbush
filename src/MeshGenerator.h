@@ -10,7 +10,7 @@
 #define __burningbush__MeshGenerator__
 
 #include "LSystemGenerator.h"
-#include <ofMesh.h>
+#include <ofTypes.h>
 
 class ColorBook {
 public:
@@ -24,6 +24,14 @@ public:
     int getNumColors(int series) const;
 protected:
     vector<vector<ofColor> > colors;
+};
+
+class MeshResult {
+public:
+    virtual void addSegment(const ofVec3f& pt1, const ofVec3f& pt2, float radius, const ofColor& color) = 0;
+    virtual void addPolygon(const vector<ofVec3f>& polyPoints, const vector<ofColor>& colors) = 0;
+    virtual void begin() {}
+    virtual void end() {}
 };
 
 class MeshGeneratorState {
@@ -49,14 +57,14 @@ public:
     ofColor getCurrentColor();
     bool inPolygonNode;
     
-    ofPtr<ofMesh> mesh;
+    ofPtr<MeshResult> result;
 };
 
 class MeshGenerator : public Generator<MeshGeneratorState> {
 public:
     MeshGenerator();
     virtual void begin(MeshGeneratorState& state);
-    virtual void end(MeshGeneratorState& state);    
+    virtual void end(MeshGeneratorState& state);
 };
 
 #endif /* defined(__burningbush__MeshGenerator__) */

@@ -1,5 +1,6 @@
 #include "DemoLSystemApp.h"
 #include "ParagraphFormatter.h"
+#include "ofMeshResult.h"
 
 
 //--------------------------------------------------------------
@@ -440,8 +441,11 @@ void DemoLSystemApp::updateMesh() {
             state.colorBook = colorBooks[system.getProperty("colorBook")];
         }
         
+        auto result = new ofMeshResult();
+        state.result.reset(result);
+        
         mesh_gen.generate(system, state, iterations);
-        mesh = state.mesh;
+        mesh = result->mesh;
         
         cam.setTarget(getMeshCenter(mesh));
     }

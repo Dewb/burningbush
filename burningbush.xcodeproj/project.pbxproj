@@ -30,6 +30,7 @@
 		5BCB2DF11A6DF4130042DFF4 /* CreEPS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BCB2DED1A6DF4130042DFF4 /* CreEPS.cpp */; };
 		5BCB2DF71A6F07D90042DFF4 /* LineGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BCB2DF51A6F07D90042DFF4 /* LineGenerator.cpp */; };
 		5BE87C2D1A5C58A300C819C3 /* ParagraphFormatter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BE87C2B1A5C58A300C819C3 /* ParagraphFormatter.cpp */; };
+		5BEC72481A70754F00894162 /* ofMeshResult.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC72461A70754F00894162 /* ofMeshResult.cpp */; };
 		66810C01C7565033ADB09359 /* ofxLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCE74B76815262F7E72DB951 /* ofxLabel.cpp */; };
 		7EFCFE727D9DE492780174E1 /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B4FBB646797B9F2C403446BE /* ofxXmlSettings.cpp */; };
 		8201A890AD02970095ED78A5 /* ofxBulletBaseShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B07AF4D8A881DD5FA79B405A /* ofxBulletBaseShape.cpp */; };
@@ -162,6 +163,8 @@
 		5BCB2DF61A6F07D90042DFF4 /* LineGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineGenerator.h; sourceTree = "<group>"; };
 		5BE87C2B1A5C58A300C819C3 /* ParagraphFormatter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParagraphFormatter.cpp; sourceTree = "<group>"; };
 		5BE87C2C1A5C58A300C819C3 /* ParagraphFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParagraphFormatter.h; sourceTree = "<group>"; };
+		5BEC72461A70754F00894162 /* ofMeshResult.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofMeshResult.cpp; sourceTree = "<group>"; };
+		5BEC72471A70754F00894162 /* ofMeshResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofMeshResult.h; sourceTree = "<group>"; };
 		5DB652E32897B769172551DF /* ofxBulletWorldRigid.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxBulletWorldRigid.h; path = ../of_v0.8.4_osx_release/addons/ofxBullet/src/ofxBulletWorldRigid.h; sourceTree = SOURCE_ROOT; };
 		5F2D8B8933F63261A069EC98 /* ofxBulletCollisionData.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxBulletCollisionData.h; path = ../of_v0.8.4_osx_release/addons/ofxBullet/src/events/ofxBulletCollisionData.h; sourceTree = SOURCE_ROOT; };
 		611C077288D9FB517864116E /* ofxBulletCapsule.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxBulletCapsule.cpp; path = ../of_v0.8.4_osx_release/addons/ofxBullet/src/shapes/ofxBulletCapsule.cpp; sourceTree = SOURCE_ROOT; };
@@ -598,6 +601,8 @@
 				5B8B8A771A5B4DC7007F24F6 /* LSystemGenerator.h */,
 				5BE87C2B1A5C58A300C819C3 /* ParagraphFormatter.cpp */,
 				5BE87C2C1A5C58A300C819C3 /* ParagraphFormatter.h */,
+				5BEC72461A70754F00894162 /* ofMeshResult.cpp */,
+				5BEC72471A70754F00894162 /* ofMeshResult.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -732,6 +737,7 @@
 			files = (
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* DemoLSystemApp.cpp in Sources */,
+				5BEC72481A70754F00894162 /* ofMeshResult.cpp in Sources */,
 				C9893715C4B972F7387711FD /* ofxBaseGui.cpp in Sources */,
 				DE407E9EE9F292F730D30FEF /* ofxButton.cpp in Sources */,
 				1E5FEDF788EB25A15DC2460C /* ofxGuiGroup.cpp in Sources */,
