@@ -248,6 +248,8 @@ void DemoLSystemApp::setup() {
     ofEnableAlphaBlending();
     ofEnableAntiAliasing();
     ofSetSmoothLighting(true);
+    ofBackground(0, 0, 80);
+    ofSetBackgroundAuto(false);
     
     polyRenderMode = OF_MESH_FILL;
     
@@ -265,6 +267,7 @@ void DemoLSystemApp::setup() {
     drawListIndex = glGenLists(1);
     
     currentSystem = 0;
+    
     updateMesh();
 }
 
@@ -295,6 +298,13 @@ void DemoLSystemApp::update(){
 
 //--------------------------------------------------------------
 void DemoLSystemApp::draw(){
+    if (!viewDirty)
+        return;
+    
+    // First two draw calls seem to be ineffective, for some reason
+    if (ofGetElapsedTimeMillis() > 400)
+        viewDirty = false;
+    
     ofBackground(0, 0, 80);
     ofSetColor(200, 200, 180);
     
@@ -466,6 +476,8 @@ void DemoLSystemApp::updateMesh() {
         
         cam.setTarget(getMeshCenter(mesh));
     }
+    
+    viewDirty = true;
 }
 
 //--------------------------------------------------------------
@@ -485,6 +497,7 @@ void DemoLSystemApp::keyPressed(int key){
         } else if (polyRenderMode == OF_MESH_WIREFRAME) {
             polyRenderMode = OF_MESH_POINTS;
         }
+        viewDirty = true;
     } else if (key == '+') {
         iterationAdjustment++;
         updateMesh();
@@ -512,16 +525,19 @@ void DemoLSystemApp::mouseMoved(int x, int y ){
 //--------------------------------------------------------------
 void DemoLSystemApp::mouseDragged(int x, int y, int button){
     cam.mouseDragged(x, y, button);
+    viewDirty = true;
 }
 
 //--------------------------------------------------------------
 void DemoLSystemApp::mousePressed(int x, int y, int button){
     cam.mousePressed(x, y, button);
+    viewDirty = true;
 }
 
 //--------------------------------------------------------------
 void DemoLSystemApp::mouseReleased(int x, int y, int button){
     cam.mouseReleased(x, y, button);
+    viewDirty = true;
 }
 
 //--------------------------------------------------------------
