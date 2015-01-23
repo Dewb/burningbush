@@ -41,14 +41,16 @@ public:
 
     ofxTurntableCam cam;
     ofPolyRenderMode polyRenderMode;
-
+    bool viewDirty;
+    
     unsigned int drawListIndex;
-    ofPtr<ofMesh> mesh;
     ofLight headlight;
     ofMaterial material;
     ofPtr<ofTrueTypeFont> normalFont;
     ofPtr<ofTrueTypeFont> smallFont;
 
+    ofPtr<ofMesh> mesh;
+    
     LineGenerator line_gen;
     MeshGenerator mesh_gen;
     VectorFileGenerator vector_gen;
