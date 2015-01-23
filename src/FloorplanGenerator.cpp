@@ -96,7 +96,8 @@ namespace {
                 < (space1.getWorldDimensions()[1] + space2.getWorldDimensions()[1]));
     }
     
-    void positionSpaceRelativeToOtherSpace(Space& space, Space& otherSpace, const ofVec2f& moveVec)  {
+    void positionSpaceRelativeToOtherSpace(Space& space, Space& otherSpace,
+                                           const ofVec2f& moveVec, const ofVec2f& previousMoveVec)  {
         float minX = (otherSpace.getWorldDimensions()[0] + space.getWorldDimensions()[0]) / 2;
         float minY = (otherSpace.getWorldDimensions()[1] + space.getWorldDimensions()[1]) / 2;
         float tx = fabs(minX / moveVec[0]);
@@ -105,24 +106,22 @@ namespace {
         float dy = moveVec[1] * min(tx, ty);
         
         space.setPosition(otherSpace.getPosition()[0] + dx, otherSpace.getPosition()[1] + dy);
-       /*
+       
         if ((otherSpace.function == "Hall" && space.function == "Hall") &&
             (otherSpace.getWorldDimensions()[0] == space.getWorldDimensions()[1] ||
              otherSpace.getWorldDimensions()[1] == space.getWorldDimensions()[0])) {
                 
-            auto connectResult = whereDoSpacesConnect(otherSpace, space);
-            if (!connectResult.connected) {
-                if (fabs(moveVec[0]) > fabs(moveVec[1])) {
-                    dx += otherSpace.getWorldDimensions()[0] * (moveVec[0] > 0 ? -1 : 1);
-                } else {
-                    dy += otherSpace.getWorldDimensions()[1] * (moveVec[1] > 0 ? -1 : 1);
-                }
-        
-                space.setPosition(snapScalar(otherSpace.getPosition()[0] + dx),
-                                  snapScalar(otherSpace.getPosition()[1] + dy));
+            if (fabs(moveVec[0]) > fabs(moveVec[1])) {
+                dy += 0.5 * (otherSpace.getWorldDimensions()[1] - space.getWorldDimensions()[1])
+                        * (previousMoveVec[1] < 0 ? -1 : 1);
+            } else {
+                dx += 0.5 * (otherSpace.getWorldDimensions()[0] - space.getWorldDimensions()[0])
+                        * (previousMoveVec[0] < 0 ? -1 : 1);
             }
+
+            space.setPosition(otherSpace.getPosition()[0] + dx,
+                              otherSpace.getPosition()[1] + dy);
         }
-        */
         
         if (doSpacesOverlap(space, otherSpace)) {
             ofLog() << "Placement failed to prevent overlap";
@@ -138,7 +137,9 @@ namespace {
             
             if (state.results->size()) {
                 ofVec2f headingVec(cos(state.heading * DEG_TO_RAD), sin(state.heading * DEG_TO_RAD));
-                positionSpaceRelativeToOtherSpace(space, state.results->at(state.lastSpaceIndex), headingVec);
+                ofVec2f previousHeadingVec(cos(state.previousHeading * DEG_TO_RAD), sin(state.previousHeading * DEG_TO_RAD));
+                positionSpaceRelativeToOtherSpace(space, state.results->at(state.lastSpaceIndex),
+                                                  headingVec, previousHeadingVec);
             }
 
             state.results->push_back(space);
@@ -194,10 +195,12 @@ namespace {
     }
     
     void rotate_cw(FloorplanGeneratorState& state) {
+        state.previousHeading = state.heading;
         state.heading = fmod(state.heading + state.angle, 360.0f);
     }
     
     void rotate_ccw(FloorplanGeneratorState& state) {
+        state.previousHeading = state.heading;
         state.heading = fmod(state.heading - state.angle, 360.0f);
     }
     

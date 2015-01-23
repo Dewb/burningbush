@@ -35,6 +35,7 @@ public:
     float angle;
     
     float heading;
+    float previousHeading;
     ofVec2f position;
     ofVec2f previousPosition;
     
