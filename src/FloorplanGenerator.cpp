@@ -10,9 +10,15 @@
 #include "ofMain.h"
 //#include "ofxVectorGraphics.h"
 
+std::ostream& operator<<(std::ostream& os, const Space& space) {
+    os << "function:" << space.function << "dims: " << space.dimensions << " position: " << space.position;
+    return os;
+}
+
 namespace {
 
     //ofxVectorGraphics vectorGfx;
+
     
     struct ConnectionResult {
         ConnectionResult(bool v) : connected(v) {}
@@ -82,6 +88,14 @@ namespace {
         return round(val * 2) / 2;
     }
     
+    bool doSpacesOverlap(const Space& space1, const Space& space2) {
+        return
+            (fabs(space1.getPosition()[0] - space2.getPosition()[0]) * 2
+                < (space1.getWorldDimensions()[0] + space2.getWorldDimensions()[0])) &&
+            (fabs(space1.getPosition()[1] - space2.getPosition()[1]) * 2
+                < (space1.getWorldDimensions()[1] + space2.getWorldDimensions()[1]));
+    }
+    
     void positionSpaceRelativeToOtherSpace(Space& space, Space& otherSpace, const ofVec2f& moveVec)  {
         float minX = (otherSpace.getWorldDimensions()[0] + space.getWorldDimensions()[0]) / 2;
         float minY = (otherSpace.getWorldDimensions()[1] + space.getWorldDimensions()[1]) / 2;
@@ -90,7 +104,32 @@ namespace {
         float dx = moveVec[0] * min(tx, ty);
         float dy = moveVec[1] * min(tx, ty);
         
-        space.setPosition(snapScalar(otherSpace.getPosition()[0] + dx), snapScalar(otherSpace.getPosition()[1] + dy));
+        space.setPosition(otherSpace.getPosition()[0] + dx, otherSpace.getPosition()[1] + dy);
+       /*
+        if ((otherSpace.function == "Hall" && space.function == "Hall") &&
+            (otherSpace.getWorldDimensions()[0] == space.getWorldDimensions()[1] ||
+             otherSpace.getWorldDimensions()[1] == space.getWorldDimensions()[0])) {
+                
+            auto connectResult = whereDoSpacesConnect(otherSpace, space);
+            if (!connectResult.connected) {
+                if (fabs(moveVec[0]) > fabs(moveVec[1])) {
+                    dx += otherSpace.getWorldDimensions()[0] * (moveVec[0] > 0 ? -1 : 1);
+                } else {
+                    dy += otherSpace.getWorldDimensions()[1] * (moveVec[1] > 0 ? -1 : 1);
+                }
+        
+                space.setPosition(snapScalar(otherSpace.getPosition()[0] + dx),
+                                  snapScalar(otherSpace.getPosition()[1] + dy));
+            }
+        }
+        */
+        
+        if (doSpacesOverlap(space, otherSpace)) {
+            ofLog() << "Placement failed to prevent overlap";
+            ofLog() << "space " << space;
+            ofLog() << "other " << otherSpace;
+            ofLog() << "(" << moveVec << ") dx: " << dx << " dy: " << dy;
+        }
     }
     
     void addSpace(FloorplanGeneratorState& state, Space& space) {
@@ -98,12 +137,18 @@ namespace {
         if (state.results) {
             
             if (state.results->size()) {
-                positionSpaceRelativeToOtherSpace(space, state.results->at(state.lastSpaceIndex), state.heading);
+                ofVec2f headingVec(cos(state.heading * DEG_TO_RAD), sin(state.heading * DEG_TO_RAD));
+                positionSpaceRelativeToOtherSpace(space, state.results->at(state.lastSpaceIndex), headingVec);
             }
 
             state.results->push_back(space);
             state.lastSpaceIndex = state.results->size() - 1;
         }
+        
+        ofPushStyle();
+        ofSetColor(ofColor::red);
+        ofLine(state.position.x, state.position.y, space.position.x, space.position.y);
+        ofPopStyle();
         
         state.position = space.position;
     }
@@ -118,11 +163,16 @@ namespace {
     }
 
     void place_horizontal_circulation(FloorplanGeneratorState& state) {
+        float length = 5;
+
         Space space;
         space.function = "Hall";
-        space.dimensions.x = 5;
-        space.dimensions.y = state.circulationWidth;
+        ofVec2f headingVec(cos(state.heading * DEG_TO_RAD), sin(state.heading * DEG_TO_RAD));
+        ofVec2f headingNormal(headingVec.y, -headingVec.x);
+        space.dimensions.x = fabs(headingVec[0] * length) + fabs(headingNormal[0] * state.circulationWidth);
+        space.dimensions.y = fabs(headingVec[1] * length) + fabs(headingNormal[1] * state.circulationWidth);
         space.isCirculation = true;
+        
         addSpace(state, space);
     }
 
@@ -144,18 +194,18 @@ namespace {
     }
     
     void rotate_cw(FloorplanGeneratorState& state) {
-        state.heading.rotate(state.angle);
+        state.heading = fmod(state.heading + state.angle, 360.0f);
     }
     
     void rotate_ccw(FloorplanGeneratorState& state) {
-        state.heading.rotate(-state.angle);
+        state.heading = fmod(state.heading - state.angle, 360.0f);
     }
     
 }
 
 FloorplanGeneratorState::FloorplanGeneratorState()
 : angle(90)
-, heading(0, 1)
+, heading(0)
 , position(0, 0)
 , lastSpaceIndex(0)
 , circulationWidth(2.5)
@@ -185,6 +235,7 @@ void FloorplanGenerator::end(FloorplanGeneratorState& state) {
                        space.position.y - space.dimensions.y / 2.0,
                        space.dimensions.x,
                        space.dimensions.y);
+        ofLog() << space;
     }
 }
 

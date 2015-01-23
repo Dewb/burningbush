@@ -22,6 +22,7 @@ public:
     ofVec2f getPosition() const { return position; }
     ofVec2f getWorldDimensions() const { return dimensions; }
 };
+std::ostream& operator<<(std::ostream& os, const Space& space);
 
 typedef pair<Space, int> SpaceRequirement;
 typedef vector<SpaceRequirement> SpaceRequirementList;
@@ -33,7 +34,7 @@ public:
     
     float angle;
     
-    ofVec2f heading;
+    float heading;
     ofVec2f position;
     ofVec2f previousPosition;
     
