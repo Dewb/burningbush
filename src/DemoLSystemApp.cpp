@@ -15,12 +15,13 @@ void DemoLSystemApp::createSystems() {
     system.addRule("B", "P_dS", 0.15);
     system.addRule("B", "P_lS", 0.15);
     system.addRule("B", "P_rS", 0.15);
-    system.addRule("P_d", "C_n[+F][-F]P_d", 0.9);
-    system.addRule("P_d", "C_n[+F][-F]+P_l", 0.1);
+    system.addRule("P_d", "C[+F][-F]P_d", 0.9);
+    system.addRule("P_d", "C[+F][-F]-P_l", 0.05);
+    system.addRule("P_d", "C[+F][-F]+P_r", 0.05);
     system.addRule("P_l", "C_n[+F]P_l", 0.9);
-    system.addRule("P_l", "C_n[+F]+P_r", 0.1);
+    system.addRule("P_l", "C_n[+F]-P_d", 0.1);
     system.addRule("P_r", "C_n[-F]P_r", 0.9);
-    system.addRule("P_r", "C_n[-F]-P_d", 0.1);
+    system.addRule("P_r", "C_n[-F]+P_d", 0.1);
     system.addRule("C_n", "+C", 0.2);
     system.addRule("C_n", "-C", 0.2);
     system.addRule("C_n", "C", 0.6);

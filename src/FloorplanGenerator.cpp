@@ -157,7 +157,7 @@ namespace {
     void place_entry(FloorplanGeneratorState& state) {
         Space space;
         space.function = "Entry";
-        space.dimensions.x = 10;
+        space.dimensions.x = 12.5;
         space.dimensions.y = 5;
         space.isCirculation = true;
         addSpace(state, space);
