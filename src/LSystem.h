@@ -49,7 +49,7 @@ public:
     
     RuleString leftContext;
     RuleString rightContext;
-        
+    
     float probability;
     
     bool isStochastic() const   {
@@ -104,15 +104,11 @@ protected:
     RuleSet rules;
     RuleString ignoreContext;
     
-    template <typename Iter>
-    bool contextMatches(const Iter& contextBegin, const Iter& contextEnd,
-                        const Iter& stringBegin, const Iter& stringEnd,
-                        bool reversed, bool followBranches, int* pTrunkLength = NULL) const;
-    void getMatchingRules(const RuleString& current, const RuleString::iterator& currentPos, ProductionRuleGroup& matched);
-    
     map<string, float> properties;
     unsigned seed;
     string title;
+    
+    friend class LSystemRulesEngine;
 };
 
 string to_string(const ProductionRule& prod);

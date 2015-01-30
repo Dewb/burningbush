@@ -16,6 +16,8 @@
 		412B10C711B4D0F417FA6622 /* ofxSyphonClient.mm in Sources */ = {isa = PBXBuildFile; fileRef = FCE7A187CCD1B6E0DCBA3011 /* ofxSyphonClient.mm */; };
 		495F8C52F365D1DCF4215EC7 /* ofxBulletCone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D934E1FF36AC015DB7170864 /* ofxBulletCone.cpp */; };
 		56AA5CFEAFD9FE4144118BE6 /* ofxBulletConvexShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1DCFABF82FBE21C9201C177F /* ofxBulletConvexShape.cpp */; };
+		5B0CE2841A7B18F3008A2E22 /* LSystemRulesEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B0CE2821A7B18F3008A2E22 /* LSystemRulesEngine.cpp */; };
+		5B0CE2851A7B18F3008A2E22 /* LSystemRulesEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B0CE2821A7B18F3008A2E22 /* LSystemRulesEngine.cpp */; };
 		5B25A82A1A70676F00691C35 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B8B64C71A5A9BAA006F6EB9 /* main.cpp */; };
 		5B8B8A741A5AB814007F24F6 /* LSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BB4E61A1A4D35770047F957 /* LSystem.cpp */; };
 		5B8B8A751A5AB817007F24F6 /* libgtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B8B8A601A5AADC8007F24F6 /* libgtest.a */; };
@@ -141,6 +143,8 @@
 		577BC5F79506C3E1848ED723 /* tinyxml.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = tinyxml.h; path = ../of_v0.8.4_osx_release/addons/ofxXmlSettings/libs/tinyxml.h; sourceTree = SOURCE_ROOT; };
 		579E2D74470CB3A8F41E7772 /* ofxAutoReloadedShader.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxAutoReloadedShader.cpp; path = ../of_v0.8.4_osx_release/addons/ofxAutoReloadedShader/src/ofxAutoReloadedShader.cpp; sourceTree = SOURCE_ROOT; };
 		59C3D07D400A49BA386A1DC1 /* ofxBulletCapsule.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxBulletCapsule.h; path = ../of_v0.8.4_osx_release/addons/ofxBullet/src/shapes/ofxBulletCapsule.h; sourceTree = SOURCE_ROOT; };
+		5B0CE2821A7B18F3008A2E22 /* LSystemRulesEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LSystemRulesEngine.cpp; sourceTree = "<group>"; };
+		5B0CE2831A7B18F3008A2E22 /* LSystemRulesEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSystemRulesEngine.h; sourceTree = "<group>"; };
 		5B8B64C71A5A9BAA006F6EB9 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		5B8B8A601A5AADC8007F24F6 /* libgtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgtest.a; path = "Dependencies/gtest-1.7.0/lib/osx/libgtest.a"; sourceTree = SOURCE_ROOT; };
 		5B8B8A761A5AB8CE007F24F6 /* LSystemUnitTests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LSystemUnitTests; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -624,6 +628,8 @@
 				5BB4E61B1A4D35770047F957 /* LSystem.h */,
 				5BB4E61A1A4D35770047F957 /* LSystem.cpp */,
 				5B8B8A771A5B4DC7007F24F6 /* LSystemGenerator.h */,
+				5B0CE2821A7B18F3008A2E22 /* LSystemRulesEngine.cpp */,
+				5B0CE2831A7B18F3008A2E22 /* LSystemRulesEngine.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -747,6 +753,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B0CE2851A7B18F3008A2E22 /* LSystemRulesEngine.cpp in Sources */,
 				5B25A82A1A70676F00691C35 /* main.cpp in Sources */,
 				5B8B8A741A5AB814007F24F6 /* LSystem.cpp in Sources */,
 			);
@@ -783,6 +790,7 @@
 				8201A890AD02970095ED78A5 /* ofxBulletBaseShape.cpp in Sources */,
 				5B8CA1171A5643D300885B53 /* VectorFileGenerator.cpp in Sources */,
 				5BDC7D011A70866D00CA5097 /* VectorFileMeshResult.cpp in Sources */,
+				5B0CE2841A7B18F3008A2E22 /* LSystemRulesEngine.cpp in Sources */,
 				5BCB2DF71A6F07D90042DFF4 /* LineGenerator.cpp in Sources */,
 				BFFA2CF9BFC1126CD1EE7E6C /* ofxBulletBox.cpp in Sources */,
 				0C303DF99B91B8BFBAAFD887 /* ofxBulletCapsule.cpp in Sources */,
