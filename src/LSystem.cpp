@@ -163,7 +163,7 @@ RuleToken parseRuleToken(const string& str, int* pStartPosition = NULL) {
             }
         }
         if (parenLevel != 0) {
-            cout << "Unmatched parentheses in token!\n";
+            cout << "ERROR: Unmatched parentheses in token!\n";
         } else if (pos < str.size() + 1) {
             token.parameters.push_back(str.substr(startPos, pos - startPos - 1));
         }
