@@ -10,6 +10,7 @@ void DemoLSystemApp::createSystems() {
     LSystem system;
 
     system.reset();
+    system.setTitle("\"Row of Trees\" parametric OL-system from Mandlebrot 1982 (ABOP p.47)");
     system.setAxiom("F(1,0)");
     system.addRule("F(x,t)", "F(x*0.3,2)+F(x*0.45826,1)--F(x*0.45826,1)+F(x*0.7,0)").setCondition("t=0");
     system.addRule("F(x,t)", "F(x,t-1)").setCondition("t>0");
@@ -19,6 +20,7 @@ void DemoLSystemApp::createSystems() {
     systems.push_back(make_pair(system, GeneratorTypeLine));
     
     system.reset();
+    system.setTitle("2L-system from Hogeweg and Hesper 1974 (ABOP p.34)");
     system.setAxiom("F1F1F1");
     system.ignoreForContext("+-F");
     system.addRule("0", '0', "0", "0");
@@ -37,6 +39,7 @@ void DemoLSystemApp::createSystems() {
     systems.push_back(make_pair(system, GeneratorTypeLine));
     
     system.reset();
+    system.setTitle("2L-system from Hogeweg and Hesper 1974 (ABOP p.34)");
     system.setAxiom("F1F1F1");
     system.ignoreForContext("+-F");
     system.addRule("0", '0', "0", "1");
@@ -55,6 +58,7 @@ void DemoLSystemApp::createSystems() {
     systems.push_back(make_pair(system, GeneratorTypeLine));
     
     system.reset();
+    system.setTitle("2L-system from Hogeweg and Hesper 1974 (ABOP p.34)");
     system.setAxiom("F1F1F1");
     system.ignoreForContext("+-F");
     system.addRule("0", '0', "0", "0");
@@ -73,6 +77,7 @@ void DemoLSystemApp::createSystems() {
     systems.push_back(make_pair(system, GeneratorTypeLine));
     
     system.reset();
+    system.setTitle("Stochastic OL-system example (ABOP p.29)");
     system.setAxiom("F");
     system.addRule('F', "F[+F]F[-F]F", 0.333);
     system.addRule('F', "F[+F]F", 0.333);
@@ -83,6 +88,7 @@ void DemoLSystemApp::createSystems() {
     systems.push_back(make_pair(system, GeneratorTypeLine));
     
     system.reset();
+    system.setTitle("Branching OL-system example (ABOP p.25)");
     system.setAxiom("F");
     system.addRule('F', "FF-[-F+F+F]+[+F-F-F]");
     system.setProperty("N", 4);
@@ -91,6 +97,7 @@ void DemoLSystemApp::createSystems() {
     systems.push_back(make_pair(system, GeneratorTypeLine));
     
     system.reset();
+    system.setTitle("Branching OL-system example (ABOP p.25)");
     system.setAxiom("X");
     system.addRule('X', "F-[[X]+X]+F[+FX]-X");
     system.addRule('F', "FF");
@@ -100,6 +107,7 @@ void DemoLSystemApp::createSystems() {
     systems.push_back(make_pair(system, GeneratorTypeLine));
     
     system.reset();
+    system.setTitle("Hexagonal Gosper curve from Gardner 1976 (ABOP p.12)");
     system.setAxiom("F_l");
     system.addRule("F_l", "F_l+F_r++F_r-F_l--F_lF_l-F_r+");
     system.addRule("F_r", "-F_l+F_rF_r++F_r+F_l--F_l-F_r");
@@ -111,6 +119,7 @@ void DemoLSystemApp::createSystems() {
     systems.push_back(make_pair(system, GeneratorTypeLine));
     
     system.reset();
+    system.setTitle("Islands and lakes example from Mandlebrot 1982 (ABOP p.9)");
     system.setAxiom("F+F+F+F");
     system.addRule('F', "F+f-FF+F+FF+Ff+FF-f+FF-F-FF-Ff-FFF");
     system.addRule('f', "ffffff");
@@ -122,6 +131,7 @@ void DemoLSystemApp::createSystems() {
     systems.push_back(make_pair(system, GeneratorTypeLine));
     
     system.reset();
+    system.setTitle("Penrose Tiling method #1");
     system.setAxiom("[F_a]++[F_a]++[F_a]++[F_a]++[F_a]");
     system.addRule("F_a", "+F_b--F_d[---F_c--F_a]+");
     system.addRule("F_b", "-F_c++F_a[+++F_b++F_d]-");
@@ -150,6 +160,7 @@ void DemoLSystemApp::createSystems() {
     */
     
     system.reset();
+    system.setTitle("Penrose Tiling method #2");
     system.setAxiom("x");
     system.addRule("x", "@!+{F[|\"'y]--F['|x][|+@f#''x]---['''x]F--[\"''y]F}");
     system.addRule("y", "@!++{[\"x]F|+F[|'y]-[''y]F|+F[|\"'x]}");
@@ -163,6 +174,7 @@ void DemoLSystemApp::createSystems() {
 
     
     system.reset();
+    system.setTitle("3D example (ABOP p.26) with color and context modifications");
     system.setAxiom("A");
     system.ignoreForContext("&L!A/S'\"^+-`|");
     system.addRule('A', "[&FL!A]/////'[&FL!A]///////'[&FL!A]");
@@ -177,6 +189,7 @@ void DemoLSystemApp::createSystems() {
     systems.push_back(make_pair(system, GeneratorTypeMesh));
     
     system.reset();
+    system.setTitle("3D extension of Hilbert curve from Stevens/Lehar/Perston 1983 (ABOP p.20)");
     system.setAxiom("A");
     system.addRule('A', "B-F+CFC+F-D&F^D-F+&&CFC+F+B//");
     system.addRule('B', "A&F^CFB^F^D^^-F-D^|F^B|FC^F^A//");
@@ -190,6 +203,7 @@ void DemoLSystemApp::createSystems() {
     systems.push_back(make_pair(system, GeneratorTypeMesh));
     
     system.reset();
+    system.setTitle("3D stochastic example (ABOP p.27, p.30)");
     system.setAxiom("P");
     system.addRule('P', "I+[P+O]--//[--L]I[++L]-[PO]++PO");
     system.addRule('I', "FS[//&&L][//^^L]FS");
@@ -387,6 +401,7 @@ void DemoLSystemApp::draw(){
     para.restart(ofGetWidth() - 20, ofGetHeight() - 25, ParagraphFormatter::LowerRight);
     
     para.printLine("SPACE to cycle modes");
+    para.printLine("+/- to adjust iteration count");
     if (system.isStochastic()) {
         para.printLine("R to reseed stochastic system");
     }

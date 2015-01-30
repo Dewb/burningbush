@@ -256,6 +256,7 @@ void LSystem::reset() {
     rules.clear();
     properties.clear();
     axiom.clear();
+    title = "";
 }
 
 void LSystem::reseed(unsigned newSeed) {
