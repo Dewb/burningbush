@@ -11,9 +11,13 @@
 
 #include "LSystem.h"
 
+class ExpressionCache;
+
 class LSystemRulesEngine {
 public:
-    LSystemRulesEngine(LSystem* ls) : system(ls) {}
+    LSystemRulesEngine(LSystem* ls);
+    ~LSystemRulesEngine();
+    
     void getMatchingRules(const RuleString& current,
                           const RuleString::iterator& currentPos,
                           ProductionRuleGroup& matched);
@@ -22,6 +26,7 @@ public:
                            const RuleString& successor);
 protected:
     LSystem* system;
+    ExpressionCache* expressionCache;
 private:
     LSystemRulesEngine();
 };

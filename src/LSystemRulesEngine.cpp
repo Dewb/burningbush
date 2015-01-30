@@ -10,63 +10,101 @@
 #include "../lib/exprtk/exprtk.hpp"
 #include <iostream>
 
-typedef exprtk::symbol_table<double>    symbol_table_t;
-typedef exprtk::expression<double>        expression_t;
-typedef exprtk::parser<double>                parser_t;
-typedef typename parser_t::dependent_entity_collector::symbol_t symbol_t;
-
-
-float evaluateExpression(const RuleToken& predecessor, const RuleToken& tokenMatch, const string& exprString) {
+template <typename T>
+class ExpressionWrapper {
+public:
+    
+    string expressionString;
+    
+    typedef exprtk::symbol_table<T>     symbol_table_t;
+    typedef exprtk::expression<T>       expression_t;
+    typedef exprtk::parser<T>           parser_t;
+    typedef typename parser_t::dependent_entity_collector::symbol_t symbol_t;
+    
     parser_t parser;
     symbol_table_t symbol_table;
-    
     expression_t expression;
-    expression.register_symbol_table(symbol_table);
+    std::deque<symbol_t> symbol_list;
     
-    parser.dec().collect_variables() = true;
-    parser.enable_unknown_symbol_resolver();
+    bool isParsed;
+    bool isBound;
     
-    if (!parser.compile(exprString, expression)) {
-        cout << "Failed to compile expression: " << exprString << ", error: " << parser.error() << "\n";
+    ExpressionWrapper(string expr) {
+        expressionString = expr;
+        expression.register_symbol_table(symbol_table);
+        parser.dec().collect_variables() = true;
+        parser.enable_unknown_symbol_resolver();
+        isParsed = false;
+        isBound = false;
+        
+        if (!parser.compile(expressionString, expression)) {
+            cout << "Failed to compile expression: " << expressionString << ", error: " << parser.error() << "\n";
+            return;
+        }
+        
+        isParsed = true;
+        parser.dec().symbols(symbol_list);
     }
     
-    std::deque<symbol_t> symbol_list;
-    parser.dec().symbols(symbol_list);
-    
-    for (std::size_t i = 0; i < symbol_list.size(); ++i) {
-        symbol_t& symbol = symbol_list[i];
+    bool bind(const vector<string> formalParams, const vector<string> arguments) {
         
-        switch (symbol.second) {
-            case parser_t::e_st_variable:
-                {
-                    bool found = false;
-                    for (int i = 0; i < predecessor.parameters.size(); i++) {
-                        if (predecessor.parameters[i] == symbol.first) {
-                            float x;
-                            stringstream ss(tokenMatch.parameters[i]);
-                            ss >> x;
-                            if (ss.fail()) {
-                                cout << "ERROR: Argument " << tokenMatch.parameters[i] << " is non-numeric!\n";
-                                return false;
+        for (std::size_t i = 0; i < symbol_list.size(); ++i) {
+            symbol_t& symbol = symbol_list[i];
+            
+            switch (symbol.second) {
+                case parser_t::e_st_variable:
+                    {
+                        bool found = false;
+                        for (int i = 0; i < formalParams.size(); i++) {
+                            if (formalParams[i] == symbol.first) {
+                                T x;
+                                stringstream ss(arguments[i]);
+                                ss >> x;
+                                if (ss.fail()) {
+                                    cout << "ERROR: Argument " << arguments[i] << " is non-numeric!\n";
+                                    return false;
+                                }
+                                
+                                //cout << "Assigning " << symbol.first << " to " << x << "\n";
+                                symbol_table.variable_ref(symbol.first) = x;
+                                found = true;
                             }
-                            
-                            //cout << "Assigning " << symbol.first << " to " << x << "\n";
-                            symbol_table.variable_ref(symbol.first) = x;
-                            found = true;
+                        }
+                        if (!found) {
+                            cout << "ERROR: Unknown symbol " << symbol.first << " in expression " << expressionString << "\n";
+                            return false;
                         }
                     }
-                    if (!found) {
-                        cout << "ERROR: Unknown symbol " << symbol.first << " in expression " << exprString << "\n";
-                        return false;
-                    }
-                }
-                break;
-            default:
-                break;
+                    break;
+                default:
+                    break;
+            }
         }
+        
+        isBound = true;
+        return true;
     }
     
-    return expression.value();
+    T getValue() {
+        if (isParsed && isBound) {
+            return expression.value();
+        }
+    }
+};
+
+class ExpressionCache {
+public:
+    ExpressionCache(LSystem* ls) {}
+};
+
+float evaluateExpression(const RuleToken& predecessor, const RuleToken& tokenMatch, const string& exprString) {
+    ExpressionWrapper<float> ew(exprString);
+    if (ew.isParsed) {
+        if (ew.bind(predecessor.parameters, tokenMatch.parameters)) {
+            return ew.getValue();
+        }
+    }
+    return 0;
 }
 
 bool conditionMatches(const RuleToken& predecessor, const RuleToken& tokenMatch, const string& condition) {
@@ -75,6 +113,15 @@ bool conditionMatches(const RuleToken& predecessor, const RuleToken& tokenMatch,
     }
     
     return evaluateExpression(predecessor, tokenMatch, condition) != 0.0;
+}
+
+LSystemRulesEngine::LSystemRulesEngine(LSystem* ls) {
+    system = ls;
+    expressionCache = new ExpressionCache(ls);
+}
+
+LSystemRulesEngine::~LSystemRulesEngine() {
+    delete expressionCache;
 }
 
 RuleString LSystemRulesEngine::evaluateSuccessor(const RuleToken& predecessor, const RuleToken& tokenMatch, const RuleString& successor) {
