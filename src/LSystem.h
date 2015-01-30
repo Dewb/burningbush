@@ -72,6 +72,8 @@ public:
     bool isStochastic() const;
 };
 
+typedef vector<pair<int, ProductionRule> > IndexedProductionRuleGroup;
+
 typedef map<RuleToken, ProductionRuleGroup> RuleSet;
 
 class LSystem {

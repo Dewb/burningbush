@@ -284,7 +284,7 @@ RuleString LSystem::generate(int iterations, bool logging) {
     tr1::ranlux_base_01 generator(seed);
     tr1::uniform_real<float> distribution(0.0, 1.0);
 
-    ProductionRuleGroup matchedRules;
+    IndexedProductionRuleGroup matchedRules;
     Replacements replacements;
     LSystemRulesEngine engine(this);
     
@@ -299,31 +299,35 @@ RuleString LSystem::generate(int iterations, bool logging) {
             matchedRules.clear();
             engine.getMatchingRules(current, currentPos, matchedRules);
             if (matchedRules.size()) {
-                if (!matchedRules.isStochastic()) {
+                if (matchedRules.size() == 1) {
                     // Basic case: just one matching rule
+                    auto& rule = matchedRules[0].second;
+                    int ruleIndex = matchedRules[0].first;
                     if (logging) {
-                        cout << "Executing: " << matchedRules[0] << "\n";
+                        cout << "Executing: " << rule << "\n";
                     }
                     RuleString successor =
-                        engine.evaluateSuccessor(matchedRules[0].predecessor, *currentPos, matchedRules[0].successor);
+                        engine.evaluateSuccessor(ruleIndex, rule.predecessor, *currentPos, rule.successor);
                     replacements.push_back(Replacement(currentPos, successor));
                 } else {
                     // Stochastic case: multiple rules
                     float totalProbability = 0;
-                    for (auto& rule : matchedRules) {
-                        totalProbability += rule.probability;
+                    for (auto& item : matchedRules) {
+                        totalProbability += item.second.probability;
                     }
                     float d = distribution(generator);
                     float p = d * totalProbability;
                     float s = 0;
                     for (auto iter = matchedRules.rbegin(); iter != matchedRules.rend(); ++iter) {
-                        s += (*iter).probability;
+                        auto& rule = iter->second;
+                        int ruleIndex = iter->first;
+                        s += rule.probability;
                         if (s > p) {
                             if (logging) {
-                                cout << "Executing: " << *iter << "\n";
+                                cout << "Executing: " << rule << "\n";
                             }
                             RuleString successor =
-                                engine.evaluateSuccessor(iter->predecessor, *currentPos, iter->successor);
+                                engine.evaluateSuccessor(ruleIndex, rule.predecessor, *currentPos, rule.successor);
                             replacements.push_back(Replacement(currentPos, successor));
                             break;
                         }

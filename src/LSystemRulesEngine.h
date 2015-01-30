@@ -20,10 +20,11 @@ public:
     
     void getMatchingRules(const RuleString& current,
                           const RuleString::iterator& currentPos,
-                          ProductionRuleGroup& matched);
-    RuleString evaluateSuccessor(const RuleToken& predecessor,
-                           const RuleToken& tokenMatch,
-                           const RuleString& successor);
+                          IndexedProductionRuleGroup& matched);
+    RuleString evaluateSuccessor(int ruleIndex,
+                                 const RuleToken& predecessor,
+                                 const RuleToken& tokenMatch,
+                                 const RuleString& successor);
 protected:
     LSystem* system;
     ExpressionCache* expressionCache;

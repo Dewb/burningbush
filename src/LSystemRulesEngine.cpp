@@ -86,54 +86,114 @@ public:
     }
     
     T getValue() {
-        if (isParsed && isBound) {
-            return expression.value();
+        if (!isParsed) {
+           cout << "ERROR: Asking for value of unparsed expression " << expressionString << "\n";
+        } else if (!isBound) {
+            cout << "ERROR: Asking for value of unbound expression " << expressionString << "\n";
         }
+        return expression.value();
     }
 };
 
+typedef ExpressionWrapper<float> Expression;
+
 class ExpressionCache {
 public:
-    ExpressionCache(LSystem* ls) {}
+    ExpressionCache(const RuleSet& rules);
+    ~ExpressionCache();
+    Expression* getCondition(const RuleToken& token, int ruleIndex);
+    Expression* getSuccessor(const RuleToken& token, int ruleIndex, int tokenIndex, int argIndex);
+    
+    map<tr1::tuple<RuleToken, int>, Expression*> conditionExpressions;
+    map<tr1::tuple<RuleToken, int, int, int>, Expression*> successorExpressions;
 };
 
-float evaluateExpression(const RuleToken& predecessor, const RuleToken& tokenMatch, const string& exprString) {
-    ExpressionWrapper<float> ew(exprString);
-    if (ew.isParsed) {
-        if (ew.bind(predecessor.parameters, tokenMatch.parameters)) {
-            return ew.getValue();
+Expression* ExpressionCache::getCondition(const RuleToken& token, int ruleIndex) {
+    auto t = tr1::make_tuple(token, ruleIndex);
+    auto iter = conditionExpressions.find(t);
+    if (iter != conditionExpressions.end()) {
+        return iter->second;
+    } else {
+        return NULL;
+    }
+}
+
+Expression* ExpressionCache::getSuccessor(const RuleToken& token, int ruleIndex, int tokenIndex, int argIndex) {
+    auto t = tr1::make_tuple(token, ruleIndex, tokenIndex, argIndex);
+    auto iter = successorExpressions.find(t);
+    if (iter != successorExpressions.end()) {
+        return iter->second;
+    } else {
+        return NULL;
+    }
+}
+
+ExpressionCache::ExpressionCache(const RuleSet& rules) {
+    for (auto& r : rules) {
+        const RuleToken& token = r.first;
+        for (int ruleIndex = 0; ruleIndex < r.second.size(); ruleIndex++) {
+            auto& rule = r.second[ruleIndex];
+            if (!rule.parametricCondition.empty()) {
+                auto e = new Expression(rule.parametricCondition);
+                conditionExpressions.insert(make_pair(tr1::make_tuple(token, ruleIndex), e));
+            }
+            int tokenIndex = 0;
+            for (auto iter = rule.successor.begin(); iter != rule.successor.end(); iter++) {
+                auto args = iter->parameters;
+                for (int argIndex = 0; argIndex < args.size(); argIndex++) {
+                    auto e = new Expression(args[argIndex]);
+                    successorExpressions.insert(make_pair(tr1::make_tuple(token, ruleIndex, tokenIndex, argIndex), e));
+                }
+                tokenIndex++;
+            }
+        }
+    }
+}
+
+ExpressionCache::~ExpressionCache() {
+    for (auto& item : conditionExpressions) {
+        delete item.second;
+    }
+    for (auto& item : successorExpressions) {
+        delete item.second;
+    }
+}
+
+float evaluateExpression(const RuleToken& predecessor, const RuleToken& tokenMatch, Expression* e) {
+    if (e->isParsed) {
+        if (e->bind(predecessor.parameters, tokenMatch.parameters)) {
+            return e->getValue();
         }
     }
     return 0;
 }
 
-bool conditionMatches(const RuleToken& predecessor, const RuleToken& tokenMatch, const string& condition) {
-    if (condition.empty()) {
-        return true;
-    }
-    
-    return evaluateExpression(predecessor, tokenMatch, condition) != 0.0;
+bool conditionMatches(const RuleToken& predecessor, const RuleToken& tokenMatch, Expression* e) {
+    return evaluateExpression(predecessor, tokenMatch, e) != 0.0;
 }
 
 LSystemRulesEngine::LSystemRulesEngine(LSystem* ls) {
     system = ls;
-    expressionCache = new ExpressionCache(ls);
+    expressionCache = new ExpressionCache(ls->rules);
 }
 
 LSystemRulesEngine::~LSystemRulesEngine() {
     delete expressionCache;
 }
 
-RuleString LSystemRulesEngine::evaluateSuccessor(const RuleToken& predecessor, const RuleToken& tokenMatch, const RuleString& successor) {
+RuleString LSystemRulesEngine::evaluateSuccessor(int ruleIndex, const RuleToken& predecessor, const RuleToken& tokenMatch, const RuleString& successor) {
     if (!predecessor.isParametric()) {
         return successor;
     }
     RuleString result = successor;
+    int tokenIndex = 0;
     for (auto& token : result) {
         for (int i = 0; i < token.parameters.size(); i++) {
-            float value = evaluateExpression(predecessor, tokenMatch, token.parameters[i]);
+            Expression* e = expressionCache->getSuccessor(predecessor, ruleIndex, tokenIndex, i);
+            float value = evaluateExpression(predecessor, tokenMatch, e);
             token.parameters[i] = to_string(value);
         }
+        tokenIndex++;
     }
     return result;
 }
@@ -219,7 +279,7 @@ bool contextMatches(const RuleString& ignoreContext, const Iter& contextBegin, c
     }
 }
 
-void LSystemRulesEngine::getMatchingRules(const RuleString& current, const RuleString::iterator& currentPos, ProductionRuleGroup& matched) {
+void LSystemRulesEngine::getMatchingRules(const RuleString& current, const RuleString::iterator& currentPos, IndexedProductionRuleGroup& matched) {
     if (system->rules.find(*currentPos) == system->rules.end()) {
         return;
     }
@@ -230,15 +290,22 @@ void LSystemRulesEngine::getMatchingRules(const RuleString& current, const RuleS
     // If a context-free and a contextual rule match, prefer the contextual;
     // if multiple contextual rules match, prefer the longer one;
     // if multiple contextual rules of the same length match, prefer the one on the axial branch (trunk)
-    ProductionRuleGroup contextFreeMatches;
-    ProductionRuleGroup contextualMatches;
+    IndexedProductionRuleGroup contextFreeMatches;
+    IndexedProductionRuleGroup contextualMatches;
     int contextMatchLength = 0;
     int trunkMatchLength = 0;
     
-    for (auto& rule : system->rules[*currentPos]) {
+    auto& ruleSet = system->rules[*currentPos];
+    for (int ruleIndex = 0; ruleIndex < ruleSet.size(); ruleIndex++) {
+        auto& rule = ruleSet[ruleIndex];
         if (rule.leftContext.empty() && rule.rightContext.empty()) {
-            if (!rule.isParametric() || conditionMatches(rule.predecessor, *currentPos, rule.parametricCondition)) {
-                contextFreeMatches.push_back(rule);
+            if (!rule.isParametric() || rule.parametricCondition.empty()) {
+                contextFreeMatches.push_back(make_pair(ruleIndex, rule));
+            } else {
+                Expression* e = expressionCache->getCondition(*currentPos, ruleIndex);
+                if (conditionMatches(rule.predecessor, *currentPos, e)) {
+                    contextFreeMatches.push_back(make_pair(ruleIndex, rule));
+                }
             }
         } else {
             if (!rule.leftContext.empty() &&
@@ -266,16 +333,16 @@ void LSystemRulesEngine::getMatchingRules(const RuleString& current, const RuleS
             
             if (contextLength > contextMatchLength) {
                 contextualMatches.clear();
-                contextualMatches.push_back(rule);
+                contextualMatches.push_back(make_pair(ruleIndex, rule));
                 contextMatchLength = contextLength;
                 trunkMatchLength = trunkLength;
             } else if (contextLength == contextMatchLength) {
                 if (trunkLength > trunkMatchLength) {
                     contextualMatches.clear();
-                    contextualMatches.push_back(rule);
+                    contextualMatches.push_back(make_pair(ruleIndex, rule));
                     trunkMatchLength = trunkLength;
                 } else if (trunkLength == trunkMatchLength) {
-                    contextualMatches.push_back(rule);
+                    contextualMatches.push_back(make_pair(ruleIndex, rule));
                 }
             }
         }
