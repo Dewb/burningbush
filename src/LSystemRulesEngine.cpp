@@ -7,6 +7,89 @@
 //
 
 #include "LSystemRulesEngine.h"
+#include "../lib/exprtk/exprtk.hpp"
+#include <iostream>
+
+typedef exprtk::symbol_table<double>    symbol_table_t;
+typedef exprtk::expression<double>        expression_t;
+typedef exprtk::parser<double>                parser_t;
+typedef typename parser_t::dependent_entity_collector::symbol_t symbol_t;
+
+
+float evaluateExpression(const RuleToken& predecessor, const RuleToken& tokenMatch, const string& exprString) {
+    parser_t parser;
+    symbol_table_t symbol_table;
+    
+    expression_t expression;
+    expression.register_symbol_table(symbol_table);
+    
+    parser.dec().collect_variables() = true;
+    parser.enable_unknown_symbol_resolver();
+    
+    if (!parser.compile(exprString, expression)) {
+        cout << "Failed to compile expression: " << exprString << ", error: " << parser.error() << "\n";
+    }
+    
+    std::deque<symbol_t> symbol_list;
+    parser.dec().symbols(symbol_list);
+    
+    for (std::size_t i = 0; i < symbol_list.size(); ++i) {
+        symbol_t& symbol = symbol_list[i];
+        
+        switch (symbol.second) {
+            case parser_t::e_st_variable:
+                {
+                    bool found = false;
+                    for (int i = 0; i < predecessor.parameters.size(); i++) {
+                        if (predecessor.parameters[i] == symbol.first) {
+                            float x;
+                            stringstream ss(tokenMatch.parameters[i]);
+                            ss >> x;
+                            if (ss.fail()) {
+                                cout << "ERROR: Argument " << tokenMatch.parameters[i] << " is non-numeric!\n";
+                                return false;
+                            }
+                            
+                            //cout << "Assigning " << symbol.first << " to " << x << "\n";
+                            symbol_table.variable_ref(symbol.first) = x;
+                            found = true;
+                        }
+                    }
+                    if (!found) {
+                        cout << "ERROR: Unknown symbol " << symbol.first << " in expression " << exprString << "\n";
+                        return false;
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+    }
+    
+    return expression.value();
+}
+
+bool conditionMatches(const RuleToken& predecessor, const RuleToken& tokenMatch, const string& condition) {
+    if (condition.empty()) {
+        return true;
+    }
+    
+    return evaluateExpression(predecessor, tokenMatch, condition) != 0.0;
+}
+
+RuleString LSystemRulesEngine::evaluateSuccessor(const RuleToken& predecessor, const RuleToken& tokenMatch, const RuleString& successor) {
+    if (!predecessor.isParametric()) {
+        return successor;
+    }
+    RuleString result = successor;
+    for (auto& token : result) {
+        for (int i = 0; i < token.parameters.size(); i++) {
+            float value = evaluateExpression(predecessor, tokenMatch, token.parameters[i]);
+            token.parameters[i] = to_string(value);
+        }
+    }
+    return result;
+}
 
 
 template <typename Iter>
@@ -89,7 +172,7 @@ bool contextMatches(const RuleString& ignoreContext, const Iter& contextBegin, c
     }
 }
 
-void LSystemRulesEngine::getMatchingRules(const RuleString& current, const RuleString::iterator& currentPos, ProductionRuleGroup& matched) const {
+void LSystemRulesEngine::getMatchingRules(const RuleString& current, const RuleString::iterator& currentPos, ProductionRuleGroup& matched) {
     if (system->rules.find(*currentPos) == system->rules.end()) {
         return;
     }
@@ -107,7 +190,9 @@ void LSystemRulesEngine::getMatchingRules(const RuleString& current, const RuleS
     
     for (auto& rule : system->rules[*currentPos]) {
         if (rule.leftContext.empty() && rule.rightContext.empty()) {
-            contextFreeMatches.push_back(rule);
+            if (!rule.isParametric() || conditionMatches(rule.predecessor, *currentPos, rule.parametricCondition)) {
+                contextFreeMatches.push_back(rule);
+            }
         } else {
             if (!rule.leftContext.empty() &&
                 !contextMatches<RuleString::const_reverse_iterator>(

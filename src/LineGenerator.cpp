@@ -19,22 +19,25 @@ LineGeneratorState::LineGeneratorState()
 
 namespace {
     
-    void forward(LineGeneratorState& state) {
+    void forward(LineGeneratorState& state, FloatParams& params) {
+        float length = state.edgeLength;
+        if (params.size() > 0) {
+            length *= params[0];
+        }
         state.previousPosition = state.position;
         state.position += state.heading.normalized() * state.edgeLength;
     }
     
-    void forward_draw(LineGeneratorState& state) {
-        state.previousPosition = state.position;
-        state.position += state.heading.normalized() * state.edgeLength;
+    void forward_draw(LineGeneratorState& state, FloatParams& params) {
+        forward(state, params);
         ofLine(state.previousPosition.x, state.previousPosition.y, state.position.x, state.position.y);
     }
 
-    void rotate_cw(LineGeneratorState& state) {
+    void rotate_cw(LineGeneratorState& state, FloatParams&) {
         state.heading.rotate(state.angle);
     }
 
-    void rotate_ccw(LineGeneratorState& state) {
+    void rotate_ccw(LineGeneratorState& state, FloatParams&) {
         state.heading.rotate(-state.angle);
     }
     

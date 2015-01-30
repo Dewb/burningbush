@@ -35,6 +35,8 @@ public:
     bool operator!=(const RuleToken& rhs) const;
     bool operator==(const string& rhs) const;
     bool operator==(const char& rhs) const;
+    
+    bool isParametric() const { return parameters.size() > 0; }
 };
 typedef list<RuleToken> RuleString;
 
@@ -50,11 +52,17 @@ public:
     RuleString leftContext;
     RuleString rightContext;
     
+    string parametricCondition;
+    
     float probability;
     
     bool isStochastic() const   {
         return probability < 1.0;
     }
+    bool isParametric() const {
+        return predecessor.isParametric();
+    }
+    ProductionRule& setCondition(const string& condition) { parametricCondition = condition; return *this; }
 };
 
 std::ostream& operator<<(std::ostream& os, const ProductionRule& rule);

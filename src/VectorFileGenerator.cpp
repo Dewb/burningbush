@@ -73,12 +73,12 @@ VectorFileGeneratorState::VectorFileGeneratorState()
 
 namespace {
     
-    void forward(VectorFileGeneratorState& state) {
+    void forward(VectorFileGeneratorState& state, FloatParams&) {
         state.previousPosition = state.position;
         state.position += ofVec2d(cos(state.heading * DEG_TO_RAD), sin(state.heading * DEG_TO_RAD)) * state.edgeLength;
     }
     
-    void forward_draw(VectorFileGeneratorState& state) {
+    void forward_draw(VectorFileGeneratorState& state, FloatParams&) {
         state.previousPosition = state.position;
         state.position += ofVec2d(cos(state.heading * DEG_TO_RAD), sin(state.heading * DEG_TO_RAD)) * state.edgeLength;
 
@@ -89,19 +89,19 @@ namespace {
         }
     }
 
-    void rotate_cw(VectorFileGeneratorState& state) {
+    void rotate_cw(VectorFileGeneratorState& state, FloatParams&) {
         state.heading = fmod(state.heading + state.angle, 360.0);
     }
 
-    void rotate_ccw(VectorFileGeneratorState& state) {
+    void rotate_ccw(VectorFileGeneratorState& state, FloatParams&) {
         state.heading = fmod(state.heading - state.angle, 360.0);
     }
     
-    void start_shape(VectorFileGeneratorState& state) {
+    void start_shape(VectorFileGeneratorState& state, FloatParams&) {
         vectorGfx.beginShape();
     }
 
-    void end_shape(VectorFileGeneratorState& state) {
+    void end_shape(VectorFileGeneratorState& state, FloatParams&) {
         vectorGfx.endShape();  
     }
 }

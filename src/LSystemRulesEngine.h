@@ -16,7 +16,10 @@ public:
     LSystemRulesEngine(LSystem* ls) : system(ls) {}
     void getMatchingRules(const RuleString& current,
                           const RuleString::iterator& currentPos,
-                          ProductionRuleGroup& matched) const;
+                          ProductionRuleGroup& matched);
+    RuleString evaluateSuccessor(const RuleToken& predecessor,
+                           const RuleToken& tokenMatch,
+                           const RuleString& successor);
 protected:
     LSystem* system;
 private:

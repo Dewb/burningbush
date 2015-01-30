@@ -113,13 +113,13 @@ ofColor MeshGeneratorState::getCurrentColor() {
 
 namespace {
     
-    void forward(MeshGeneratorState& state) {
+    void forward(MeshGeneratorState& state, FloatParams&) {
         state.position += state.heading.normalized() * state.segmentLength;
     }
 
-    void forward_draw(MeshGeneratorState& state) {
+    void forward_draw(MeshGeneratorState& state, FloatParams& params) {
         ofVec3f previous = state.position;
-        forward(state);
+        forward(state, params);
         if (!state.inPolygonNode) {
             if (state.result) {
                 state.result->addSegment(state.position, previous, state.segmentRadius, state.getCurrentColor());
@@ -130,73 +130,73 @@ namespace {
         }
     }
 
-    void turn_left(MeshGeneratorState& state) {
+    void turn_left(MeshGeneratorState& state, FloatParams&) {
         state.heading.rotate(state.angle, state.up);
         state.left.rotate(state.angle, state.up);
     }
 
-    void turn_right(MeshGeneratorState& state) {
+    void turn_right(MeshGeneratorState& state, FloatParams&) {
         state.heading.rotate(-state.angle, state.up);
         state.left.rotate(-state.angle, state.up);
     }
 
-    void pitch_down(MeshGeneratorState& state) {
+    void pitch_down(MeshGeneratorState& state, FloatParams&) {
         state.heading.rotate(state.angle, state.left);
         state.up.rotate(state.angle, state.left);
     }
     
-    void pitch_up(MeshGeneratorState& state) {
+    void pitch_up(MeshGeneratorState& state, FloatParams&) {
         state.heading.rotate(-state.angle, state.left);
         state.up.rotate(-state.angle, state.left);
     }
 
-    void roll_left(MeshGeneratorState& state) {
+    void roll_left(MeshGeneratorState& state, FloatParams&) {
         state.left.rotate(state.angle, state.heading);
         state.up.rotate(state.angle, state.heading);
     }
     
-    void roll_right(MeshGeneratorState& state) {
+    void roll_right(MeshGeneratorState& state, FloatParams&) {
         state.left.rotate(-state.angle, state.heading);
         state.up.rotate(-state.angle, state.heading);
     }
     
-    void turn_around(MeshGeneratorState& state) {
+    void turn_around(MeshGeneratorState& state, FloatParams&) {
         state.heading.rotate(180, state.up);
         state.left.rotate(180, state.up);
     }
     
-    void decrease_diameter(MeshGeneratorState& state) {
+    void decrease_diameter(MeshGeneratorState& state, FloatParams&) {
         state.segmentRadius *= 0.618034;
     }
     
-    void increase_length(MeshGeneratorState& state) {
+    void increase_length(MeshGeneratorState& state, FloatParams&) {
         state.segmentLength *= (1.0 / 0.618034);
     }
     
-    void decrease_length(MeshGeneratorState& state) {
+    void decrease_length(MeshGeneratorState& state, FloatParams&) {
         state.segmentLength *= 0.618034;
     }
     
-    void next_color(MeshGeneratorState& state) {
+    void next_color(MeshGeneratorState& state, FloatParams&) {
         state.currentColor++;
     }
     
-    void previous_color(MeshGeneratorState& state) {
+    void previous_color(MeshGeneratorState& state, FloatParams&) {
         state.currentColor--;
     }
     
-    void next_color_series(MeshGeneratorState& state) {
+    void next_color_series(MeshGeneratorState& state, FloatParams&) {
         //state.currentColor = 0;
         state.currentColorSeries++;
     }
 
-    void begin_polygon(MeshGeneratorState& state) {
+    void begin_polygon(MeshGeneratorState& state, FloatParams&) {
         state.inPolygonNode = true;
         state.pointHistory.push_back(state.position);
         state.colorHistory.push_back(state.getCurrentColor());
     }
 
-    void end_polygon(MeshGeneratorState& state) {
+    void end_polygon(MeshGeneratorState& state, FloatParams&) {
         if (state.result) {
             state.result->addPolygon(state.pointHistory, state.colorHistory);
         }

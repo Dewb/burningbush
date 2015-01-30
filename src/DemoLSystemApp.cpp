@@ -10,6 +10,15 @@ void DemoLSystemApp::createSystems() {
     LSystem system;
 
     system.reset();
+    system.setAxiom("F(1,0)");
+    system.addRule("F(x,t)", "F(x*0.3,2)+F(x*0.45826,1)--F(x*0.45826,1)+F(x*0.7,0)").setCondition("t=0");
+    system.addRule("F(x,t)", "F(x,t-1)").setCondition("t>0");
+    system.setProperty("N", 10);
+    system.setProperty("angle", 86);
+    system.setProperty("edgeLength", 5.0);
+    systems.push_back(make_pair(system, GeneratorTypeLine));
+    
+    system.reset();
     system.setAxiom("F1F1F1");
     system.ignoreForContext("+-F");
     system.addRule("0", '0', "0", "0");
@@ -345,19 +354,22 @@ void DemoLSystemApp::draw(){
     
     for (auto& ruleGroup : system.getRules()) {
         for (auto& rule : ruleGroup.second) {
-            string left = "", right = "";
+            string left = "", right = "", cond = "";
             if (!rule.leftContext.empty()) {
                 left = to_string(rule.leftContext) + " < ";
             }
             if (!rule.rightContext.empty()) {
                 right = " > " + to_string(rule.rightContext);
             }
+            if (!rule.parametricCondition.empty()) {
+                cond = " : " + rule.parametricCondition;
+            }
 
             string super = "";
             if (ruleGroup.second.isStochastic()) {
                 super = to_string(rule.probability);
             }
-            string beforeArrow = left + to_string(rule.predecessor) + right;
+            string beforeArrow = left + to_string(rule.predecessor) + right + cond;
             para.printLine(beforeArrow + arrow + to_string(rule.successor), super, beforeArrow.size() + 2);
         }
     }

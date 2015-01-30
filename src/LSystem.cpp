@@ -47,6 +47,10 @@ std::ostream& operator<<(std::ostream& os, const ProductionRule& rule) {
         os << " > ";
         os << rule.rightContext;
     }
+    if (!rule.parametricCondition.empty()) {
+        os << " : ";
+        os << rule.parametricCondition;
+    }
     os << " -> ";
     os << rule.successor;
     return os;
@@ -283,6 +287,10 @@ RuleString LSystem::generate(int iterations, bool logging) {
     ProductionRuleGroup matchedRules;
     Replacements replacements;
     LSystemRulesEngine engine(this);
+    
+    if (logging) {
+        cout << current << "\n";
+    }
 
     while (iterations--) {
         replacements.clear();
@@ -296,7 +304,9 @@ RuleString LSystem::generate(int iterations, bool logging) {
                     if (logging) {
                         cout << "Executing: " << matchedRules[0] << "\n";
                     }
-                    replacements.push_back(Replacement(currentPos, matchedRules[0].successor));
+                    RuleString successor =
+                        engine.evaluateSuccessor(matchedRules[0].predecessor, *currentPos, matchedRules[0].successor);
+                    replacements.push_back(Replacement(currentPos, successor));
                 } else {
                     // Stochastic case: multiple rules
                     float totalProbability = 0;
@@ -312,7 +322,9 @@ RuleString LSystem::generate(int iterations, bool logging) {
                             if (logging) {
                                 cout << "Executing: " << *iter << "\n";
                             }
-                            replacements.push_back(Replacement(currentPos, (*iter).successor));
+                            RuleString successor =
+                                engine.evaluateSuccessor(iter->predecessor, *currentPos, iter->successor);
+                            replacements.push_back(Replacement(currentPos, successor));
                             break;
                         }
                     }

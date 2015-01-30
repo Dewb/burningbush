@@ -117,10 +117,19 @@ TEST(LSystem, ParametricBasicParsing) {
 TEST(LSystem, ParametricBasicMatching) {
     LSystem system;
     system.setAxiom("A(3,2)B(5)A_b(1,2)A_c(5,7)");
-    system.addRule("A(x,y)", "F");
+    system.addRule("A(x,y)", "F(x*y)");
     system.addRule("A_b(x,y)", "+A(x-1,y-1)");
     system.addRule("A_c(x,y)", "-A(x+1,y+1)");
     system.addRule("B(x,y)", "f");
     
-    EXPECT_EQ("FB(5)+F-F", to_string(system.generate(2, true)));
+    EXPECT_EQ("F(6)B(5)+F(0)-F(48)", to_string(system.generate(2, true)));
+}
+
+TEST(LSystem, ParametricConditionalMatching) {
+    LSystem system;
+    system.setAxiom("A(6)");
+    system.addRule("A(n)", "+A(n-1)").setCondition("n > 0");
+    system.addRule("A(n)", "F").setCondition("n == 0");
+    
+    EXPECT_EQ("++++++F", to_string(system.generate(7, true)));
 }
