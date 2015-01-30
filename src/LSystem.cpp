@@ -16,6 +16,16 @@ std::ostream& operator<<(std::ostream& os, const RuleToken& token) {
     if (!token.subscript.empty()) {
         os << "_" << token.subscript;
     }
+    if (token.parameters.size() > 0) {
+        os << "(";
+        for (int i = 0; i < token.parameters.size(); i++) {
+            os << token.parameters[i];
+            if (i != token.parameters.size() - 1) {
+                os << ",";
+            }
+        }
+        os << ")";
+    }
     return os;
 }
 
@@ -63,7 +73,11 @@ string to_string(const ProductionRule& pr) {
 
 bool RuleToken::operator<(const RuleToken& rhs) const {
     if (this->symbol == rhs.symbol) {
-        return this->subscript < rhs.subscript;
+        if (this->subscript == rhs.subscript) {
+            return this->parameters.size() < rhs.parameters.size();
+        } else {
+            return this->subscript < rhs.subscript;
+        }
     } else {
         return this->symbol < rhs.symbol;
     }
@@ -71,7 +85,11 @@ bool RuleToken::operator<(const RuleToken& rhs) const {
 
 bool RuleToken::operator>(const RuleToken& rhs) const {
     if (this->symbol == rhs.symbol) {
-        return this->subscript > rhs.subscript;
+        if (this->subscript == rhs.subscript) {
+            return this->parameters.size() > rhs.parameters.size();
+        } else {
+            return this->subscript > rhs.subscript;
+        }
     } else {
         return this->symbol > rhs.symbol;
     }
@@ -79,7 +97,11 @@ bool RuleToken::operator>(const RuleToken& rhs) const {
 
 bool RuleToken::operator==(const RuleToken& rhs) const {
     if (this->symbol == rhs.symbol) {
-        return this->subscript == rhs.subscript;
+        if (this->subscript == rhs.subscript) {
+            return this->parameters.size() == rhs.parameters.size();
+        } else {
+            return this->subscript == rhs.subscript;
+        }
     } else {
         return false;
     }
@@ -87,7 +109,11 @@ bool RuleToken::operator==(const RuleToken& rhs) const {
 
 bool RuleToken::operator!=(const RuleToken& rhs) const {
     if (this->symbol == rhs.symbol) {
-        return this->subscript != rhs.subscript;
+        if (this->subscript == rhs.subscript) {
+            return this->parameters.size() != rhs.parameters.size();
+        } else {
+            return this->subscript != rhs.subscript;
+        }
     } else {
         return true;
     }
@@ -111,6 +137,31 @@ RuleToken parseRuleToken(const string& str, int* pStartPosition = NULL) {
     if (pos + 1 < str.size() && str[pos] == '_') {
         token.subscript = str[pos + 1];
         pos += 2;
+    }
+    if (pos + 1 < str.size() && str[pos] == '(') {
+        int parenLevel = 1;
+        pos = pos + 1;
+        int startPos = pos;
+        while (parenLevel > 0 && pos < str.size()) {
+            if (str[pos] == ')') {
+                parenLevel--;
+                pos++;
+            } else if (str[pos] == '(') {
+                parenLevel++;
+                pos++;
+            } else if (str[pos] == ',' && parenLevel == 1) {
+                token.parameters.push_back(str.substr(startPos, pos - startPos));
+                pos++;
+                startPos = pos;
+            } else {
+                pos++;
+            }
+        }
+        if (parenLevel != 0) {
+            cout << "Unmatched parentheses in token!\n";
+        } else if (pos < str.size() + 1) {
+            token.parameters.push_back(str.substr(startPos, pos - startPos - 1));
+        }
     }
     if (pStartPosition) {
         *pStartPosition = pos;
@@ -373,7 +424,7 @@ RuleString LSystem::generate(int iterations, bool logging) {
 
     ProductionRuleGroup matchedRules;
     Replacements replacements;
-   
+
     while (iterations--) {
         replacements.clear();
         auto currentPos = current.begin();

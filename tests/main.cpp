@@ -100,3 +100,27 @@ TEST(LSystem, SubscriptMatching) {
     
     EXPECT_EQ("F_c/F/+-+-F_a", to_string(system.generate(4, true)));
 }
+
+TEST(LSystem, ParametricBasicParsing) {
+    RuleString rs = parseRuleString("A(F(x,y),(a+(b*c)/2),2)");
+    
+    EXPECT_EQ(rs.size(), 1);
+    EXPECT_EQ(rs.front().symbol, "A");
+    EXPECT_EQ(rs.front().parameters.size(), 3);
+    if (rs.front().parameters.size() == 3) {
+        EXPECT_EQ(rs.front().parameters[0], "F(x,y)");
+        EXPECT_EQ(rs.front().parameters[1], "(a+(b*c)/2)");
+        EXPECT_EQ(rs.front().parameters[2], "2");
+    }
+}
+
+TEST(LSystem, ParametricBasicMatching) {
+    LSystem system;
+    system.setAxiom("A(3,2)B(5)A_b(1,2)A_c(5,7)");
+    system.addRule("A(x,y)", "F");
+    system.addRule("A_b(x,y)", "+A(x-1,y-1)");
+    system.addRule("A_c(x,y)", "-A(x+1,y+1)");
+    system.addRule("B(x,y)", "f");
+    
+    EXPECT_EQ("FB(5)+F-F", to_string(system.generate(2, true)));
+}

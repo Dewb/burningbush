@@ -26,6 +26,8 @@ public:
     RuleToken(string sym) { symbol = sym; }
     string symbol;
     string subscript;
+    
+    vector<string> parameters;
 
     bool operator<(const RuleToken& rhs) const;
     bool operator>(const RuleToken& rhs) const;
@@ -36,6 +38,8 @@ public:
 };
 typedef list<RuleToken> RuleString;
 
+RuleString parseRuleString(const string& str);
+
 class ProductionRule {
 public:
     ProductionRule(const RuleToken& pred, const RuleString& succ) : predecessor(pred), successor(succ), probability(1.0) {}
@@ -45,7 +49,7 @@ public:
     
     RuleString leftContext;
     RuleString rightContext;
-    
+        
     float probability;
     
     bool isStochastic() const   {
