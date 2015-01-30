@@ -245,6 +245,16 @@
 			name = exprtk;
 			sourceTree = "<group>";
 		};
+		5B0CE28B1A7C36A6008A2E22 /* core */ = {
+			isa = PBXGroup;
+			children = (
+				5BB4E61A1A4D35770047F957 /* LSystem.cpp */,
+				5B0CE2831A7B18F3008A2E22 /* LSystemRulesEngine.h */,
+				5B0CE2821A7B18F3008A2E22 /* LSystemRulesEngine.cpp */,
+			);
+			name = core;
+			sourceTree = "<group>";
+		};
 		5B8B64C61A5A9BAA006F6EB9 /* tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -436,13 +446,11 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				5BEC72491A70803500894162 /* app */,
-				5BEC724A1A70805B00894162 /* generators */,
 				5BB4E61B1A4D35770047F957 /* LSystem.h */,
-				5BB4E61A1A4D35770047F957 /* LSystem.cpp */,
 				5B8B8A771A5B4DC7007F24F6 /* LSystemGenerator.h */,
-				5B0CE2821A7B18F3008A2E22 /* LSystemRulesEngine.cpp */,
-				5B0CE2831A7B18F3008A2E22 /* LSystemRulesEngine.h */,
+				5B0CE28B1A7C36A6008A2E22 /* core */,
+				5BEC724A1A70805B00894162 /* generators */,
+				5BEC72491A70803500894162 /* app */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
