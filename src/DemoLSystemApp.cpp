@@ -282,14 +282,16 @@ void DemoLSystemApp::setup() {
     smallFont->loadFont("verdana.ttf", 4, false, false, true);
     
     headlight.setPointLight();
-    headlight.setAttenuation(0.1, 0.1, 0.1);
+    headlight.setAttenuation(0.1, 0.001, 0.000001);
     headlight.setSpecularColor(ofColor(255, 255, 255));
     headlight.setDiffuseColor(ofColor(180, 100, 180));
     material.setShininess(7);
     
+    cam.setPosition(-25, 100, 75);
+    
     drawListIndex = glGenLists(1);
     
-    currentSystem = 0;
+    currentSystem = 11;
     
     updateMesh();
 }
@@ -315,8 +317,7 @@ ofVec3f getMeshCenter(ofPtr<ofMesh> mesh) {
 //--------------------------------------------------------------
 void DemoLSystemApp::update(){
     cam.setDistance(250);
-    //headlight.setPosition(cam.getPosition());
-    headlight.setPosition(0, 0, 0);
+    headlight.setPosition(-100, 100, 100);
 }
 
 //--------------------------------------------------------------
@@ -390,6 +391,12 @@ void DemoLSystemApp::draw(){
     
     para.breakParagraph();
     para.printLine("N = " + to_string(iterations));
+    if (system.hasProperty("angle")) {
+        para.printLine("angle = " + to_string(system.getProperty("angle")));
+    }
+    if (system.hasProperty("colorBook")) {
+        para.printLine("color book #" + to_string(system.getProperty("colorBook")));
+    }
     if (system.isStochastic()) {
         para.printLine("seed = " + to_string(system.getSeed()));
     }
