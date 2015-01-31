@@ -328,8 +328,8 @@ void DemoLSystemApp::draw(){
     if (!viewDirty)
         return;
     
-    // First two draw calls seem to be ineffective, for some reason
-    if (ofGetElapsedTimeMillis() > 400)
+    // First few draw calls seem to be ineffective, for some reason
+    if (ofGetElapsedTimeMillis() > 500)
         viewDirty = false;
     
     ofBackground(0, 0, 80);
