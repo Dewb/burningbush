@@ -102,13 +102,13 @@ TEST(LSystem, SubscriptMatching) {
 }
 
 TEST(LSystem, ParametricBasicParsing) {
-    RuleString rs = parseRuleString("A(F(x,y),(a+(b*c)/2),2)");
+    RuleString rs("A(min(x,y),(a+(b*c)/2),2)");
     
     EXPECT_EQ(rs.size(), 1);
     EXPECT_EQ(rs.front().symbol, "A");
     EXPECT_EQ(rs.front().parameters.size(), 3);
     if (rs.front().parameters.size() == 3) {
-        EXPECT_EQ(rs.front().parameters[0], "F(x,y)");
+        EXPECT_EQ(rs.front().parameters[0], "min(x,y)");
         EXPECT_EQ(rs.front().parameters[1], "(a+(b*c)/2)");
         EXPECT_EQ(rs.front().parameters[2], "2");
     }

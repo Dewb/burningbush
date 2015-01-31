@@ -82,9 +82,9 @@ void DemoLSystemApp::createSystems() {
     system.reset();
     system.setTitle("Stochastic OL-system example (ABOP p.29)");
     system.setAxiom("F");
-    system.addRule('F', "F[+F]F[-F]F", 0.333);
-    system.addRule('F', "F[+F]F", 0.333);
-    system.addRule('F', "F[-F]F", 0.334);
+    system.addRule('F', "F[+F]F[-F]F").setProbability(0.333);
+    system.addRule('F', "F[+F]F").setProbability(0.333);
+    system.addRule('F', "F[-F]F").setProbability(0.334);
     system.setProperty("N", 6);
     system.setProperty("angle", 25.7);
     system.setProperty("edgeLength", 3.0);
@@ -210,9 +210,9 @@ void DemoLSystemApp::createSystems() {
     system.setAxiom("P");
     system.addRule('P', "I+[P+O]--//[--L]I[++L]-[PO]++PO");
     system.addRule('I', "FS[//&&L][//^^L]FS");
-    system.addRule('S', "S[//&&L][//^^L]FS", 0.333);
-    system.addRule('S', "SFS", 0.333);
-    system.addRule('S', "S", 0.334);
+    system.addRule('S', "S[//&&L][//^^L]FS").setProbability(0.333);
+    system.addRule('S', "SFS").setProbability(0.333);
+    system.addRule('S', "S").setProbability(0.334);
     system.addRule('L', "['{+F-FF-F+|+F-FF-F}]");
     system.addRule('O', "[&&&D''/W////W////W////W////W]");
     system.addRule('D', "FF");

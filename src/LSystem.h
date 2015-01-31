@@ -22,11 +22,12 @@ using namespace std;
 
 class RuleToken {
 public:
-    RuleToken(char c) { symbol.push_back(c); }
-    RuleToken(string sym) { symbol = sym; }
+    RuleToken(const char* str);
+    RuleToken(const char c);
+    RuleToken(const string& str);
+    
     string symbol;
     string subscript;
-    
     vector<string> parameters;
 
     bool operator<(const RuleToken& rhs) const;
@@ -38,9 +39,13 @@ public:
     
     bool isParametric() const { return parameters.size() > 0; }
 };
-typedef list<RuleToken> RuleString;
 
-RuleString parseRuleString(const string& str);
+class RuleString : public list<RuleToken> {
+public:
+    RuleString() {}
+    RuleString(const string& s);
+    RuleString(const char* c);
+};
 
 class ProductionRule {
 public:
@@ -62,7 +67,15 @@ public:
     bool isParametric() const {
         return predecessor.isParametric();
     }
+    ProductionRule& setContext(const string& left, const string& right) {
+        leftContext = left;
+        rightContext = right;
+        return *this;
+    }
+    ProductionRule& setLeftContext(const string& context) { leftContext = context; return *this; }
+    ProductionRule& setRightContext(const string& context) { rightContext = context; return *this; }
     ProductionRule& setCondition(const string& condition) { parametricCondition = condition; return *this; }
+    ProductionRule& setProbability(float p) { probability = p; return *this; }
 };
 
 std::ostream& operator<<(std::ostream& os, const ProductionRule& rule);
@@ -81,18 +94,12 @@ public:
     LSystem();
     
     void setAxiom(const RuleString& axiomString);
-    void setAxiom(const string& axiomString);
     const RuleString& getAxiom() const { return axiom; }
     
     void ignoreForContext(const RuleString& ignoreString);
-    void ignoreForContext(const string& ignoreString);
     
-    ProductionRule& addRule(const RuleToken& predecessor, const RuleString& successor, float prob = 1.0);
-    ProductionRule& addRule(const string& predecessor, const string& successor, float prob = 1.0);
-    ProductionRule& addRule(const char predecessor, const string& successor, float prob = 1.0);
-    ProductionRule& addRule(const RuleString& leftContext, const RuleToken& predecessor, const RuleString& rightContext, const RuleString& successor, float prob = 1.0);
-    ProductionRule& addRule(const string& leftContext, const string& predecessor, const string& rightContext, const string& successor, float prob = 1.0);
-    ProductionRule& addRule(const string& leftContext, const char predecessor, const string& rightContext, const string& successor, float prob = 1.0);
+    ProductionRule& addRule(const RuleToken& predecessor, const RuleString& successor);
+    ProductionRule& addRule(const RuleString& leftContext, const RuleToken& predecessor, const RuleString& rightContext, const RuleString& successor);
     const RuleSet& getRules() const { return rules; }
     
     RuleString generate(int iteration, bool logging = false);

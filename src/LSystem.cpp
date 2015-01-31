@@ -76,6 +76,60 @@ string to_string(const ProductionRule& pr) {
     return ss.str();
 }
 
+RuleToken parseRuleToken(const string& str, int* pStartPosition = NULL) {
+    int pos = 0;
+    if (pStartPosition) {
+        pos = *pStartPosition;
+    }
+    RuleToken token(str[pos]);
+    pos++;
+    if (pos + 1 < str.size() && str[pos] == '_') {
+        token.subscript = str[pos + 1];
+        pos += 2;
+    }
+    if (pos + 1 < str.size() && str[pos] == '(') {
+        int parenLevel = 1;
+        pos = pos + 1;
+        int startPos = pos;
+        while (parenLevel > 0 && pos < str.size()) {
+            if (str[pos] == ')') {
+                parenLevel--;
+                pos++;
+            } else if (str[pos] == '(') {
+                parenLevel++;
+                pos++;
+            } else if (str[pos] == ',' && parenLevel == 1) {
+                token.parameters.push_back(str.substr(startPos, pos - startPos));
+                pos++;
+                startPos = pos;
+            } else {
+                pos++;
+            }
+        }
+        if (parenLevel != 0) {
+            cout << "ERROR: Unmatched parentheses in token!\n";
+        } else if (pos < str.size() + 1) {
+            token.parameters.push_back(str.substr(startPos, pos - startPos - 1));
+        }
+    }
+    if (pStartPosition) {
+        *pStartPosition = pos;
+    }
+    return token;
+}
+
+RuleToken::RuleToken(const char* str) {
+    *this = parseRuleToken(str);
+}
+
+RuleToken::RuleToken(const char c) {
+    symbol.push_back(c);
+}
+
+RuleToken::RuleToken(const string& str) {
+    *this = parseRuleToken(str);
+}
+
 bool RuleToken::operator<(const RuleToken& rhs) const {
     if (this->symbol == rhs.symbol) {
         if (this->subscript == rhs.subscript) {
@@ -132,56 +186,24 @@ bool RuleToken::operator==(const char& rhs) const {
     return this->symbol.size() == 1 && this->symbol[0] == rhs;
 }
 
-RuleToken parseRuleToken(const string& str, int* pStartPosition = NULL) {
-    int pos = 0;
-    if (pStartPosition) {
-        pos = *pStartPosition;
-    }
-    RuleToken token(str[pos]);
-    pos++;
-    if (pos + 1 < str.size() && str[pos] == '_') {
-        token.subscript = str[pos + 1];
-        pos += 2;
-    }
-    if (pos + 1 < str.size() && str[pos] == '(') {
-        int parenLevel = 1;
-        pos = pos + 1;
-        int startPos = pos;
-        while (parenLevel > 0 && pos < str.size()) {
-            if (str[pos] == ')') {
-                parenLevel--;
-                pos++;
-            } else if (str[pos] == '(') {
-                parenLevel++;
-                pos++;
-            } else if (str[pos] == ',' && parenLevel == 1) {
-                token.parameters.push_back(str.substr(startPos, pos - startPos));
-                pos++;
-                startPos = pos;
-            } else {
-                pos++;
-            }
-        }
-        if (parenLevel != 0) {
-            cout << "ERROR: Unmatched parentheses in token!\n";
-        } else if (pos < str.size() + 1) {
-            token.parameters.push_back(str.substr(startPos, pos - startPos - 1));
-        }
-    }
-    if (pStartPosition) {
-        *pStartPosition = pos;
-    }
-    return token;
-}
 
-RuleString parseRuleString(const string& str) {
+RuleString::RuleString(const string& str) {
     RuleString r;
     int i = 0;
     while(i < str.size()) {
         RuleToken token = parseRuleToken(str, &i);
-        r.push_back(token);
+        push_back(token);
     }
-    return r;
+}
+
+RuleString::RuleString(const char* c) {
+    string str(c);
+    RuleString r;
+    int i = 0;
+    while(i < str.size()) {
+        RuleToken token = parseRuleToken(str, &i);
+        push_back(token);
+    }
 }
 
 bool ProductionRuleGroup::isStochastic() const {
@@ -201,54 +223,28 @@ void LSystem::setAxiom(const RuleString& axiomString) {
     axiom = axiomString;
 }
 
-void LSystem::setAxiom(const string& axiomString) {
-    axiom = parseRuleString(axiomString);
-}
-
 void LSystem::ignoreForContext(const RuleString& ignoreString) {
     ignoreContext = ignoreString;
 }
 
-void LSystem::ignoreForContext(const string& ignoreString) {
-    ignoreContext = parseRuleString(ignoreString);
-}
-
-ProductionRule& LSystem::addRule(const RuleToken& predeccessor, const RuleString& successor, float prob) {
+ProductionRule& LSystem::addRule(const RuleToken& predeccessor, const RuleString& successor) {
     ProductionRule rule(predeccessor, successor);
     
     if (rules.find(predeccessor) == rules.end()) {
         rules.insert(pair<RuleToken, ProductionRuleGroup>(predeccessor, ProductionRuleGroup()));
     }
-    rule.probability = prob;
     
     rules[predeccessor].push_back(rule);
     return rules[predeccessor].back();
 }
 
-ProductionRule& LSystem::addRule(const string& predecessor, const string& successor, float prob) {
-    return addRule(parseRuleToken(predecessor), parseRuleString(successor), prob);
-}
 
-ProductionRule& LSystem::addRule(const char predecessor, const string& successor, float prob) {
-    return addRule(RuleToken(predecessor), parseRuleString(successor), prob);
-}
-
-ProductionRule& LSystem::addRule(const RuleString& leftContext, const RuleToken& predecessor, const RuleString& rightContext, const RuleString& successor, float prob) {
+ProductionRule& LSystem::addRule(const RuleString& leftContext, const RuleToken& predecessor, const RuleString& rightContext, const RuleString& successor) {
     
-    ProductionRule& rule = addRule(predecessor, successor, prob);
+    ProductionRule& rule = addRule(predecessor, successor);
     rule.leftContext = leftContext;
     rule.rightContext = rightContext;
     return rule;
-}
-
-ProductionRule& LSystem::addRule(const string& leftContext, const string& predecessor, const string& rightContext, const string& successor, float prob) {
-    return addRule(parseRuleString(leftContext), parseRuleToken(predecessor),
-                   parseRuleString(rightContext), parseRuleString(successor), prob);
-}
-
-ProductionRule& LSystem::addRule(const string& leftContext, const char predecessor, const string& rightContext, const string& successor, float prob) {
-    return addRule(parseRuleString(leftContext), RuleToken(predecessor),
-                   parseRuleString(rightContext), parseRuleString(successor), prob);
 }
 
 
