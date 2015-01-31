@@ -44,8 +44,6 @@ protected:
     unsigned int drawListIndex;
     ofLight headlight;
     ofMaterial material;
-    ofPtr<ofTrueTypeFont> normalFont;
-    ofPtr<ofTrueTypeFont> smallFont;
 
     ofPtr<ofMesh> mesh;
     

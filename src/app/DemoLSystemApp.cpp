@@ -22,11 +22,6 @@ void DemoLSystemApp::setup() {
     
     polyRenderMode = OF_MESH_FILL;
     
-    normalFont.reset(new ofTrueTypeFont());
-    normalFont->loadFont("Courier New Bold.ttf", 12, false, false, true);
-    smallFont.reset(new ofTrueTypeFont());
-    smallFont->loadFont("verdana.ttf", 4, false, false, true);
-    
     headlight.setPointLight();
     headlight.setAttenuation(0.1, 0.001, 0.000001);
     headlight.setSpecularColor(ofColor(255, 255, 255));
