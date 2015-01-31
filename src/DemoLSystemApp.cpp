@@ -410,7 +410,7 @@ void DemoLSystemApp::draw(){
 
     para.restart(ofGetWidth() - 20, ofGetHeight() - 25, ParagraphFormatter::LowerRight);
     
-    para.printLine("SPACE to cycle modes");
+    para.printLine("SPACE to cycle systems");
     para.printLine("+/- to adjust iteration count");
     if (system.isStochastic()) {
         para.printLine("R to reseed stochastic system");
