@@ -11,6 +11,7 @@
 
 #include "LSystemGenerator.h"
 #include "ofTypes.h"
+#include <set>
 
 class ofVec2d {
 public:

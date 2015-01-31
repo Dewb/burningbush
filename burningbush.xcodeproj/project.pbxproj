@@ -124,6 +124,7 @@
 		5B0CE28F1A7C918E008A2E22 /* RuleToken.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RuleToken.cpp; path = core/RuleToken.cpp; sourceTree = "<group>"; };
 		5B0CE2921A7C9334008A2E22 /* RuleString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RuleString.cpp; path = core/RuleString.cpp; sourceTree = "<group>"; };
 		5B0CE2951A7C9378008A2E22 /* ProductionRule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ProductionRule.cpp; path = core/ProductionRule.cpp; sourceTree = "<group>"; };
+		5B0CE2981A7C99A7008A2E22 /* DemoSystems.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DemoSystems.h; path = app/DemoSystems.h; sourceTree = "<group>"; };
 		5B8B64C71A5A9BAA006F6EB9 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		5B8B8A601A5AADC8007F24F6 /* libgtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgtest.a; path = "Dependencies/gtest-1.7.0/lib/osx/libgtest.a"; sourceTree = SOURCE_ROOT; };
 		5B8B8A761A5AB8CE007F24F6 /* LSystemUnitTests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LSystemUnitTests; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -312,13 +313,14 @@
 		5BEC72491A70803500894162 /* app */ = {
 			isa = PBXGroup;
 			children = (
-				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
+				5B0CE2981A7C99A7008A2E22 /* DemoSystems.h */,
 				E4B69E1F0A3A1BDC003C02F2 /* DemoLSystemApp.h */,
 				E4B69E1E0A3A1BDC003C02F2 /* DemoLSystemApp.cpp */,
 				5BE87C2C1A5C58A300C819C3 /* ParagraphFormatter.h */,
 				5BE87C2B1A5C58A300C819C3 /* ParagraphFormatter.cpp */,
 				5BB4EA1C1A4EC2A40047F957 /* TurntableCam.h */,
 				5BB4EA1D1A4EC2A40047F957 /* TurntableCam.cpp */,
+				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 			);
 			name = app;
 			sourceTree = "<group>";

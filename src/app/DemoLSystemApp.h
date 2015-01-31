@@ -19,7 +19,6 @@ typedef enum {
 
 class DemoLSystemApp : public ofBaseApp {
 public:
-    void createSystems();
     void setup();
     void update();
     void draw();
@@ -37,6 +36,7 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
 
+protected:
     ofxTurntableCam cam;
     ofPolyRenderMode polyRenderMode;
     bool viewDirty;
