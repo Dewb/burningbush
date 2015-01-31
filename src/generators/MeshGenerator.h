@@ -10,21 +10,9 @@
 #define __burningbush__MeshGenerator__
 
 #include "LSystemGenerator.h"
+#include "ColorBook.h"
 #include <ofTypes.h>
 
-class ColorBook {
-public:
-    ColorBook();
-    void add(const ofColor& c, int number = 1);
-    void addGradient(const ofColor& c1, const ofColor& c2, int steps = 3);
-    void addGradient(const ofColor& next, int steps = 3);
-    void nextSeries();
-    const ofColor& getColor(int series, int index);
-    int getNumSeries() const;
-    int getNumColors(int series) const;
-protected:
-    vector<vector<ofColor> > colors;
-};
 
 class MeshResult {
 public:

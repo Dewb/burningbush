@@ -9,6 +9,7 @@
 #include "LSystemRulesEngine.h"
 #include "../../lib/exprtk/exprtk.hpp"
 #include <iostream>
+#include <tr1/tuple>
 
 template <typename T>
 class ExpressionWrapper {

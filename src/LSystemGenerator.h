@@ -10,6 +10,8 @@
 #define burningbush_LSystemGenerator_h
 
 #include "LSystem.h"
+#include <tr1/functional>
+#include <stack>
 #include <iostream>
 
 typedef vector<float> FloatParams;

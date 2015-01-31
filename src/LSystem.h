@@ -10,21 +10,19 @@
 #define __burningbush__LSystem__
 
 #include <string>
-#include <set>
 #include <map>
-#include <stack>
 #include <vector>
 #include <list>
-#include <tr1/functional>
 #include <sstream>
 
 using namespace std;
 
+
 class RuleToken {
 public:
+    RuleToken(const string& str, int* pParsePosition = NULL);
     RuleToken(const char* str);
     RuleToken(const char c);
-    RuleToken(const string& str);
     
     string symbol;
     string subscript;
@@ -40,6 +38,10 @@ public:
     bool isParametric() const { return parameters.size() > 0; }
 };
 
+std::ostream& operator<<(std::ostream& os, const RuleToken& rule);
+string to_string(const RuleToken& rt);
+
+
 class RuleString : public list<RuleToken> {
 public:
     RuleString() {}
@@ -47,9 +49,13 @@ public:
     RuleString(const char* c);
 };
 
+std::ostream& operator<<(std::ostream& os, const RuleString& rule);
+string to_string(const RuleString& rs);
+
+
 class ProductionRule {
 public:
-    ProductionRule(const RuleToken& pred, const RuleString& succ) : predecessor(pred), successor(succ), probability(1.0) {}
+    ProductionRule(const RuleToken& pred, const RuleString& succ);
     
     RuleToken predecessor;
     RuleString successor;
@@ -67,18 +73,16 @@ public:
     bool isParametric() const {
         return predecessor.isParametric();
     }
-    ProductionRule& setContext(const string& left, const string& right) {
-        leftContext = left;
-        rightContext = right;
-        return *this;
-    }
-    ProductionRule& setLeftContext(const string& context) { leftContext = context; return *this; }
-    ProductionRule& setRightContext(const string& context) { rightContext = context; return *this; }
-    ProductionRule& setCondition(const string& condition) { parametricCondition = condition; return *this; }
-    ProductionRule& setProbability(float p) { probability = p; return *this; }
+    
+    ProductionRule& setContext(const string& left, const string& right);
+    ProductionRule& setLeftContext(const string& context);
+    ProductionRule& setRightContext(const string& context);
+    ProductionRule& setCondition(const string& condition);
+    ProductionRule& setProbability(float p);
 };
 
 std::ostream& operator<<(std::ostream& os, const ProductionRule& rule);
+string to_string(const ProductionRule& prod);
 
 class ProductionRuleGroup : public vector<ProductionRule> {
 public:
@@ -86,8 +90,8 @@ public:
 };
 
 typedef vector<pair<int, ProductionRule> > IndexedProductionRuleGroup;
-
 typedef map<RuleToken, ProductionRuleGroup> RuleSet;
+
 
 class LSystem {
 public:
@@ -127,10 +131,6 @@ protected:
     
     friend class LSystemRulesEngine;
 };
-
-string to_string(const ProductionRule& prod);
-string to_string(const RuleToken& rt);
-string to_string(const RuleString& rs);
 
 template <typename T>
 string to_string(T t, int precision = 2)

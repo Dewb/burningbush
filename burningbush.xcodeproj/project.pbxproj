@@ -12,6 +12,13 @@
 		1E5FEDF788EB25A15DC2460C /* ofxGuiGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEB71DBDC0C28F5821B4445E /* ofxGuiGroup.cpp */; };
 		5B0CE2841A7B18F3008A2E22 /* LSystemRulesEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B0CE2821A7B18F3008A2E22 /* LSystemRulesEngine.cpp */; };
 		5B0CE2851A7B18F3008A2E22 /* LSystemRulesEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B0CE2821A7B18F3008A2E22 /* LSystemRulesEngine.cpp */; };
+		5B0CE28E1A7C8FEF008A2E22 /* ColorBook.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B0CE28C1A7C8FEF008A2E22 /* ColorBook.cpp */; };
+		5B0CE2901A7C918E008A2E22 /* RuleToken.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B0CE28F1A7C918E008A2E22 /* RuleToken.cpp */; };
+		5B0CE2911A7C918E008A2E22 /* RuleToken.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B0CE28F1A7C918E008A2E22 /* RuleToken.cpp */; };
+		5B0CE2931A7C9334008A2E22 /* RuleString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B0CE2921A7C9334008A2E22 /* RuleString.cpp */; };
+		5B0CE2941A7C9334008A2E22 /* RuleString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B0CE2921A7C9334008A2E22 /* RuleString.cpp */; };
+		5B0CE2961A7C9378008A2E22 /* ProductionRule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B0CE2951A7C9378008A2E22 /* ProductionRule.cpp */; };
+		5B0CE2971A7C9378008A2E22 /* ProductionRule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B0CE2951A7C9378008A2E22 /* ProductionRule.cpp */; };
 		5B25A82A1A70676F00691C35 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B8B64C71A5A9BAA006F6EB9 /* main.cpp */; };
 		5B8B8A741A5AB814007F24F6 /* LSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BB4E61A1A4D35770047F957 /* LSystem.cpp */; };
 		5B8B8A751A5AB817007F24F6 /* libgtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B8B8A601A5AADC8007F24F6 /* libgtest.a */; };
@@ -112,6 +119,11 @@
 		5B0CE2821A7B18F3008A2E22 /* LSystemRulesEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LSystemRulesEngine.cpp; path = core/LSystemRulesEngine.cpp; sourceTree = "<group>"; };
 		5B0CE2831A7B18F3008A2E22 /* LSystemRulesEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSystemRulesEngine.h; path = core/LSystemRulesEngine.h; sourceTree = "<group>"; };
 		5B0CE2881A7B2070008A2E22 /* exprtk.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = exprtk.hpp; path = lib/exprtk/exprtk.hpp; sourceTree = "<group>"; };
+		5B0CE28C1A7C8FEF008A2E22 /* ColorBook.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ColorBook.cpp; path = generators/ColorBook.cpp; sourceTree = "<group>"; };
+		5B0CE28D1A7C8FEF008A2E22 /* ColorBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ColorBook.h; path = generators/ColorBook.h; sourceTree = "<group>"; };
+		5B0CE28F1A7C918E008A2E22 /* RuleToken.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RuleToken.cpp; path = core/RuleToken.cpp; sourceTree = "<group>"; };
+		5B0CE2921A7C9334008A2E22 /* RuleString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RuleString.cpp; path = core/RuleString.cpp; sourceTree = "<group>"; };
+		5B0CE2951A7C9378008A2E22 /* ProductionRule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ProductionRule.cpp; path = core/ProductionRule.cpp; sourceTree = "<group>"; };
 		5B8B64C71A5A9BAA006F6EB9 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		5B8B8A601A5AADC8007F24F6 /* libgtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgtest.a; path = "Dependencies/gtest-1.7.0/lib/osx/libgtest.a"; sourceTree = SOURCE_ROOT; };
 		5B8B8A761A5AB8CE007F24F6 /* LSystemUnitTests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LSystemUnitTests; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -251,6 +263,9 @@
 				5BB4E61A1A4D35770047F957 /* LSystem.cpp */,
 				5B0CE2831A7B18F3008A2E22 /* LSystemRulesEngine.h */,
 				5B0CE2821A7B18F3008A2E22 /* LSystemRulesEngine.cpp */,
+				5B0CE28F1A7C918E008A2E22 /* RuleToken.cpp */,
+				5B0CE2921A7C9334008A2E22 /* RuleString.cpp */,
+				5B0CE2951A7C9378008A2E22 /* ProductionRule.cpp */,
 			);
 			name = core;
 			sourceTree = "<group>";
@@ -321,6 +336,8 @@
 				5BEC72461A70754F00894162 /* ofMeshResult.cpp */,
 				5BDC7D001A70866D00CA5097 /* VectorFileMeshResult.h */,
 				5BDC7CFF1A70866D00CA5097 /* VectorFileMeshResult.cpp */,
+				5B0CE28C1A7C8FEF008A2E22 /* ColorBook.cpp */,
+				5B0CE28D1A7C8FEF008A2E22 /* ColorBook.h */,
 			);
 			name = generators;
 			sourceTree = "<group>";
@@ -574,9 +591,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B0CE2971A7C9378008A2E22 /* ProductionRule.cpp in Sources */,
 				5B0CE2851A7B18F3008A2E22 /* LSystemRulesEngine.cpp in Sources */,
+				5B0CE2941A7C9334008A2E22 /* RuleString.cpp in Sources */,
 				5B25A82A1A70676F00691C35 /* main.cpp in Sources */,
 				5B8B8A741A5AB814007F24F6 /* LSystem.cpp in Sources */,
+				5B0CE2911A7C918E008A2E22 /* RuleToken.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -588,9 +608,11 @@
 				E4B69E210A3A1BDC003C02F2 /* DemoLSystemApp.cpp in Sources */,
 				5BEC72481A70754F00894162 /* ofMeshResult.cpp in Sources */,
 				C9893715C4B972F7387711FD /* ofxBaseGui.cpp in Sources */,
+				5B0CE28E1A7C8FEF008A2E22 /* ColorBook.cpp in Sources */,
 				DE407E9EE9F292F730D30FEF /* ofxButton.cpp in Sources */,
 				1E5FEDF788EB25A15DC2460C /* ofxGuiGroup.cpp in Sources */,
 				66810C01C7565033ADB09359 /* ofxLabel.cpp in Sources */,
+				5B0CE2961A7C9378008A2E22 /* ProductionRule.cpp in Sources */,
 				181852019B0A9DEA7D78D274 /* ofxPanel.cpp in Sources */,
 				EE0AFEED578C90CDB485FBB7 /* ofxSlider.cpp in Sources */,
 				5BE87C2D1A5C58A300C819C3 /* ParagraphFormatter.cpp in Sources */,
@@ -607,7 +629,9 @@
 				5BDC7D011A70866D00CA5097 /* VectorFileMeshResult.cpp in Sources */,
 				5B0CE2841A7B18F3008A2E22 /* LSystemRulesEngine.cpp in Sources */,
 				5BCB2DF71A6F07D90042DFF4 /* LineGenerator.cpp in Sources */,
+				5B0CE2901A7C918E008A2E22 /* RuleToken.cpp in Sources */,
 				5BB4EA221A50B86D0047F957 /* MeshGenerator.cpp in Sources */,
+				5B0CE2931A7C9334008A2E22 /* RuleString.cpp in Sources */,
 				5BCB2DF11A6DF4130042DFF4 /* CreEPS.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
