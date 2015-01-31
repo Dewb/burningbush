@@ -18,7 +18,7 @@ public:
     
     ofVec2f position;
     ofVec2f previousPosition;
-    ofVec2f heading;
+    float heading;
     float angle;
     float edgeLength;
 };

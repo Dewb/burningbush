@@ -11,7 +11,7 @@
 LineGeneratorState::LineGeneratorState()
 : position(ofVec2f(0, 0))
 , previousPosition(ofVec2f(0, 0))
-, heading(ofVec2f(1, 0))
+, heading(0)
 , angle(90)
 , edgeLength(4.0)
 {
@@ -25,7 +25,8 @@ namespace {
             length *= params[0];
         }
         state.previousPosition = state.position;
-        state.position += state.heading.normalized() * state.edgeLength;
+        state.position +=
+            ofVec2f(cos((state.heading - 90) * DEG_TO_RAD), sin((state.heading - 90) * DEG_TO_RAD)) * length;
     }
     
     void forward_draw(LineGeneratorState& state, FloatParams& params) {
@@ -34,11 +35,11 @@ namespace {
     }
 
     void rotate_cw(LineGeneratorState& state, FloatParams&) {
-        state.heading.rotate(state.angle);
+        state.heading = fmod(state.heading + state.angle, 360.0f);
     }
 
     void rotate_ccw(LineGeneratorState& state, FloatParams&) {
-        state.heading.rotate(-state.angle);
+        state.heading = fmod(state.heading - state.angle, 360.0f);
     }
     
 }

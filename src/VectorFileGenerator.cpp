@@ -73,15 +73,19 @@ VectorFileGeneratorState::VectorFileGeneratorState()
 
 namespace {
     
-    void forward(VectorFileGeneratorState& state, FloatParams&) {
+    void forward(VectorFileGeneratorState& state, FloatParams& params) {
+        float length = state.edgeLength;
+        if (params.size() > 0) {
+            length *= params[0];
+        }
         state.previousPosition = state.position;
-        state.position += ofVec2d(cos(state.heading * DEG_TO_RAD), sin(state.heading * DEG_TO_RAD)) * state.edgeLength;
+        state.position +=
+            ofVec2d(cos((state.heading - 90) * DEG_TO_RAD), sin((state.heading - 90) * DEG_TO_RAD)) * length;
     }
     
-    void forward_draw(VectorFileGeneratorState& state, FloatParams&) {
-        state.previousPosition = state.position;
-        state.position += ofVec2d(cos(state.heading * DEG_TO_RAD), sin(state.heading * DEG_TO_RAD)) * state.edgeLength;
-
+    void forward_draw(VectorFileGeneratorState& state, FloatParams& params) {
+        forward(state, params);
+        
         Segment s(state.previousPosition, state.position);
         auto result = state.uniqueSegments->insert(s);
         if (result.second) {

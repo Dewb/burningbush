@@ -16,7 +16,10 @@ void DemoLSystemApp::createSystems() {
     system.addRule("F(x,t)", "F(x,t-1)").setCondition("t>0");
     system.setProperty("N", 10);
     system.setProperty("angle", 86);
-    system.setProperty("edgeLength", 5.0);
+    system.setProperty("edgeLength", 500.0);
+    system.setProperty("heading", 90);
+    system.setProperty("position_x", -0.8);
+    system.setProperty("position_y", 0.5);
     systems.push_back(make_pair(system, GeneratorTypeLine));
     
     system.reset();
@@ -421,7 +424,8 @@ void DemoLSystemApp::saveVectorFile() {
     
     int iterations = fmax(0.0, system.getProperty("N") + iterationAdjustment);
     
-    auto fileResult = ofSystemSaveDialog(system.getTitle(), "Save EPS file");
+    string defaultName = system.getTitle().empty() ? "lsystem.eps" : system.getTitle() + ".eps";
+    auto fileResult = ofSystemSaveDialog(defaultName, "Save EPS file");
     if (!fileResult.bSuccess) {
         return;
     }
@@ -433,6 +437,9 @@ void DemoLSystemApp::saveVectorFile() {
         state.edgeLength = system.getProperty("edgeLength");
         state.heading = 0;
         state.position = ofVec2f(ofGetWidth()/2, ofGetHeight() * 0.8);
+        if (system.hasProperty("heading")) {
+            state.heading = system.getProperty("heading");
+        }
         if (system.hasProperty("position_x")) {
             state.position.x = ofGetWidth() * (0.5 + 0.5 * system.getProperty("position_x"));
         }
@@ -440,7 +447,7 @@ void DemoLSystemApp::saveVectorFile() {
             state.position.y = ofGetHeight() * (0.5 + 0.5 * system.getProperty("position_y"));
         }
         
-        ofSetLineWidth(0.75);
+        ofSetLineWidth(0.5);
         vector_gen.generate(system, state, iterations);
     } else if (mode == GeneratorTypeMesh) {
         
@@ -477,8 +484,11 @@ void DemoLSystemApp::updateMesh() {
         LineGeneratorState state;
         state.angle = system.getProperty("angle");
         state.edgeLength = system.getProperty("edgeLength");
-        state.heading = ofVec2f(0, -1);
+        state.heading = 0;
         state.position = ofVec2f(ofGetWidth()/2, ofGetHeight() * 0.8);
+        if (system.hasProperty("heading")) {
+            state.heading = system.getProperty("heading");
+        }
         if (system.hasProperty("position_x")) {
             state.position.x = ofGetWidth() * (0.5 + 0.5 * system.getProperty("position_x"));
         }
@@ -486,7 +496,7 @@ void DemoLSystemApp::updateMesh() {
             state.position.y = ofGetHeight() * (0.5 + 0.5 * system.getProperty("position_y"));
         }
         
-        ofSetLineWidth(0.75);
+        ofSetLineWidth(0.5);
         line_gen.generate(system, state, iterations);
         
         glEndList();
