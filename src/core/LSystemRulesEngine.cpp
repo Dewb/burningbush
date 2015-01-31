@@ -7,7 +7,7 @@
 //
 
 #include "LSystemRulesEngine.h"
-#include "../lib/exprtk/exprtk.hpp"
+#include "../../lib/exprtk/exprtk.hpp"
 #include <iostream>
 
 template <typename T>
