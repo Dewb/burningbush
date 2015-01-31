@@ -126,7 +126,7 @@
 		5B0CE2951A7C9378008A2E22 /* ProductionRule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ProductionRule.cpp; path = core/ProductionRule.cpp; sourceTree = "<group>"; };
 		5B0CE2981A7C99A7008A2E22 /* DemoSystems.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DemoSystems.h; path = app/DemoSystems.h; sourceTree = "<group>"; };
 		5B8B64C71A5A9BAA006F6EB9 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		5B8B8A601A5AADC8007F24F6 /* libgtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgtest.a; path = "Dependencies/gtest-1.7.0/lib/osx/libgtest.a"; sourceTree = SOURCE_ROOT; };
+		5B8B8A601A5AADC8007F24F6 /* libgtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgtest.a; path = "lib/gtest-1.7.0/lib/osx/libgtest.a"; sourceTree = SOURCE_ROOT; };
 		5B8B8A761A5AB8CE007F24F6 /* LSystemUnitTests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LSystemUnitTests; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B8B8A771A5B4DC7007F24F6 /* LSystemGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSystemGenerator.h; sourceTree = "<group>"; };
 		5B8CA1151A5643D300885B53 /* VectorFileGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VectorFileGenerator.cpp; path = generators/VectorFileGenerator.cpp; sourceTree = "<group>"; };
@@ -680,10 +680,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "Dependencies/gtest-1.7.0/include";
+				HEADER_SEARCH_PATHS = "lib/gtest-1.7.0/include";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Dependencies/gtest-1.7.0/lib/osx",
+					"$(PROJECT_DIR)/lib/gtest-1.7.0/lib/osx",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -722,10 +722,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "Dependencies/gtest-1.7.0/include";
+				HEADER_SEARCH_PATHS = "lib/gtest-1.7.0/include";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Dependencies/gtest-1.7.0/lib/osx",
+					"$(PROJECT_DIR)/lib/gtest-1.7.0/lib/osx",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
