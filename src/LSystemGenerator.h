@@ -10,11 +10,16 @@
 #define burningbush_LSystemGenerator_h
 
 #include "LSystem.h"
+#include <tr1/functional>
+#include <stack>
+#include <iostream>
+
+typedef vector<float> FloatParams;
 
 template<typename StateType>
 class SymbolData {
 public:
-    typedef tr1::function<void(StateType&)> SymbolAction;
+    typedef tr1::function<void(StateType&, FloatParams&)> SymbolAction;
     
     SymbolData(RuleToken t) : token(t) { _startsGroup = false; _endsGroup = false;}
     SymbolData& startsGroup() { _startsGroup = true; return *this; }
@@ -26,7 +31,7 @@ public:
     
     const RuleToken& getToken() const { return token; }
     
-    void execute(StateType& state) const { for (auto& action : _actions) { action(state); } }
+    void execute(StateType& state, FloatParams& params) const { for (auto& action : _actions) { action(state, params); } }
 protected:
     RuleToken token;
     vector<SymbolAction> _actions;
@@ -39,7 +44,7 @@ private:
 template<typename StateType>
 class Generator {
 public:
-    typedef tr1::function<void(StateType&)> SymbolAction;
+    typedef tr1::function<void(StateType&, FloatParams)> SymbolAction;
     typedef SymbolData<StateType> Symbol;
     
     void add(const Symbol& token) { _symbols.insert(std::pair<RuleToken, Symbol>(token.getToken(), token)); }
@@ -73,7 +78,21 @@ public:
                     StateType newState = stateStack.top();
                     stateStack.push(newState);
                 }
-                sym->execute(stateStack.top());
+                
+                FloatParams floatParams;
+                for (auto& stringParam : iter->parameters) {
+                    stringstream ss(stringParam);
+                    float x;
+                    ss >> x;
+                    if (ss.fail()) {
+                        cout << "ERROR: parameter " << stringParam << " is non-numeric!\n";
+                    } else {
+                        floatParams.push_back(x);
+                    }
+                }
+                
+                sym->execute(stateStack.top(), floatParams);
+                
                 if (sym->shouldEndGroup() && stateStack.size() > 1) {
                     stateStack.pop();
                 }
