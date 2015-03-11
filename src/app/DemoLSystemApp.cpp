@@ -35,6 +35,8 @@ void DemoLSystemApp::setup() {
     currentSystem = 0;
     
     updateMesh();
+
+    oscReceiver.setup(7777);
 }
 
 ofVec3f getMeshCenter(ofPtr<ofMesh> mesh) {
@@ -58,6 +60,35 @@ ofVec3f getMeshCenter(ofPtr<ofMesh> mesh) {
 void DemoLSystemApp::update(){
     cam.setDistance(250);
     headlight.setPosition(-100, 100, 100);
+    processOscInput();
+}
+
+void DemoLSystemApp::processOscInput() {
+
+    LSystem& system = systems[currentSystem].first;
+    bool changed = false;
+
+    while(oscReceiver.hasWaitingMessages()){
+        // get the next message
+        ofxOscMessage m;
+        oscReceiver.getNextMessage(&m);
+
+        if(m.getAddress().substr(0, 17) == "/system/property/"){
+            string propName = m.getAddress().substr(17);
+            if (system.hasProperty(propName)) {
+                float oldValue = system.getProperty(propName);
+                float newValue = m.getArgAsFloat(0);
+                if (oldValue != newValue) {
+                    system.setProperty(propName, newValue);
+                    changed = true;
+                }
+            }
+        }
+    }
+
+    if (changed) {
+        updateMesh();
+    }
 }
 
 void DemoLSystemApp::draw(){
@@ -215,7 +246,7 @@ void DemoLSystemApp::saveVectorFile() {
 
 }
 
-void DemoLSystemApp::updateMesh() {
+void DemoLSystemApp::updateMesh(bool rerunSystem) {
     
     LSystem& system = systems[currentSystem].first;
     GeneratorType mode = systems[currentSystem].second;

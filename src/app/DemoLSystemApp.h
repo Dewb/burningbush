@@ -6,6 +6,7 @@
 #include "VectorFileGenerator.h"
 #include "FloorplanGenerator.h"
 #include "TurntableCam.h"
+#include "ofxOsc.h"
 
 template<typename T>
 class ofPtrArray : public vector<ofPtr<T> > {
@@ -25,7 +26,7 @@ public:
     void update();
     void draw();
     
-    void updateMesh();
+    void updateMesh(bool rerunSystem = true);
     void saveVectorFile();
 
     void keyPressed(int key);
@@ -38,7 +39,10 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
 
+    void processOscInput();
+
 protected:
+    ofxOscReceiver oscReceiver;
     ofxTurntableCam cam;
     ofPolyRenderMode polyRenderMode;
     bool viewDirty;

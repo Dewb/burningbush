@@ -31,6 +31,30 @@
 		5BCB2DF01A6DF4130042DFF4 /* ofxVectorGraphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BCB2DEA1A6DF4130042DFF4 /* ofxVectorGraphics.cpp */; };
 		5BCB2DF11A6DF4130042DFF4 /* CreEPS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BCB2DED1A6DF4130042DFF4 /* CreEPS.cpp */; };
 		5BCB2DF71A6F07D90042DFF4 /* LineGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BCB2DF51A6F07D90042DFF4 /* LineGenerator.cpp */; };
+		5BD674351AAFA4DC00B1032E /* ofxOscBundle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BD6740E1AAFA4DC00B1032E /* ofxOscBundle.cpp */; };
+		5BD674361AAFA4DC00B1032E /* ofxOscMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BD674101AAFA4DC00B1032E /* ofxOscMessage.cpp */; };
+		5BD674371AAFA4DC00B1032E /* ofxOscParameterSync.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BD674121AAFA4DC00B1032E /* ofxOscParameterSync.cpp */; };
+		5BD674381AAFA4DC00B1032E /* ofxOscReceiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BD674141AAFA4DC00B1032E /* ofxOscReceiver.cpp */; };
+		5BD674391AAFA4DC00B1032E /* ofxOscSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BD674161AAFA4DC00B1032E /* ofxOscSender.cpp */; };
+		5BD6743A1AAFA4DC00B1032E /* IpEndpointName.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BD6741C1AAFA4DC00B1032E /* IpEndpointName.cpp */; };
+		5BD6743B1AAFA4DC00B1032E /* NetworkingUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BD674211AAFA4DC00B1032E /* NetworkingUtils.cpp */; };
+		5BD6743C1AAFA4DC00B1032E /* UdpSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BD674221AAFA4DC00B1032E /* UdpSocket.cpp */; };
+		5BD6743D1AAFA4DC00B1032E /* OscOutboundPacketStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BD6742C1AAFA4DC00B1032E /* OscOutboundPacketStream.cpp */; };
+		5BD6743E1AAFA4DC00B1032E /* OscPrintReceivedElements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BD6742F1AAFA4DC00B1032E /* OscPrintReceivedElements.cpp */; };
+		5BD6743F1AAFA4DC00B1032E /* OscReceivedElements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BD674311AAFA4DC00B1032E /* OscReceivedElements.cpp */; };
+		5BD674401AAFA4DC00B1032E /* OscTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BD674331AAFA4DC00B1032E /* OscTypes.cpp */; };
+		5BD674411AAFA4DC00B1032E /* ofxOscBundle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BD6740E1AAFA4DC00B1032E /* ofxOscBundle.cpp */; };
+		5BD674421AAFA4DC00B1032E /* ofxOscMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BD674101AAFA4DC00B1032E /* ofxOscMessage.cpp */; };
+		5BD674431AAFA4DC00B1032E /* ofxOscParameterSync.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BD674121AAFA4DC00B1032E /* ofxOscParameterSync.cpp */; };
+		5BD674441AAFA4DC00B1032E /* ofxOscReceiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BD674141AAFA4DC00B1032E /* ofxOscReceiver.cpp */; };
+		5BD674451AAFA4DC00B1032E /* ofxOscSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BD674161AAFA4DC00B1032E /* ofxOscSender.cpp */; };
+		5BD674461AAFA4DC00B1032E /* IpEndpointName.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BD6741C1AAFA4DC00B1032E /* IpEndpointName.cpp */; };
+		5BD674471AAFA4DC00B1032E /* NetworkingUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BD674211AAFA4DC00B1032E /* NetworkingUtils.cpp */; };
+		5BD674481AAFA4DC00B1032E /* UdpSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BD674221AAFA4DC00B1032E /* UdpSocket.cpp */; };
+		5BD674491AAFA4DC00B1032E /* OscOutboundPacketStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BD6742C1AAFA4DC00B1032E /* OscOutboundPacketStream.cpp */; };
+		5BD6744A1AAFA4DC00B1032E /* OscPrintReceivedElements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BD6742F1AAFA4DC00B1032E /* OscPrintReceivedElements.cpp */; };
+		5BD6744B1AAFA4DC00B1032E /* OscReceivedElements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BD674311AAFA4DC00B1032E /* OscReceivedElements.cpp */; };
+		5BD6744C1AAFA4DC00B1032E /* OscTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BD674331AAFA4DC00B1032E /* OscTypes.cpp */; };
 		5BDC7D011A70866D00CA5097 /* VectorFileMeshResult.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BDC7CFF1A70866D00CA5097 /* VectorFileMeshResult.cpp */; };
 		5BE85CE01A8179F20062693F /* FloorplanGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BE85CDE1A8179F20062693F /* FloorplanGenerator.cpp */; };
 		5BE87C2D1A5C58A300C819C3 /* ParagraphFormatter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BE87C2B1A5C58A300C819C3 /* ParagraphFormatter.cpp */; };
@@ -146,6 +170,38 @@
 		5BCB2DEF1A6DF4130042DFF4 /* CreEPS_Types.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CreEPS_Types.hpp; sourceTree = "<group>"; };
 		5BCB2DF51A6F07D90042DFF4 /* LineGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LineGenerator.cpp; path = generators/LineGenerator.cpp; sourceTree = "<group>"; };
 		5BCB2DF61A6F07D90042DFF4 /* LineGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LineGenerator.h; path = generators/LineGenerator.h; sourceTree = "<group>"; };
+		5BD6740C1AAFA4DC00B1032E /* ofxOsc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxOsc.h; sourceTree = "<group>"; };
+		5BD6740D1AAFA4DC00B1032E /* ofxOscArg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxOscArg.h; sourceTree = "<group>"; };
+		5BD6740E1AAFA4DC00B1032E /* ofxOscBundle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxOscBundle.cpp; sourceTree = "<group>"; };
+		5BD6740F1AAFA4DC00B1032E /* ofxOscBundle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxOscBundle.h; sourceTree = "<group>"; };
+		5BD674101AAFA4DC00B1032E /* ofxOscMessage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxOscMessage.cpp; sourceTree = "<group>"; };
+		5BD674111AAFA4DC00B1032E /* ofxOscMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxOscMessage.h; sourceTree = "<group>"; };
+		5BD674121AAFA4DC00B1032E /* ofxOscParameterSync.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxOscParameterSync.cpp; sourceTree = "<group>"; };
+		5BD674131AAFA4DC00B1032E /* ofxOscParameterSync.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxOscParameterSync.h; sourceTree = "<group>"; };
+		5BD674141AAFA4DC00B1032E /* ofxOscReceiver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxOscReceiver.cpp; sourceTree = "<group>"; };
+		5BD674151AAFA4DC00B1032E /* ofxOscReceiver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxOscReceiver.h; sourceTree = "<group>"; };
+		5BD674161AAFA4DC00B1032E /* ofxOscSender.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxOscSender.cpp; sourceTree = "<group>"; };
+		5BD674171AAFA4DC00B1032E /* ofxOscSender.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxOscSender.h; sourceTree = "<group>"; };
+		5BD6741C1AAFA4DC00B1032E /* IpEndpointName.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IpEndpointName.cpp; sourceTree = "<group>"; };
+		5BD6741D1AAFA4DC00B1032E /* IpEndpointName.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IpEndpointName.h; sourceTree = "<group>"; };
+		5BD6741E1AAFA4DC00B1032E /* NetworkingUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetworkingUtils.h; sourceTree = "<group>"; };
+		5BD6741F1AAFA4DC00B1032E /* PacketListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PacketListener.h; sourceTree = "<group>"; };
+		5BD674211AAFA4DC00B1032E /* NetworkingUtils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NetworkingUtils.cpp; sourceTree = "<group>"; };
+		5BD674221AAFA4DC00B1032E /* UdpSocket.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UdpSocket.cpp; sourceTree = "<group>"; };
+		5BD674231AAFA4DC00B1032E /* TimerListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimerListener.h; sourceTree = "<group>"; };
+		5BD674241AAFA4DC00B1032E /* UdpSocket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UdpSocket.h; sourceTree = "<group>"; };
+		5BD674291AAFA4DC00B1032E /* MessageMappingOscPacketListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageMappingOscPacketListener.h; sourceTree = "<group>"; };
+		5BD6742A1AAFA4DC00B1032E /* OscException.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OscException.h; sourceTree = "<group>"; };
+		5BD6742B1AAFA4DC00B1032E /* OscHostEndianness.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OscHostEndianness.h; sourceTree = "<group>"; };
+		5BD6742C1AAFA4DC00B1032E /* OscOutboundPacketStream.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OscOutboundPacketStream.cpp; sourceTree = "<group>"; };
+		5BD6742D1AAFA4DC00B1032E /* OscOutboundPacketStream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OscOutboundPacketStream.h; sourceTree = "<group>"; };
+		5BD6742E1AAFA4DC00B1032E /* OscPacketListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OscPacketListener.h; sourceTree = "<group>"; };
+		5BD6742F1AAFA4DC00B1032E /* OscPrintReceivedElements.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OscPrintReceivedElements.cpp; sourceTree = "<group>"; };
+		5BD674301AAFA4DC00B1032E /* OscPrintReceivedElements.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OscPrintReceivedElements.h; sourceTree = "<group>"; };
+		5BD674311AAFA4DC00B1032E /* OscReceivedElements.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OscReceivedElements.cpp; sourceTree = "<group>"; };
+		5BD674321AAFA4DC00B1032E /* OscReceivedElements.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OscReceivedElements.h; sourceTree = "<group>"; };
+		5BD674331AAFA4DC00B1032E /* OscTypes.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OscTypes.cpp; sourceTree = "<group>"; };
+		5BD674341AAFA4DC00B1032E /* OscTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OscTypes.h; sourceTree = "<group>"; };
 		5BDC7CFF1A70866D00CA5097 /* VectorFileMeshResult.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VectorFileMeshResult.cpp; path = generators/VectorFileMeshResult.cpp; sourceTree = "<group>"; };
 		5BDC7D001A70866D00CA5097 /* VectorFileMeshResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VectorFileMeshResult.h; path = generators/VectorFileMeshResult.h; sourceTree = "<group>"; };
 		5BE85CDE1A8179F20062693F /* FloorplanGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FloorplanGenerator.cpp; path = generators/FloorplanGenerator.cpp; sourceTree = "<group>"; };
@@ -313,6 +369,103 @@
 			path = ../of_v0.8.4_osx_release/addons/ofxVectorGraphics/libs;
 			sourceTree = "<group>";
 		};
+		5BD6740A1AAFA4DC00B1032E /* ofxOsc */ = {
+			isa = PBXGroup;
+			children = (
+				5BD6740B1AAFA4DC00B1032E /* src */,
+				5BD674181AAFA4DC00B1032E /* libs */,
+			);
+			name = ofxOsc;
+			sourceTree = "<group>";
+		};
+		5BD6740B1AAFA4DC00B1032E /* src */ = {
+			isa = PBXGroup;
+			children = (
+				5BD6740C1AAFA4DC00B1032E /* ofxOsc.h */,
+				5BD6740D1AAFA4DC00B1032E /* ofxOscArg.h */,
+				5BD6740E1AAFA4DC00B1032E /* ofxOscBundle.cpp */,
+				5BD6740F1AAFA4DC00B1032E /* ofxOscBundle.h */,
+				5BD674101AAFA4DC00B1032E /* ofxOscMessage.cpp */,
+				5BD674111AAFA4DC00B1032E /* ofxOscMessage.h */,
+				5BD674121AAFA4DC00B1032E /* ofxOscParameterSync.cpp */,
+				5BD674131AAFA4DC00B1032E /* ofxOscParameterSync.h */,
+				5BD674141AAFA4DC00B1032E /* ofxOscReceiver.cpp */,
+				5BD674151AAFA4DC00B1032E /* ofxOscReceiver.h */,
+				5BD674161AAFA4DC00B1032E /* ofxOscSender.cpp */,
+				5BD674171AAFA4DC00B1032E /* ofxOscSender.h */,
+			);
+			name = src;
+			path = ../of_v0.8.4_osx_release/addons/ofxOsc/src;
+			sourceTree = "<group>";
+		};
+		5BD674181AAFA4DC00B1032E /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				5BD674191AAFA4DC00B1032E /* oscpack */,
+			);
+			name = libs;
+			path = ../of_v0.8.4_osx_release/addons/ofxOsc/libs;
+			sourceTree = "<group>";
+		};
+		5BD674191AAFA4DC00B1032E /* oscpack */ = {
+			isa = PBXGroup;
+			children = (
+				5BD6741A1AAFA4DC00B1032E /* src */,
+			);
+			path = oscpack;
+			sourceTree = "<group>";
+		};
+		5BD6741A1AAFA4DC00B1032E /* src */ = {
+			isa = PBXGroup;
+			children = (
+				5BD6741B1AAFA4DC00B1032E /* ip */,
+				5BD674281AAFA4DC00B1032E /* osc */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		5BD6741B1AAFA4DC00B1032E /* ip */ = {
+			isa = PBXGroup;
+			children = (
+				5BD6741C1AAFA4DC00B1032E /* IpEndpointName.cpp */,
+				5BD6741D1AAFA4DC00B1032E /* IpEndpointName.h */,
+				5BD6741E1AAFA4DC00B1032E /* NetworkingUtils.h */,
+				5BD6741F1AAFA4DC00B1032E /* PacketListener.h */,
+				5BD674201AAFA4DC00B1032E /* posix */,
+				5BD674231AAFA4DC00B1032E /* TimerListener.h */,
+				5BD674241AAFA4DC00B1032E /* UdpSocket.h */,
+			);
+			path = ip;
+			sourceTree = "<group>";
+		};
+		5BD674201AAFA4DC00B1032E /* posix */ = {
+			isa = PBXGroup;
+			children = (
+				5BD674211AAFA4DC00B1032E /* NetworkingUtils.cpp */,
+				5BD674221AAFA4DC00B1032E /* UdpSocket.cpp */,
+			);
+			path = posix;
+			sourceTree = "<group>";
+		};
+		5BD674281AAFA4DC00B1032E /* osc */ = {
+			isa = PBXGroup;
+			children = (
+				5BD674291AAFA4DC00B1032E /* MessageMappingOscPacketListener.h */,
+				5BD6742A1AAFA4DC00B1032E /* OscException.h */,
+				5BD6742B1AAFA4DC00B1032E /* OscHostEndianness.h */,
+				5BD6742C1AAFA4DC00B1032E /* OscOutboundPacketStream.cpp */,
+				5BD6742D1AAFA4DC00B1032E /* OscOutboundPacketStream.h */,
+				5BD6742E1AAFA4DC00B1032E /* OscPacketListener.h */,
+				5BD6742F1AAFA4DC00B1032E /* OscPrintReceivedElements.cpp */,
+				5BD674301AAFA4DC00B1032E /* OscPrintReceivedElements.h */,
+				5BD674311AAFA4DC00B1032E /* OscReceivedElements.cpp */,
+				5BD674321AAFA4DC00B1032E /* OscReceivedElements.h */,
+				5BD674331AAFA4DC00B1032E /* OscTypes.cpp */,
+				5BD674341AAFA4DC00B1032E /* OscTypes.h */,
+			);
+			path = osc;
+			sourceTree = "<group>";
+		};
 		5BEC72491A70803500894162 /* app */ = {
 			isa = PBXGroup;
 			children = (
@@ -399,6 +552,7 @@
 				5BCB2DE81A6DF4130042DFF4 /* ofxVectorGraphics */,
 				480A780D8D0308AE4A368801 /* ofxGui */,
 				1F4FB5C423662B96ADFDCC0B /* ofxXmlSettings */,
+				5BD6740A1AAFA4DC00B1032E /* ofxOsc */,
 			);
 			name = addons;
 			sourceTree = "<group>";
@@ -599,11 +753,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B0CE2971A7C9378008A2E22 /* ProductionRule.cpp in Sources */,
+				5BD674421AAFA4DC00B1032E /* ofxOscMessage.cpp in Sources */,
 				5B0CE2851A7B18F3008A2E22 /* LSystemRulesEngine.cpp in Sources */,
+				5BD6744A1AAFA4DC00B1032E /* OscPrintReceivedElements.cpp in Sources */,
+				5BD674431AAFA4DC00B1032E /* ofxOscParameterSync.cpp in Sources */,
+				5BD674451AAFA4DC00B1032E /* ofxOscSender.cpp in Sources */,
 				5B0CE2941A7C9334008A2E22 /* RuleString.cpp in Sources */,
+				5BD674481AAFA4DC00B1032E /* UdpSocket.cpp in Sources */,
 				5B25A82A1A70676F00691C35 /* main.cpp in Sources */,
+				5BD674471AAFA4DC00B1032E /* NetworkingUtils.cpp in Sources */,
+				5BD674441AAFA4DC00B1032E /* ofxOscReceiver.cpp in Sources */,
+				5BD6744B1AAFA4DC00B1032E /* OscReceivedElements.cpp in Sources */,
 				5B8B8A741A5AB814007F24F6 /* LSystem.cpp in Sources */,
 				5B0CE2911A7C918E008A2E22 /* RuleToken.cpp in Sources */,
+				5BD674491AAFA4DC00B1032E /* OscOutboundPacketStream.cpp in Sources */,
+				5BD6744C1AAFA4DC00B1032E /* OscTypes.cpp in Sources */,
+				5BD674461AAFA4DC00B1032E /* IpEndpointName.cpp in Sources */,
+				5BD674411AAFA4DC00B1032E /* ofxOscBundle.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -613,10 +779,13 @@
 			files = (
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* DemoLSystemApp.cpp in Sources */,
+				5BD674381AAFA4DC00B1032E /* ofxOscReceiver.cpp in Sources */,
 				5BEC72481A70754F00894162 /* ofMeshResult.cpp in Sources */,
 				C9893715C4B972F7387711FD /* ofxBaseGui.cpp in Sources */,
 				5B0CE28E1A7C8FEF008A2E22 /* ColorBook.cpp in Sources */,
 				DE407E9EE9F292F730D30FEF /* ofxButton.cpp in Sources */,
+				5BD674351AAFA4DC00B1032E /* ofxOscBundle.cpp in Sources */,
+				5BD6743C1AAFA4DC00B1032E /* UdpSocket.cpp in Sources */,
 				1E5FEDF788EB25A15DC2460C /* ofxGuiGroup.cpp in Sources */,
 				66810C01C7565033ADB09359 /* ofxLabel.cpp in Sources */,
 				5B0CE2961A7C9378008A2E22 /* ProductionRule.cpp in Sources */,
@@ -625,21 +794,30 @@
 				5BE87C2D1A5C58A300C819C3 /* ParagraphFormatter.cpp in Sources */,
 				0B79D1370C521A99743B84F8 /* ofxSliderGroup.cpp in Sources */,
 				FBA20CC9B0626C7D5A9D5F9C /* ofxToggle.cpp in Sources */,
+				5BD6743B1AAFA4DC00B1032E /* NetworkingUtils.cpp in Sources */,
 				7EFCFE727D9DE492780174E1 /* ofxXmlSettings.cpp in Sources */,
+				5BD6743F1AAFA4DC00B1032E /* OscReceivedElements.cpp in Sources */,
 				5BB4EA1E1A4EC2A40047F957 /* TurntableCam.cpp in Sources */,
+				5BD674401AAFA4DC00B1032E /* OscTypes.cpp in Sources */,
 				A5BF54CACA9C2F0BA2DB1131 /* tinyxml.cpp in Sources */,
 				5BB4E61C1A4D35770047F957 /* LSystem.cpp in Sources */,
 				8E4B38BFD068409CC33E8EF4 /* tinyxmlerror.cpp in Sources */,
 				5BCB2DF01A6DF4130042DFF4 /* ofxVectorGraphics.cpp in Sources */,
+				5BD6743D1AAFA4DC00B1032E /* OscOutboundPacketStream.cpp in Sources */,
 				AB8A4587A21CD2325D587E8A /* tinyxmlparser.cpp in Sources */,
 				5BE85CE01A8179F20062693F /* FloorplanGenerator.cpp in Sources */,
+				5BD6743E1AAFA4DC00B1032E /* OscPrintReceivedElements.cpp in Sources */,
 				5B8CA1171A5643D300885B53 /* VectorFileGenerator.cpp in Sources */,
+				5BD674371AAFA4DC00B1032E /* ofxOscParameterSync.cpp in Sources */,
+				5BD674391AAFA4DC00B1032E /* ofxOscSender.cpp in Sources */,
 				5BDC7D011A70866D00CA5097 /* VectorFileMeshResult.cpp in Sources */,
+				5BD674361AAFA4DC00B1032E /* ofxOscMessage.cpp in Sources */,
 				5B0CE2841A7B18F3008A2E22 /* LSystemRulesEngine.cpp in Sources */,
 				5BCB2DF71A6F07D90042DFF4 /* LineGenerator.cpp in Sources */,
 				5B0CE2901A7C918E008A2E22 /* RuleToken.cpp in Sources */,
 				5BB4EA221A50B86D0047F957 /* MeshGenerator.cpp in Sources */,
 				5B0CE2931A7C9334008A2E22 /* RuleString.cpp in Sources */,
+				5BD6743A1AAFA4DC00B1032E /* IpEndpointName.cpp in Sources */,
 				5BCB2DF11A6DF4130042DFF4 /* CreEPS.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1000,6 +1178,81 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_MODEL_TUNING = NONE;
+				HEADER_SEARCH_PATHS = (
+					"$(OF_CORE_HEADERS)",
+					../of_v0.8.4_osx_release/addons/ofxGui/libs,
+					../of_v0.8.4_osx_release/addons/ofxGui/src,
+					../of_v0.8.4_osx_release/addons/ofxXmlSettings/libs,
+					../of_v0.8.4_osx_release/addons/ofxXmlSettings/src,
+					../of_v0.8.4_osx_release/addons/ofxAutoReloadedShader/libs,
+					../of_v0.8.4_osx_release/addons/ofxAutoReloadedShader/src,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletCollision,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletCollision/BroadphaseCollision,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletCollision/CollisionDispatch,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletCollision/CollisionShapes,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletCollision/Gimpact,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletCollision/NarrowPhaseCollision,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletDynamics,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletDynamics/Character,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletDynamics/ConstraintSolver,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletDynamics/Dynamics,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletDynamics/Vehicle,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletMultiThreaded,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletMultiThreaded/GpuSoftBodySolvers,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletMultiThreaded/GpuSoftBodySolvers/DX11,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletMultiThreaded/GpuSoftBodySolvers/DX11/HLSL,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletMultiThreaded/GpuSoftBodySolvers/OpenCL,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletMultiThreaded/GpuSoftBodySolvers/OpenCL/AMD,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletMultiThreaded/GpuSoftBodySolvers/OpenCL/Apple,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletMultiThreaded/GpuSoftBodySolvers/OpenCL/Intel,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletMultiThreaded/GpuSoftBodySolvers/OpenCL/MiniCL,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletMultiThreaded/GpuSoftBodySolvers/OpenCL/NVidia,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletMultiThreaded/GpuSoftBodySolvers/OpenCL/OpenCLC10,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletMultiThreaded/GpuSoftBodySolvers/Shared,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletMultiThreaded/SpuNarrowPhaseCollisionTask,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletMultiThreaded/SpuSampleTask,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletSoftBody,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/LinearMath,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/MiniCL,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/MiniCL/MiniCLTask,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/vectormath,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/vectormath/neon,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/vectormath/scalar,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/vectormath/sse,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/lib,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/lib/osx,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/lib/osx/fat,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/lib/osx/i386,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/lib/osx/x86_64,
+					../of_v0.8.4_osx_release/addons/ofxBullet/src,
+					../of_v0.8.4_osx_release/addons/ofxBullet/src/events,
+					../of_v0.8.4_osx_release/addons/ofxBullet/src/joints,
+					../of_v0.8.4_osx_release/addons/ofxBullet/src/render,
+					../of_v0.8.4_osx_release/addons/ofxBullet/src/shapes,
+					../of_v0.8.4_osx_release/addons/ofxSyphon/libs,
+					../of_v0.8.4_osx_release/addons/ofxSyphon/libs/Syphon,
+					../of_v0.8.4_osx_release/addons/ofxSyphon/libs/Syphon/lib,
+					../of_v0.8.4_osx_release/addons/ofxSyphon/libs/Syphon/lib/osx,
+					../of_v0.8.4_osx_release/addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework,
+					../of_v0.8.4_osx_release/addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework/Headers,
+					../of_v0.8.4_osx_release/addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework/Resources,
+					../of_v0.8.4_osx_release/addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework/Resources/English.lproj,
+					../of_v0.8.4_osx_release/addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework/Versions,
+					../of_v0.8.4_osx_release/addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework/Versions/A,
+					../of_v0.8.4_osx_release/addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework/Versions/A/Headers,
+					../of_v0.8.4_osx_release/addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework/Versions/A/Resources,
+					../of_v0.8.4_osx_release/addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework/Versions/A/Resources/English.lproj,
+					../of_v0.8.4_osx_release/addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework/Versions/Current,
+					../of_v0.8.4_osx_release/addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework/Versions/Current/Headers,
+					../of_v0.8.4_osx_release/addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework/Versions/Current/Resources,
+					../of_v0.8.4_osx_release/addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework/Versions/Current/Resources/English.lproj,
+					../of_v0.8.4_osx_release/addons/ofxSyphon/libs/Syphon/src,
+					../of_v0.8.4_osx_release/addons/ofxSyphon/src,
+					"$(OF_PATH)/addons/ofxOsc/libs/oscpack/src",
+				);
 				ICON = "$(ICON_NAME_DEBUG)";
 				ICON_FILE = "$(ICON_FILE_PATH)$(ICON)";
 				INFOPLIST_FILE = "openFrameworks-Info.plist";
@@ -1088,6 +1341,81 @@
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../of_v0.8.4_osx_release/libs/glut/lib/osx\"";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_MODEL_TUNING = NONE;
+				HEADER_SEARCH_PATHS = (
+					"$(OF_CORE_HEADERS)",
+					../of_v0.8.4_osx_release/addons/ofxGui/libs,
+					../of_v0.8.4_osx_release/addons/ofxGui/src,
+					../of_v0.8.4_osx_release/addons/ofxXmlSettings/libs,
+					../of_v0.8.4_osx_release/addons/ofxXmlSettings/src,
+					../of_v0.8.4_osx_release/addons/ofxAutoReloadedShader/libs,
+					../of_v0.8.4_osx_release/addons/ofxAutoReloadedShader/src,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletCollision,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletCollision/BroadphaseCollision,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletCollision/CollisionDispatch,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletCollision/CollisionShapes,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletCollision/Gimpact,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletCollision/NarrowPhaseCollision,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletDynamics,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletDynamics/Character,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletDynamics/ConstraintSolver,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletDynamics/Dynamics,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletDynamics/Vehicle,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletMultiThreaded,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletMultiThreaded/GpuSoftBodySolvers,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletMultiThreaded/GpuSoftBodySolvers/DX11,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletMultiThreaded/GpuSoftBodySolvers/DX11/HLSL,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletMultiThreaded/GpuSoftBodySolvers/OpenCL,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletMultiThreaded/GpuSoftBodySolvers/OpenCL/AMD,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletMultiThreaded/GpuSoftBodySolvers/OpenCL/Apple,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletMultiThreaded/GpuSoftBodySolvers/OpenCL/Intel,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletMultiThreaded/GpuSoftBodySolvers/OpenCL/MiniCL,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletMultiThreaded/GpuSoftBodySolvers/OpenCL/NVidia,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletMultiThreaded/GpuSoftBodySolvers/OpenCL/OpenCLC10,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletMultiThreaded/GpuSoftBodySolvers/Shared,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletMultiThreaded/SpuNarrowPhaseCollisionTask,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletMultiThreaded/SpuSampleTask,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/BulletSoftBody,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/LinearMath,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/MiniCL,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/MiniCL/MiniCLTask,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/vectormath,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/vectormath/neon,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/vectormath/scalar,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/include/vectormath/sse,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/lib,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/lib/osx,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/lib/osx/fat,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/lib/osx/i386,
+					../of_v0.8.4_osx_release/addons/ofxBullet/libs/bullet2.8.1/lib/osx/x86_64,
+					../of_v0.8.4_osx_release/addons/ofxBullet/src,
+					../of_v0.8.4_osx_release/addons/ofxBullet/src/events,
+					../of_v0.8.4_osx_release/addons/ofxBullet/src/joints,
+					../of_v0.8.4_osx_release/addons/ofxBullet/src/render,
+					../of_v0.8.4_osx_release/addons/ofxBullet/src/shapes,
+					../of_v0.8.4_osx_release/addons/ofxSyphon/libs,
+					../of_v0.8.4_osx_release/addons/ofxSyphon/libs/Syphon,
+					../of_v0.8.4_osx_release/addons/ofxSyphon/libs/Syphon/lib,
+					../of_v0.8.4_osx_release/addons/ofxSyphon/libs/Syphon/lib/osx,
+					../of_v0.8.4_osx_release/addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework,
+					../of_v0.8.4_osx_release/addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework/Headers,
+					../of_v0.8.4_osx_release/addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework/Resources,
+					../of_v0.8.4_osx_release/addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework/Resources/English.lproj,
+					../of_v0.8.4_osx_release/addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework/Versions,
+					../of_v0.8.4_osx_release/addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework/Versions/A,
+					../of_v0.8.4_osx_release/addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework/Versions/A/Headers,
+					../of_v0.8.4_osx_release/addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework/Versions/A/Resources,
+					../of_v0.8.4_osx_release/addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework/Versions/A/Resources/English.lproj,
+					../of_v0.8.4_osx_release/addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework/Versions/Current,
+					../of_v0.8.4_osx_release/addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework/Versions/Current/Headers,
+					../of_v0.8.4_osx_release/addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework/Versions/Current/Resources,
+					../of_v0.8.4_osx_release/addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework/Versions/Current/Resources/English.lproj,
+					../of_v0.8.4_osx_release/addons/ofxSyphon/libs/Syphon/src,
+					../of_v0.8.4_osx_release/addons/ofxSyphon/src,
+					"$(OF_PATH)/addons/ofxOsc/libs/oscpack/src",
+				);
 				ICON = "$(ICON_NAME_RELEASE)";
 				ICON_FILE = "$(ICON_FILE_PATH)$(ICON)";
 				INFOPLIST_FILE = "openFrameworks-Info.plist";
