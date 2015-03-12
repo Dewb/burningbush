@@ -40,6 +40,8 @@ public:
     void processOscInput();
 
 protected:
+    bool showUI;
+    
     ofxOscReceiver oscReceiver;
     ofxTurntableCam cam;
     ofPolyRenderMode polyRenderMode;

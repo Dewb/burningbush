@@ -37,6 +37,7 @@ void DemoLSystemApp::setup() {
     updateMesh();
 
     oscReceiver.setup(7777);
+    showUI = true;
 }
 
 ofVec3f getMeshCenter(ofPtr<ofMesh> mesh) {
@@ -126,61 +127,63 @@ void DemoLSystemApp::draw(){
         //material.end();
         cam.end();
     }
-    
-    ParagraphFormatter para(20, 25, NULL, NULL);
-    
-    para.printLine(to_string(system.getAxiom()));
-    para.breakParagraph();
-    
-    string arrow = " --> ";
-    if (system.isStochastic()) {
-        arrow = " ------> ";
-    }
-    
-    for (auto& ruleGroup : system.getRules()) {
-        for (auto& rule : ruleGroup.second) {
-            string left = "", right = "", cond = "";
-            if (!rule.leftContext.empty()) {
-                left = to_string(rule.leftContext) + " < ";
-            }
-            if (!rule.rightContext.empty()) {
-                right = " > " + to_string(rule.rightContext);
-            }
-            if (!rule.parametricCondition.empty()) {
-                cond = " : " + rule.parametricCondition;
-            }
 
-            string super = "";
-            if (ruleGroup.second.isStochastic()) {
-                super = to_string(rule.probability);
-            }
-            string beforeArrow = left + to_string(rule.predecessor) + right + cond;
-            para.printLine(beforeArrow + arrow + to_string(rule.successor), super, beforeArrow.size() + 2);
+    if (showUI) {
+        ParagraphFormatter para(20, 25, NULL, NULL);
+        
+        para.printLine(to_string(system.getAxiom()));
+        para.breakParagraph();
+        
+        string arrow = " --> ";
+        if (system.isStochastic()) {
+            arrow = " ------> ";
         }
-    }
-    
-    para.breakParagraph();
-    para.printLine("N = " + to_string(iterations));
-    if (system.hasProperty("angle")) {
-        para.printLine("angle = " + to_string(system.getProperty("angle")));
-    }
-    if (system.hasProperty("colorBook")) {
-        para.printLine("color book #" + to_string(system.getProperty("colorBook")));
-    }
-    if (system.isStochastic()) {
-        para.printLine("seed = " + to_string(system.getSeed()));
-    }
-    
-    para.restart(20, ofGetHeight() - 25, ParagraphFormatter::LowerLeft);
-    para.printLine(generatorName);
-    para.printLine(system.getTitle());
+        
+        for (auto& ruleGroup : system.getRules()) {
+            for (auto& rule : ruleGroup.second) {
+                string left = "", right = "", cond = "";
+                if (!rule.leftContext.empty()) {
+                    left = to_string(rule.leftContext) + " < ";
+                }
+                if (!rule.rightContext.empty()) {
+                    right = " > " + to_string(rule.rightContext);
+                }
+                if (!rule.parametricCondition.empty()) {
+                    cond = " : " + rule.parametricCondition;
+                }
 
-    para.restart(ofGetWidth() - 20, ofGetHeight() - 25, ParagraphFormatter::LowerRight);
-    
-    para.printLine("SPACE to cycle systems");
-    para.printLine("+/- to adjust iteration count");
-    if (system.isStochastic()) {
-        para.printLine("R to reseed stochastic system");
+                string super = "";
+                if (ruleGroup.second.isStochastic()) {
+                    super = to_string(rule.probability);
+                }
+                string beforeArrow = left + to_string(rule.predecessor) + right + cond;
+                para.printLine(beforeArrow + arrow + to_string(rule.successor), super, beforeArrow.size() + 2);
+            }
+        }
+        
+        para.breakParagraph();
+        para.printLine("N = " + to_string(iterations));
+        if (system.hasProperty("angle")) {
+            para.printLine("angle = " + to_string(system.getProperty("angle")));
+        }
+        if (system.hasProperty("colorBook")) {
+            para.printLine("color book #" + to_string(system.getProperty("colorBook")));
+        }
+        if (system.isStochastic()) {
+            para.printLine("seed = " + to_string(system.getSeed()));
+        }
+        
+        para.restart(20, ofGetHeight() - 25, ParagraphFormatter::LowerLeft);
+        para.printLine(generatorName);
+        para.printLine(system.getTitle());
+
+        para.restart(ofGetWidth() - 20, ofGetHeight() - 25, ParagraphFormatter::LowerRight);
+        
+        para.printLine("SPACE to cycle systems");
+        para.printLine("+/- to adjust iteration count");
+        if (system.isStochastic()) {
+            para.printLine("R to reseed stochastic system");
+        }
     }
 }
 
@@ -319,6 +322,9 @@ void DemoLSystemApp::keyPressed(int key){
         updateMesh();
     } else if (key == 's') {
         saveVectorFile();
+    } else if (key == '?') {
+        showUI = !showUI;
+        viewDirty = true;
     }
 }
 
