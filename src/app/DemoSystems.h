@@ -18,7 +18,7 @@ void createSystems(vector<pair<LSystem, GeneratorType> >& systems) {
     LSystem system;
 
     system.reset();
-    system.setAxiom("E[CV]B");
+    system.setAxiom("E[V]B");
     system.addRule("B", "[B][B]").setProbability(0.55);
     system.addRule("B", "P_dS").setProbability(0.15);
     system.addRule("B", "P_lS").setProbability(0.15);

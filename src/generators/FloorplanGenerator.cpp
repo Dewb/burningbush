@@ -96,7 +96,7 @@ namespace {
                 < (space1.getWorldDimensions()[1] + space2.getWorldDimensions()[1]));
     }
     
-    void positionSpaceRelativeToOtherSpace(Space& space, Space& otherSpace,
+    void positionSpaceRelativeToOtherSpace(Space& space, Space& otherSpace, const ofVec2f& otherOrigin,
                                            const ofVec2f& moveVec, const ofVec2f& previousMoveVec)  {
         float minX = (otherSpace.getWorldDimensions()[0] + space.getWorldDimensions()[0]) / 2;
         float minY = (otherSpace.getWorldDimensions()[1] + space.getWorldDimensions()[1]) / 2;
@@ -105,7 +105,7 @@ namespace {
         float dx = moveVec[0] * min(tx, ty);
         float dy = moveVec[1] * min(tx, ty);
         
-        space.setPosition(otherSpace.getPosition()[0] + dx, otherSpace.getPosition()[1] + dy);
+        space.setPosition(otherOrigin[0] + dx, otherOrigin[1] + dy);
        
         if ((otherSpace.function == "Hall" && space.function == "Hall") &&
             (otherSpace.getWorldDimensions()[0] == space.getWorldDimensions()[1] ||
@@ -130,28 +130,61 @@ namespace {
             ofLog() << "(" << moveVec << ") dx: " << dx << " dy: " << dy;
         }
     }
+
+    bool layoutContainsOverlaps(ofPtr<vector<Space> > spaces) {
+/*
+        for (int ii = 0; ii < spaces->size() - 1; ii++) {
+            for (int jj = ii + 1; jj < spaces->size(); jj++) {
+                if (doSpacesOverlap(spaces->at(ii), spaces->at(jj))) {
+                    return true;
+                }
+            }
+        }
+*/
+        return false;
+    }
     
-    void addSpace(FloorplanGeneratorState& state, Space& space) {
-        space.setPosition(state.position.x, state.position.y);
+    void addSpace(FloorplanGeneratorState& state, Space& newSpace) {
+        newSpace.setPosition(state.position.x, state.position.y);
         if (state.results) {
             
             if (state.results->size()) {
                 ofVec2f headingVec(cos(state.heading * DEG_TO_RAD), sin(state.heading * DEG_TO_RAD));
                 ofVec2f previousHeadingVec(cos(state.previousHeading * DEG_TO_RAD), sin(state.previousHeading * DEG_TO_RAD));
-                positionSpaceRelativeToOtherSpace(space, state.results->at(state.lastSpaceIndex),
-                                                  headingVec, previousHeadingVec);
+
+                state.results->push_back(newSpace);
+                Space& space = state.results->back();
+                Space& lastSpace = state.results->at(state.lastSpaceIndex);
+                ofVec2f lastOrigin = lastSpace.position;
+                int tries = 10;
+                while (tries--) {
+                    positionSpaceRelativeToOtherSpace(space, lastSpace, lastOrigin,
+                                                      headingVec, previousHeadingVec);
+                    if (layoutContainsOverlaps(state.results)) {
+                        ofVec2f nudgeVec = previousHeadingVec.normalized();
+                        auto newPos = lastSpace.getPosition() + 0.5 * nudgeVec;
+                        auto newDim = lastSpace.getWorldDimensions() + 1.0 * nudgeVec;
+                        lastOrigin += 1.0 * nudgeVec;
+                        lastSpace.position = newPos;
+                        lastSpace.dimensions = newDim;
+                    } else {
+                        break;
+                    }
+                }
+                newSpace = space;
+            } else {
+                state.results->push_back(newSpace);
             }
 
-            state.results->push_back(space);
             state.lastSpaceIndex = state.results->size() - 1;
         }
-        
+
         ofPushStyle();
         ofSetColor(ofColor::red);
-        ofLine(state.position.x, state.position.y, space.position.x, space.position.y);
+        ofLine(state.position.x, state.position.y, newSpace.position.x, newSpace.position.y);
         ofPopStyle();
         
-        state.position = space.position;
+        state.position = newSpace.position;
     }
     
     void place_entry(FloorplanGeneratorState& state, FloatParams& params) {
