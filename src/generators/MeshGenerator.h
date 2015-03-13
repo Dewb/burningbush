@@ -30,6 +30,7 @@ public:
     float angle;
     float segmentLength;
     float segmentRadius;
+    float tropism;
     
     ofVec3f heading;
     ofVec3f left;

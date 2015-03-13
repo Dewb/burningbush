@@ -16,6 +16,21 @@ using namespace std;
 void createSystems(vector<pair<LSystem, GeneratorType> >& systems) {
     
     LSystem system;
+
+    system.reset();
+    system.setTitle("Ternary Branching tree example (ABOP p.60)");
+    system.setAxiom("!(1)F(200)/(45)A");
+    system.addRule("A", "!(1.732)F(50)[&F(50)A]/(94.74)[&F(50)A]/(132.63)[&F(50)A]");
+    system.addRule("F(l)", "F(l*1.109)");
+    system.addRule("!(w)", "!(w*1.732)");
+    system.setProperty("N", 4);
+    system.setProperty("angle", 18.95);
+    system.setProperty("segmentLength", 15.0);
+    system.setProperty("segmentRadius", 0.1);
+    system.setProperty("tropism", 0.22);
+    system.setProperty("colorBook", 1);
+    systems.push_back(make_pair(system, GeneratorTypeMesh));
+
     
     system.reset();
     system.setTitle("\"Row of Trees\" parametric OL-system from Mandlebrot 1982 (ABOP p.47)");

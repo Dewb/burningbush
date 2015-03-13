@@ -33,7 +33,7 @@ void DemoLSystemApp::setup() {
     
     drawListIndex = glGenLists(1);
     
-    currentSystem = 11;
+    currentSystem = 0;
     
     updateMesh();
 
@@ -107,7 +107,7 @@ void DemoLSystemApp::draw(){
     if (ofGetElapsedTimeMillis() > 500)
         viewDirty = false;
     
-    ofBackground(0, 0, 0, 0);
+    ofBackground(0, 0, 100, 100);
     ofSetColor(200, 200, 180);
     
     string generatorName;
@@ -238,6 +238,7 @@ void DemoLSystemApp::saveVectorFile() {
         state.angle = system.getProperty("angle");
         state.segmentLength = system.getProperty("segmentLength");
         state.segmentRadius = system.getProperty("segmentRadius");
+        state.tropism = system.getProperty("tropism");
         if (system.hasProperty("colorBook") && system.getProperty("colorBook") < colorBooks.size()) {
             state.colorBook = colorBooks[system.getProperty("colorBook")];
         }
@@ -290,6 +291,7 @@ void DemoLSystemApp::updateMesh(bool rerunSystem) {
         state.angle = system.getProperty("angle");
         state.segmentLength = system.getProperty("segmentLength");
         state.segmentRadius = system.getProperty("segmentRadius");
+        state.tropism = system.getProperty("tropism");
         if (system.hasProperty("colorBook") && system.getProperty("colorBook") < colorBooks.size()) {
             state.colorBook = colorBooks[system.getProperty("colorBook")];
         }

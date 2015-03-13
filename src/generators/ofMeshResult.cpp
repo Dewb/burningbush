@@ -41,7 +41,7 @@ namespace {
 
 void ofMeshResult::addSegment(const ofVec3f& pt1, const ofVec3f& pt2, float radius, const ofColor& color) {
     float length = (pt1 - pt2).length();
-    ofMesh segmentMesh = ofMesh::cylinder(radius, length, 8, 1, 2, true, OF_PRIMITIVE_TRIANGLES);
+    ofMesh segmentMesh = ofMesh::cylinder(radius, length, 6, 1, 2, true, OF_PRIMITIVE_TRIANGLES);
     for (auto& v : segmentMesh.getVertices()) {
         segmentMesh.addColor(color);
     }

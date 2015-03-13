@@ -17,6 +17,7 @@ MeshGeneratorState::MeshGeneratorState()
 , currentColor(0)
 , currentColorSeries(0)
 , inPolygonNode(false)
+, tropism(0)
 {
 }
 
@@ -32,6 +33,7 @@ MeshGeneratorState::MeshGeneratorState(const MeshGeneratorState& other) {
     currentColor = other.currentColor;
     currentColorSeries = other.currentColorSeries;
     result = other.result;
+    tropism = other.tropism;
     // pointHistory not copied
     // colorHistory not copied
     inPolygonNode = false;
@@ -50,7 +52,12 @@ ofColor MeshGeneratorState::getCurrentColor() {
 
 namespace {
     
-    void forward(MeshGeneratorState& state, FloatParams&) {
+    void forward(MeshGeneratorState& state, FloatParams& params) {
+        float length = state.segmentLength;
+        if (params.size() > 0) {
+            length *= params[0];
+        }
+
         state.position += state.heading.normalized() * state.segmentLength;
     }
 
@@ -64,6 +71,12 @@ namespace {
         } else {
             state.pointHistory.push_back(state.position);
             state.colorHistory.push_back(state.getCurrentColor());
+        }
+
+        if (state.tropism > 0) {
+            ofVec3f T(-0.27, -0.60, 0.00);
+            ofVec3f a = state.tropism * state.heading.crossed(T).normalized();
+            state.heading += a;
         }
     }
 
@@ -87,14 +100,22 @@ namespace {
         state.up.rotate(-state.angle, state.left);
     }
 
-    void roll_left(MeshGeneratorState& state, FloatParams&) {
-        state.left.rotate(state.angle, state.heading);
-        state.up.rotate(state.angle, state.heading);
+    void roll_left(MeshGeneratorState& state, FloatParams& params) {
+        float angle = state.angle;
+        if (params.size() > 0) {
+            angle = params[0];
+        }
+        state.left.rotate(angle, state.heading);
+        state.up.rotate(angle, state.heading);
     }
     
-    void roll_right(MeshGeneratorState& state, FloatParams&) {
-        state.left.rotate(-state.angle, state.heading);
-        state.up.rotate(-state.angle, state.heading);
+    void roll_right(MeshGeneratorState& state, FloatParams& params) {
+        float angle = state.angle;
+        if (params.size() > 0) {
+            angle = params[0];
+        }
+        state.left.rotate(angle, state.heading);
+        state.up.rotate(angle, state.heading);
     }
     
     void turn_around(MeshGeneratorState& state, FloatParams&) {
@@ -102,16 +123,25 @@ namespace {
         state.left.rotate(180, state.up);
     }
     
-    void decrease_diameter(MeshGeneratorState& state, FloatParams&) {
-        state.segmentRadius *= 0.618034;
+    void decrease_diameter(MeshGeneratorState& state, FloatParams& params) {
+        if (params.size() > 0) {
+            state.segmentRadius = params[0] * 0.2;
+        } else {
+            float factor = 0.618034;
+            state.segmentRadius *= factor;
+        }
     }
     
-    void increase_length(MeshGeneratorState& state, FloatParams&) {
+    void increase_length(MeshGeneratorState& state, FloatParams& params) {
         state.segmentLength *= (1.0 / 0.618034);
     }
     
-    void decrease_length(MeshGeneratorState& state, FloatParams&) {
-        state.segmentLength *= 0.618034;
+    void decrease_length(MeshGeneratorState& state, FloatParams& params) {
+        float factor = 0.618034;
+        if (params.size() > 0) {
+            factor = params[0];
+        }
+        state.segmentLength *= factor;
     }
     
     void next_color(MeshGeneratorState& state, FloatParams&) {
