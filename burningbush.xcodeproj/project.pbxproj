@@ -29,8 +29,6 @@
 		5B8B8A741A5AB814007F24F6 /* LSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BB4E61A1A4D35770047F957 /* LSystem.cpp */; };
 		5B8B8A751A5AB817007F24F6 /* libgtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B8B8A601A5AADC8007F24F6 /* libgtest.a */; };
 		5B8CA1171A5643D300885B53 /* VectorFileGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B8CA1151A5643D300885B53 /* VectorFileGenerator.cpp */; };
-		5BB4E6161A4D35020047F957 /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BB4E6151A4D35020047F957 /* Syphon.framework */; };
-		5BB4E6171A4D352B0047F957 /* Syphon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5BB4E6151A4D35020047F957 /* Syphon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5BB4E61C1A4D35770047F957 /* LSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BB4E61A1A4D35770047F957 /* LSystem.cpp */; };
 		5BB4EA1E1A4EC2A40047F957 /* TurntableCam.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BB4EA1D1A4EC2A40047F957 /* TurntableCam.cpp */; };
 		5BB4EA221A50B86D0047F957 /* MeshGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BB4EA201A50B86D0047F957 /* MeshGenerator.cpp */; };
@@ -126,7 +124,6 @@
 			files = (
 				BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */,
 				5B7BCDB01AB15699006724C2 /* Syphon.framework in CopyFiles */,
-				5BB4E6171A4D352B0047F957 /* Syphon.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,7 +287,6 @@
 				E4C2424810CC5A17004149E2 /* Cocoa.framework in Frameworks */,
 				E4C2424910CC5A17004149E2 /* IOKit.framework in Frameworks */,
 				E7E077E515D3B63C0020DFD4 /* CoreVideo.framework in Frameworks */,
-				5BB4E6161A4D35020047F957 /* Syphon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
