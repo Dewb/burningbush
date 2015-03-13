@@ -65,4 +65,7 @@ protected:
 
     vector<pair<LSystem, GeneratorType> > systems;
     ofPtrArray<ColorBook> colorBooks;
+
+    LSystem haikuSystem;
+    string currentHaiku;
 };

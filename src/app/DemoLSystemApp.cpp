@@ -1,5 +1,6 @@
 #include "DemoLSystemApp.h"
 #include "DemoSystems.h"
+#include "DemoHaiku.h"
 #include "ParagraphFormatter.h"
 #include "ofMeshResult.h"
 #include "VectorFileMeshResult.h"
@@ -39,6 +40,11 @@ void DemoLSystemApp::setup() {
     oscReceiver.setup(7777);
     showUI = true;
     syphonServer.setName("output");
+
+    haikuSystem = createHaikuSystem();
+    srand(time(0));
+    haikuSystem.reseed(rand());
+    currentHaiku = to_string(haikuSystem.generate(3));
 }
 
 ofVec3f getMeshCenter(ofPtr<ofMesh> mesh) {
@@ -128,6 +134,9 @@ void DemoLSystemApp::draw(){
         //material.end();
         cam.end();
     }
+
+    ParagraphFormatter haiku(120, ofGetHeight() - 125, NULL, NULL, ParagraphFormatter::LowerLeft);
+    haiku.printLine(currentHaiku);
 
     syphonServer.publishScreen();
 
@@ -327,6 +336,10 @@ void DemoLSystemApp::keyPressed(int key){
         saveVectorFile();
     } else if (key == '?') {
         showUI = !showUI;
+        viewDirty = true;
+    } else if (key == 'h') {
+        haikuSystem.reseed(rand());
+        currentHaiku = to_string(haikuSystem.generate(3));
         viewDirty = true;
     }
 }
