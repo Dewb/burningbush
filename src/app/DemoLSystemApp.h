@@ -66,6 +66,8 @@ protected:
     vector<pair<LSystem, GeneratorType> > systems;
     ofPtrArray<ColorBook> colorBooks;
 
+    void newHaiku();
+    bool showHaiku;
     LSystem haikuSystem;
     string currentHaiku;
     ofTrueTypeFont haikuFont;

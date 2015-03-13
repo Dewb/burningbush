@@ -29,7 +29,7 @@ void DemoLSystemApp::setup() {
     headlight.setDiffuseColor(ofColor(180, 100, 180));
     material.setShininess(7);
     
-    cam.setPosition(-25, 100, 75);
+    cam.setPosition(-25, 50, 75);
     
     drawListIndex = glGenLists(1);
     
@@ -46,6 +46,7 @@ void DemoLSystemApp::setup() {
     haikuSystem.reseed(rand());
     currentHaiku = to_string(haikuSystem.generate(3));
     haikuFont.loadFont("Raleway-Black.ttf", 28);
+    showHaiku = true;
 
     cameraRotationSpeed = 0.2;
     cameraZoom = 0.5;
@@ -74,7 +75,7 @@ void DemoLSystemApp::update(){
     headlight.setPosition(-100, 100, 100);
     processOscInput();
     if (fabs(cameraRotationSpeed) > FLT_EPSILON) {
-        cam.setRotation(cameraRotationSpeed * 0.002, 0);
+        cam.setRotation(cameraRotationSpeed * 0.001, 0);
         viewDirty = true;
     }
 }
@@ -92,8 +93,17 @@ void DemoLSystemApp::processOscInput() {
         if(m.getAddress().substr(0, 17) == "/system/property/"){
             string propName = m.getAddress().substr(17);
             if (system.hasProperty(propName)) {
+                float base = 0.0;
+                float factor = 1.0;
+                if (propName == "angle") {
+                    base = 20;
+                    factor = 40;
+                } else if (propName == "tropism") {
+                    base = 0;
+                    factor = 0.5;
+                }
                 float oldValue = system.getProperty(propName);
-                float newValue = m.getArgAsFloat(0);
+                float newValue = base + m.getArgAsFloat(0) * factor;
                 if (oldValue != newValue) {
                     system.setProperty(propName, newValue);
                     changed = true;
@@ -102,11 +112,24 @@ void DemoLSystemApp::processOscInput() {
         }
 
         if(m.getAddress() == "/camera/rotation/x/speed"){
-            cameraRotationSpeed = m.getArgAsFloat(0);
+            cameraRotationSpeed = (m.getArgAsFloat(0) - 0.5) * 2.0;
+        }
+
+        if(m.getAddress() == "/haiku"){
+            bool on = !(m.getArgAsFloat(0) > 0);
+            if (on && !showHaiku) {
+                newHaiku();
+            }
+            showHaiku = on;
+        }
+
+        if (m.getAddress() == "/system/reseed" && m.getArgAsFloat(0) > 0) {
+            systems[currentSystem].first.reseed();
+            updateMesh();
         }
 
         if(m.getAddress() == "/camera/zoom"){
-            cameraZoom = m.getArgAsFloat(0);
+            cameraZoom = (m.getArgAsFloat(0) - 0.5) * 2.0;
         }
     }
 
@@ -123,9 +146,9 @@ void DemoLSystemApp::draw(){
     if (ofGetElapsedTimeMillis() > 500)
         viewDirty = false;
     
-    ofBackground(0, 0, 100, 255);
-    //ofBackground(0, 0, 0, 0);
-    ofSetColor(255, 255, 210);
+    //ofBackground(0, 0, 100, 255);
+    ofBackground(0, 0, 0, 0);
+    ofSetColor(200, 200, 180);
 
     string generatorName;
     LSystem& system = systems[currentSystem].first;
@@ -152,11 +175,21 @@ void DemoLSystemApp::draw(){
         cam.end();
     }
 
-    ofDisableDepthTest();
-    ParagraphFormatter haiku(120, ofGetHeight() - 125, &haikuFont, NULL, ParagraphFormatter::LowerLeft);
-    haiku.printLine(currentHaiku);
-    ofEnableDepthTest();
+    if (showHaiku) {
+        ofPushStyle();
+        ofDisableDepthTest();
 
+        ofSetColor(80, 80, 40);
+        ParagraphFormatter haikuShadow(122, ofGetHeight() - 123, &haikuFont, NULL, ParagraphFormatter::LowerLeft);
+        haikuShadow.printLine(currentHaiku);
+
+        ofSetColor(255, 255, 210);
+        ParagraphFormatter haiku(120, ofGetHeight() - 125, &haikuFont, NULL, ParagraphFormatter::LowerLeft);
+        haiku.printLine(currentHaiku);
+
+        ofEnableDepthTest();
+    }
+    
     syphonServer.publishScreen();
 
     if (showUI) {
@@ -359,10 +392,14 @@ void DemoLSystemApp::keyPressed(int key){
         showUI = !showUI;
         viewDirty = true;
     } else if (key == 'h') {
-        haikuSystem.reseed(rand());
-        currentHaiku = to_string(haikuSystem.generate(3));
-        viewDirty = true;
+        newHaiku();
     }
+}
+
+void DemoLSystemApp::newHaiku() {
+    haikuSystem.reseed(rand());
+    currentHaiku = to_string(haikuSystem.generate(3));
+    viewDirty = true;
 }
 
 void DemoLSystemApp::keyReleased(int key){
