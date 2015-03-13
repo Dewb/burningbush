@@ -47,11 +47,13 @@ void LSystem::reset() {
     rules.clear();
     properties.clear();
     axiom.clear();
+    cache.clear();
     title = "";
 }
 
 void LSystem::reseed(unsigned newSeed) {
     seed = newSeed;
+    cache.clear();
 }
 
 void LSystem::reseed() {
@@ -71,6 +73,7 @@ typedef pair<RuleString::iterator, RuleString> Replacement;
 typedef vector<Replacement> Replacements;
 
 RuleString LSystem::generate(int iterations, bool logging) {
+    int currentIteration = 1;
     RuleString current = axiom;
     
     tr1::ranlux_base_01 generator(seed);
@@ -84,7 +87,17 @@ RuleString LSystem::generate(int iterations, bool logging) {
         cout << current << "\n";
     }
 
-    while (iterations--) {
+    for (auto iter = cache.begin(); iter != cache.end(); iter++) {
+        if (iter->first == iterations) {
+            return iter->second;
+        } else if (iter->first < iterations) {
+            currentIteration = iter->first;
+            current = iter->second;
+            break;
+        }
+    }
+
+    while (currentIteration <= iterations) {
         replacements.clear();
         auto currentPos = current.begin();
         while(currentPos != current.end()) {
@@ -136,7 +149,11 @@ RuleString LSystem::generate(int iterations, bool logging) {
         if (logging) {
             cout << current << "\n";
         }
+
+        cache.insert(make_pair<int, RuleString>(currentIteration, current));
+        currentIteration++;
     }
+
     return current;
 }
 

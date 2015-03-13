@@ -11,6 +11,7 @@
 
 #include <string>
 #include <map>
+#include <set>
 #include <vector>
 #include <list>
 #include <sstream>
@@ -93,6 +94,15 @@ typedef vector<pair<int, ProductionRule> > IndexedProductionRuleGroup;
 typedef map<RuleToken, ProductionRuleGroup> RuleSet;
 
 
+typedef pair<int, RuleString> ResultsCacheLine;
+struct ResultsCacheComparator {
+    bool operator() (const ResultsCacheLine& lhs, const ResultsCacheLine& rhs) const {
+        return lhs.first > rhs.first;
+    }
+};
+
+typedef set<ResultsCacheLine, ResultsCacheComparator> ResultsCache;
+
 class LSystem {
 public:
     LSystem();
@@ -128,6 +138,8 @@ protected:
     map<string, float> properties;
     unsigned seed;
     string title;
+
+    ResultsCache cache;
     
     friend class LSystemRulesEngine;
 };
