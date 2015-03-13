@@ -45,6 +45,9 @@ void DemoLSystemApp::setup() {
     srand(time(0));
     haikuSystem.reseed(rand());
     currentHaiku = to_string(haikuSystem.generate(3));
+
+    cameraRotationSpeed = 0.2;
+    cameraZoom = 1.0;
 }
 
 ofVec3f getMeshCenter(ofPtr<ofMesh> mesh) {
@@ -66,9 +69,13 @@ ofVec3f getMeshCenter(ofPtr<ofMesh> mesh) {
 }
 
 void DemoLSystemApp::update(){
-    cam.setDistance(250);
+    cam.setDistance(100 * pow(2, -cameraZoom));
     headlight.setPosition(-100, 100, 100);
     processOscInput();
+    if (fabs(cameraRotationSpeed) > FLT_EPSILON) {
+        cam.setRotation(cameraRotationSpeed * 0.002, 0);
+        viewDirty = true;
+    }
 }
 
 void DemoLSystemApp::processOscInput() {
@@ -92,6 +99,14 @@ void DemoLSystemApp::processOscInput() {
                 }
             }
         }
+
+        if(m.getAddress() == "/camera/rotation/x/speed"){
+            cameraRotationSpeed = m.getArgAsFloat(0);
+        }
+
+        if(m.getAddress() == "/camera/zoom"){
+            cameraZoom = m.getArgAsFloat(0);
+        }
     }
 
     if (changed) {
@@ -107,7 +122,7 @@ void DemoLSystemApp::draw(){
     if (ofGetElapsedTimeMillis() > 500)
         viewDirty = false;
     
-    ofBackground(0, 0, 100, 100);
+    ofBackground(0, 0, 0, 0);
     ofSetColor(200, 200, 180);
     
     string generatorName;

@@ -68,4 +68,7 @@ protected:
 
     LSystem haikuSystem;
     string currentHaiku;
+
+    float cameraRotationSpeed;
+    float cameraZoom;
 };
