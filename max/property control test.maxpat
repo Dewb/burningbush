@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 634.0, 165.0, 489.0, 480.0 ],
+		"rect" : [ 947.0, 130.0, 491.0, 480.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -38,13 +38,42 @@
 		"subpatcher_template" : "",
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-26",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 274.0, 405.5, 134.0, 22.0 ],
+					"style" : "",
+					"text" : "prepend /camera/zoom"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"floatoutput" : 1,
+					"id" : "obj-27",
+					"maxclass" : "dial",
+					"min" : -1.0,
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "float" ],
+					"parameter_enable" : 0,
+					"patching_rect" : [ 274.0, 339.0, 57.0, 57.0 ],
+					"size" : 2.0,
+					"style" : ""
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-24",
 					"linecount" : 2,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 324.0, 423.0, 143.0, 35.0 ],
+					"patching_rect" : [ 106.0, 405.5, 143.0, 35.0 ],
 					"style" : "",
 					"text" : "prepend /camera/rotation/x/speed"
 				}
@@ -55,12 +84,13 @@
 					"floatoutput" : 1,
 					"id" : "obj-23",
 					"maxclass" : "dial",
+					"min" : -1.0,
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "float" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 324.0, 349.0, 57.0, 57.0 ],
-					"size" : 1.0,
+					"patching_rect" : [ 106.0, 339.0, 57.0, 57.0 ],
+					"size" : 2.0,
 					"style" : ""
 				}
 
@@ -282,7 +312,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 70.0, 369.0, 140.0, 22.0 ],
+					"patching_rect" : [ 37.0, 450.0, 140.0, 22.0 ],
 					"style" : "",
 					"text" : "udpsend 127.0.0.1 7777"
 				}
@@ -446,6 +476,24 @@
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-24", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-3", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-26", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-26", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-27", 0 ]
 				}
 
 			}

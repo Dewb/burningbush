@@ -58,7 +58,17 @@ namespace {
             length *= params[0];
         }
 
+        if (!state.inPolygonNode && state.tropism > 0) {
+            ofVec3f T(-0.27, -0.60, 0.00);
+            ofVec3f a = state.tropism * state.heading.crossed(T).normalized();
+            state.heading += a;
+        }
+
         state.position += state.heading.normalized() * state.segmentLength;
+    }
+
+    void forward_radius(MeshGeneratorState& state, FloatParams&) {
+        state.position += state.heading.normalized() * state.segmentRadius;
     }
 
     void forward_draw(MeshGeneratorState& state, FloatParams& params) {
@@ -72,32 +82,42 @@ namespace {
             state.pointHistory.push_back(state.position);
             state.colorHistory.push_back(state.getCurrentColor());
         }
+    }
 
-        if (state.tropism > 0) {
-            ofVec3f T(-0.27, -0.60, 0.00);
-            ofVec3f a = state.tropism * state.heading.crossed(T).normalized();
-            state.heading += a;
+    void turn_left(MeshGeneratorState& state, FloatParams& params) {
+        float angle = state.angle;
+        if (params.size() > 0) {
+            angle = params[0];
         }
+        state.heading.rotate(angle, state.up);
+        state.left.rotate(angle, state.up);
     }
 
-    void turn_left(MeshGeneratorState& state, FloatParams&) {
-        state.heading.rotate(state.angle, state.up);
-        state.left.rotate(state.angle, state.up);
+    void turn_right(MeshGeneratorState& state, FloatParams& params) {
+        float angle = state.angle;
+        if (params.size() > 0) {
+            angle = params[0];
+        }
+        state.heading.rotate(-angle, state.up);
+        state.left.rotate(-angle, state.up);
     }
 
-    void turn_right(MeshGeneratorState& state, FloatParams&) {
-        state.heading.rotate(-state.angle, state.up);
-        state.left.rotate(-state.angle, state.up);
-    }
-
-    void pitch_down(MeshGeneratorState& state, FloatParams&) {
-        state.heading.rotate(state.angle, state.left);
-        state.up.rotate(state.angle, state.left);
+    void pitch_down(MeshGeneratorState& state, FloatParams& params) {
+        float angle = state.angle;
+        if (params.size() > 0) {
+            angle = params[0];
+        }
+        state.heading.rotate(angle, state.left);
+        state.up.rotate(angle, state.left);
     }
     
-    void pitch_up(MeshGeneratorState& state, FloatParams&) {
-        state.heading.rotate(-state.angle, state.left);
-        state.up.rotate(-state.angle, state.left);
+    void pitch_up(MeshGeneratorState& state, FloatParams& params) {
+        float angle = state.angle;
+        if (params.size() > 0) {
+            angle = params[0];
+        }
+        state.heading.rotate(-angle, state.left);
+        state.up.rotate(-angle, state.left);
     }
 
     void roll_left(MeshGeneratorState& state, FloatParams& params) {
@@ -114,8 +134,8 @@ namespace {
         if (params.size() > 0) {
             angle = params[0];
         }
-        state.left.rotate(angle, state.heading);
-        state.up.rotate(angle, state.heading);
+        state.left.rotate(-angle, state.heading);
+        state.up.rotate(-angle, state.heading);
     }
     
     void turn_around(MeshGeneratorState& state, FloatParams&) {
@@ -169,10 +189,19 @@ namespace {
         }
     }
 
+    void tropism(MeshGeneratorState& state, FloatParams& params) {
+        if (params.size() > 0) {
+            state.tropism = params[0];
+        }
+    }
+
 }
 
 MeshGenerator::MeshGenerator() {
     add(Symbol('F').action(forward_draw));
+    add(Symbol('G').action(forward_draw));
+    add(Symbol('g').action(forward_radius));
+    add(Symbol('T').action(tropism));
     add(Symbol('f').action(forward));
     add(Symbol('+').action(turn_left));
     add(Symbol('-').action(turn_right));

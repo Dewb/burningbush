@@ -19,16 +19,29 @@ void createSystems(vector<pair<LSystem, GeneratorType> >& systems) {
 
     system.reset();
     system.setTitle("Ternary Branching tree example (ABOP p.60)");
-    system.setAxiom("!(1)F(200)/(45)A");
-    system.addRule("A", "!(1.732)F(50)[&F(50)A]/(94.74)[&F(50)A]/(132.63)[&F(50)A]");
-    system.addRule("F(l)", "F(l*1.109)");
+    system.setAxiom("!(0.132)F_t(300)/(45)X");
+    system.addRule("X", "B(n)!(0.132)F_t(50)[&F_t(50)A(1)]R[&F_t(50)A(1)]R[&F_t(50)A(1)]");
+    system.addRule("A(n)", "B(n)!(0.132)S[&SA(n+1)]R[&SA(n+1)]R[&SA(n+1)]").setCondition("n < 6");
+    system.addRule("R", "/(94.74)").setProbability(0.5);
+    system.addRule("R", "/(132.63)").setProbability(0.5);
+    system.addRule("S", "F(50)").setProbability(0.3);
+    system.addRule("S", "F(30)").setProbability(0.3);
+    system.addRule("S", "").setProbability(0.3);
+    system.addRule("F(l)", "F(l*1.249)").setProbability(0.7);
+    system.addRule("F(l)", "/[f(l/3)[B(l/10)]f(l/3)[/B(l/10)]]F(l)").setProbability(0.3);
     system.addRule("!(w)", "!(w*1.732)");
-    system.setProperty("N", 4);
+    system.addRule("B(x)", "[T(0)//&(60)L][T(0)//^(60)L]").setCondition("x < 4");
+    system.addRule("B(x)", "[T(0)O]").setCondition("x >= 4");
+    system.addRule("L", "[@(0.09)\"{+(18)G(5)-(18)'G(10)-(18)'G(5)+(270)'G(5)-(18)'G(10)-(18)'G(5)}]");
+    system.addRule("O", "+(90)g[&&D/W/(72)W/(72)W/(72)W/(72)W]");
+    //system.addRule("D", "[@(0.05)\"\"FF]");
+    system.addRule("W", "[@(0.1)!(0.1)\"\"/(20)&(20)G(0.3)][\"\"\"@(0.1){&&-(36)G(4)+(36)'G(4)|-(36)'G(4)+(36)'G(4)}]");
+    system.setProperty("N", 9);
     system.setProperty("angle", 18.95);
     system.setProperty("segmentLength", 15.0);
     system.setProperty("segmentRadius", 0.1);
     system.setProperty("tropism", 0.22);
-    system.setProperty("colorBook", 1);
+    system.setProperty("colorBook", 4);
     systems.push_back(make_pair(system, GeneratorTypeMesh));
 
     
@@ -286,6 +299,18 @@ void createColorBooks(ofPtrArray<ColorBook>& colorBooks) {
     cb->nextSeries();
     cb->add(ofColor::paleGreen);
     cb->addGradient(ofColor::forestGreen, 8);
+    colorBooks.push_back(cb);
+
+    cb.reset(new ColorBook());
+    cb->add(ofColor::black);
+    cb->nextSeries();
+    cb->add(ofColor::black);
+    cb->addGradient(ofColor::darkGreen, 5);
+    cb->nextSeries();
+    cb->add(ofColor::red);
+    cb->nextSeries();
+    cb->add(ofColor::pink);
+    cb->addGradient(ofColor::white, 8);
     colorBooks.push_back(cb);
 }
 

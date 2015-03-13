@@ -47,7 +47,7 @@ void DemoLSystemApp::setup() {
     currentHaiku = to_string(haikuSystem.generate(3));
 
     cameraRotationSpeed = 0.2;
-    cameraZoom = 1.0;
+    cameraZoom = 0.5;
 }
 
 ofVec3f getMeshCenter(ofPtr<ofMesh> mesh) {
@@ -122,7 +122,8 @@ void DemoLSystemApp::draw(){
     if (ofGetElapsedTimeMillis() > 500)
         viewDirty = false;
     
-    ofBackground(0, 0, 0, 0);
+    ofBackground(0, 0, 100, 255);
+    //ofBackground(0, 0, 0, 0);
     ofSetColor(200, 200, 180);
     
     string generatorName;
