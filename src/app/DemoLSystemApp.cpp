@@ -38,6 +38,7 @@ void DemoLSystemApp::setup() {
 
     oscReceiver.setup(7777);
     showUI = true;
+    syphonServer.setName("output");
 }
 
 ofVec3f getMeshCenter(ofPtr<ofMesh> mesh) {
@@ -95,12 +96,12 @@ void DemoLSystemApp::processOscInput() {
 void DemoLSystemApp::draw(){
     if (!viewDirty)
         return;
-    
+
     // First few draw calls seem to be ineffective, for some reason
     if (ofGetElapsedTimeMillis() > 500)
         viewDirty = false;
     
-    ofBackground(0, 0, 80);
+    ofBackground(0, 0, 0, 0);
     ofSetColor(200, 200, 180);
     
     string generatorName;
@@ -127,6 +128,8 @@ void DemoLSystemApp::draw(){
         //material.end();
         cam.end();
     }
+
+    syphonServer.publishScreen();
 
     if (showUI) {
         ParagraphFormatter para(20, 25, NULL, NULL);

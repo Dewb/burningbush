@@ -5,6 +5,7 @@
 #include "MeshGenerator.h"
 #include "VectorFileGenerator.h"
 #include "TurntableCam.h"
+#include "ofxSyphonServer.h"
 #include "ofxOsc.h"
 
 template<typename T>
@@ -41,8 +42,10 @@ public:
 
 protected:
     bool showUI;
-    
+
+    ofxSyphonServer syphonServer;
     ofxOscReceiver oscReceiver;
+
     ofxTurntableCam cam;
     ofPolyRenderMode polyRenderMode;
     bool viewDirty;
