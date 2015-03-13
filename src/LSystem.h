@@ -116,7 +116,7 @@ public:
     ProductionRule& addRule(const RuleString& leftContext, const RuleToken& predecessor, const RuleString& rightContext, const RuleString& successor);
     const RuleSet& getRules() const { return rules; }
     
-    RuleString generate(int iteration, bool logging = true);
+    RuleString generate(int iteration, bool logging = false);
     
     void reset();
     void reseed(unsigned seed);

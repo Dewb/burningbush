@@ -45,6 +45,7 @@ void DemoLSystemApp::setup() {
     srand(time(0));
     haikuSystem.reseed(rand());
     currentHaiku = to_string(haikuSystem.generate(3));
+    haikuFont.loadFont("Raleway-Black.ttf", 28);
 
     cameraRotationSpeed = 0.2;
     cameraZoom = 0.5;
@@ -124,8 +125,8 @@ void DemoLSystemApp::draw(){
     
     ofBackground(0, 0, 100, 255);
     //ofBackground(0, 0, 0, 0);
-    ofSetColor(200, 200, 180);
-    
+    ofSetColor(255, 255, 210);
+
     string generatorName;
     LSystem& system = systems[currentSystem].first;
     GeneratorType mode = systems[currentSystem].second;
@@ -151,8 +152,10 @@ void DemoLSystemApp::draw(){
         cam.end();
     }
 
-    ParagraphFormatter haiku(120, ofGetHeight() - 125, NULL, NULL, ParagraphFormatter::LowerLeft);
+    ofDisableDepthTest();
+    ParagraphFormatter haiku(120, ofGetHeight() - 125, &haikuFont, NULL, ParagraphFormatter::LowerLeft);
     haiku.printLine(currentHaiku);
+    ofEnableDepthTest();
 
     syphonServer.publishScreen();
 
