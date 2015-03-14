@@ -27,11 +27,14 @@ void createSystems(vector<pair<LSystem, GeneratorType> >& systems) {
     system.addRule("S", "F(50)").setProbability(0.3);
     system.addRule("S", "F(30)").setProbability(0.3);
     system.addRule("S", "").setProbability(0.3);
-    system.addRule("F(l)", "F(l*1.249)").setProbability(0.7);
-    system.addRule("F(l)", "/[f(l/3)[B(l/10)]f(l/3)[/B(l/10)]]F(l)").setProbability(0.3);
+    system.addRule("F(l)", "F(l*1.249)").setProbability(0.5);
+    system.addRule("F(l)", "/[f(l/3)[B(l/10)]f(l/4)[/B(l/10)]]F(l)").setProbability(0.125);
+    system.addRule("F(l)", "/[f(2*l/3)[B(l/10)]f(l/6)[/B(l/10)]]F(l)").setProbability(0.125);
+    system.addRule("F(l)", "/[f(l/5)[B(l/10)]/(15)f(l/5)[/B(l/10)]f(2*l/5)[/B(l/10)]]F(l)").setProbability(0.125);
+    system.addRule("F(l)", "/[f(l/4)[B(l/10)]/(30)f(l/12)[B(l/10)]f(l/5)[/B(l/10)]]F(l)").setProbability(0.125);
     system.addRule("!(w)", "!(w*1.732)");
-    system.addRule("B(x)", "[T(0)//&(60)L][T(0)//^(60)L]").setCondition("x < 4");
-    system.addRule("B(x)", "[T(0)O]").setCondition("x >= 4");
+    system.addRule("B(x)", "[T(0)//&(60)L][T(0)//^(60)L]").setCondition("x < 5");
+    system.addRule("B(x)", "[T(0)O]").setCondition("x >= 5");
     system.addRule("L", "[@(0.09)\"{+(18)G(5)-(18)'G(10)-(18)'G(5)+(270)'G(5)-(18)'G(10)-(18)'G(5)}]");
     system.addRule("O", "+(90)g[&&D/W/(72)W/(72)W/(72)W/(72)W]");
     //system.addRule("D", "[@(0.05)\"\"FF]");
@@ -40,7 +43,7 @@ void createSystems(vector<pair<LSystem, GeneratorType> >& systems) {
     system.setProperty("angle", 18.95);
     system.setProperty("segmentLength", 15.0);
     system.setProperty("segmentRadius", 0.1);
-    system.setProperty("tropism", 0.22);
+    system.setProperty("tropism", 0.0);
     system.setProperty("colorBook", 4);
     systems.push_back(make_pair(system, GeneratorTypeMesh));
 
