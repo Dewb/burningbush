@@ -20,7 +20,7 @@ void createSystems(vector<pair<LSystem, GeneratorType> >& systems) {
     system.reset();
     system.setTitle("Ternary Branching tree example (ABOP p.60)");
     system.setAxiom("!(0.132)F_t(300)/(45)X");
-    system.addRule("X", "B(n)!(0.132)F_t(50)[&F_t(50)A(1)]R[&F_t(50)A(1)]R[&F_t(50)A(1)]");
+    system.addRule("X", "B(1)!(0.132)F_t(50)[&F_t(50)A(1)]R[&F_t(50)A(1)]R[&F_t(50)A(1)]");
     system.addRule("A(n)", "B(n)!(0.132)S[&SA(n+1)]R[&SA(n+1)]R[&SA(n+1)]").setCondition("n < 6");
     system.addRule("R", "/(94.74)").setProbability(0.5);
     system.addRule("R", "/(132.63)").setProbability(0.5);
