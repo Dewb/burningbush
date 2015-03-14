@@ -41,15 +41,10 @@ void DemoLSystemApp::setup() {
     showUI = true;
     syphonServer.setName("output");
 
-    haikuSystem = createHaikuSystem();
-    srand(time(0));
-    haikuSystem.reseed(rand());
-    currentHaiku = to_string(haikuSystem.generate(3));
-    haikuFont.loadFont("Raleway-Black.ttf", 28);
-    showHaiku = true;
-
     cameraRotationSpeed = 0.2;
     cameraZoom = 0.5;
+
+    haikuRenderer.initialize(createHaikuSystem(), 3, "haiku", 650, 180, "Raleway-Black.ttf", 28, 15);
 }
 
 ofVec3f getMeshCenter(ofPtr<ofMesh> mesh) {
@@ -83,7 +78,7 @@ void DemoLSystemApp::update(){
 void DemoLSystemApp::processOscInput() {
 
     LSystem& system = systems[currentSystem].first;
-    bool changed = false;
+    bool meshChanged = false;
 
     while(oscReceiver.hasWaitingMessages()){
         // get the next message
@@ -106,7 +101,7 @@ void DemoLSystemApp::processOscInput() {
                 float newValue = base + m.getArgAsFloat(0) * factor;
                 if (oldValue != newValue) {
                     system.setProperty(propName, newValue);
-                    changed = true;
+                    meshChanged = true;
                 }
             }
         }
@@ -117,23 +112,27 @@ void DemoLSystemApp::processOscInput() {
 
         if(m.getAddress() == "/haiku"){
             bool on = !(m.getArgAsFloat(0) > 0);
-            if (on && !showHaiku) {
-                newHaiku();
+            if (on) {
+                haikuRenderer.newText();
+                haikuRenderer.show();
+            } else {
+                haikuRenderer.hide();
             }
-            showHaiku = on;
+            viewDirty = true;
         }
 
         if (m.getAddress() == "/system/reseed" && m.getArgAsFloat(0) > 0) {
             systems[currentSystem].first.reseed();
-            updateMesh();
+            meshChanged = true;
         }
 
         if(m.getAddress() == "/camera/zoom"){
             cameraZoom = (m.getArgAsFloat(0) - 0.5) * 2.0;
+            viewDirty = true;
         }
     }
 
-    if (changed) {
+    if (meshChanged) {
         updateMesh();
     }
 }
@@ -174,23 +173,9 @@ void DemoLSystemApp::draw(){
         //material.end();
         cam.end();
     }
-
-    if (showHaiku) {
-        ofPushStyle();
-        ofDisableDepthTest();
-
-        ofSetColor(80, 80, 40);
-        ParagraphFormatter haikuShadow(122, ofGetHeight() - 123, &haikuFont, NULL, ParagraphFormatter::LowerLeft);
-        haikuShadow.printLine(currentHaiku);
-
-        ofSetColor(255, 255, 210);
-        ParagraphFormatter haiku(120, ofGetHeight() - 125, &haikuFont, NULL, ParagraphFormatter::LowerLeft);
-        haiku.printLine(currentHaiku);
-
-        ofEnableDepthTest();
-    }
     
     syphonServer.publishScreen();
+    haikuRenderer.update();
 
     if (showUI) {
         ParagraphFormatter para(20, 25, NULL, NULL);
@@ -392,14 +377,9 @@ void DemoLSystemApp::keyPressed(int key){
         showUI = !showUI;
         viewDirty = true;
     } else if (key == 'h') {
-        newHaiku();
+        haikuRenderer.newText();
+        viewDirty = true;
     }
-}
-
-void DemoLSystemApp::newHaiku() {
-    haikuSystem.reseed(rand());
-    currentHaiku = to_string(haikuSystem.generate(3));
-    viewDirty = true;
 }
 
 void DemoLSystemApp::keyReleased(int key){

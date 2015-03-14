@@ -5,8 +5,8 @@
 #include "MeshGenerator.h"
 #include "VectorFileGenerator.h"
 #include "TurntableCam.h"
-#include "ofxSyphonServer.h"
 #include "ofxOsc.h"
+#include "SyphonTextRenderer.h"
 
 template<typename T>
 class ofPtrArray : public vector<ofPtr<T> > {
@@ -66,11 +66,7 @@ protected:
     vector<pair<LSystem, GeneratorType> > systems;
     ofPtrArray<ColorBook> colorBooks;
 
-    void newHaiku();
-    bool showHaiku;
-    LSystem haikuSystem;
-    string currentHaiku;
-    ofTrueTypeFont haikuFont;
+    SyphonTextRenderer haikuRenderer;
     
     float cameraRotationSpeed;
     float cameraZoom;

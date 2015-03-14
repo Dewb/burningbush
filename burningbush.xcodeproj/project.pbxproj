@@ -20,6 +20,7 @@
 		5B0CE2961A7C9378008A2E22 /* ProductionRule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B0CE2951A7C9378008A2E22 /* ProductionRule.cpp */; };
 		5B0CE2971A7C9378008A2E22 /* ProductionRule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B0CE2951A7C9378008A2E22 /* ProductionRule.cpp */; };
 		5B25A82A1A70676F00691C35 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B8B64C71A5A9BAA006F6EB9 /* main.cpp */; };
+		5B3BFEA51AB4A4900088E3DF /* SyphonTextRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B3BFEA31AB4A4900088E3DF /* SyphonTextRenderer.cpp */; };
 		5B7BCDAC1AB15699006724C2 /* ofxSyphonClient.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5B7BCD9D1AB15699006724C2 /* ofxSyphonClient.mm */; };
 		5B7BCDAD1AB15699006724C2 /* ofxSyphonServer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5B7BCD9F1AB15699006724C2 /* ofxSyphonServer.mm */; };
 		5B7BCDAE1AB15699006724C2 /* ofxSyphonServerDirectory.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5B7BCDA11AB15699006724C2 /* ofxSyphonServerDirectory.mm */; };
@@ -150,6 +151,8 @@
 		5B0CE2921A7C9334008A2E22 /* RuleString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RuleString.cpp; path = core/RuleString.cpp; sourceTree = "<group>"; };
 		5B0CE2951A7C9378008A2E22 /* ProductionRule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ProductionRule.cpp; path = core/ProductionRule.cpp; sourceTree = "<group>"; };
 		5B0CE2981A7C99A7008A2E22 /* DemoSystems.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DemoSystems.h; path = app/DemoSystems.h; sourceTree = "<group>"; };
+		5B3BFEA31AB4A4900088E3DF /* SyphonTextRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SyphonTextRenderer.cpp; path = app/SyphonTextRenderer.cpp; sourceTree = "<group>"; };
+		5B3BFEA41AB4A4900088E3DF /* SyphonTextRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SyphonTextRenderer.h; path = app/SyphonTextRenderer.h; sourceTree = "<group>"; };
 		5B7BCD9B1AB15699006724C2 /* ofxSyphon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxSyphon.h; sourceTree = "<group>"; };
 		5B7BCD9C1AB15699006724C2 /* ofxSyphonClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxSyphonClient.h; sourceTree = "<group>"; };
 		5B7BCD9D1AB15699006724C2 /* ofxSyphonClient.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ofxSyphonClient.mm; sourceTree = "<group>"; };
@@ -554,6 +557,8 @@
 				5BB4EA1C1A4EC2A40047F957 /* TurntableCam.h */,
 				5BB4EA1D1A4EC2A40047F957 /* TurntableCam.cpp */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
+				5B3BFEA31AB4A4900088E3DF /* SyphonTextRenderer.cpp */,
+				5B3BFEA41AB4A4900088E3DF /* SyphonTextRenderer.h */,
 			);
 			name = app;
 			sourceTree = "<group>";
@@ -856,6 +861,7 @@
 				66810C01C7565033ADB09359 /* ofxLabel.cpp in Sources */,
 				5B0CE2961A7C9378008A2E22 /* ProductionRule.cpp in Sources */,
 				181852019B0A9DEA7D78D274 /* ofxPanel.cpp in Sources */,
+				5B3BFEA51AB4A4900088E3DF /* SyphonTextRenderer.cpp in Sources */,
 				EE0AFEED578C90CDB485FBB7 /* ofxSlider.cpp in Sources */,
 				5BE87C2D1A5C58A300C819C3 /* ParagraphFormatter.cpp in Sources */,
 				0B79D1370C521A99743B84F8 /* ofxSliderGroup.cpp in Sources */,
