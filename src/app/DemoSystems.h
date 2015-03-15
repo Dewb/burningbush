@@ -38,7 +38,7 @@ void createSystems(vector<pair<LSystem, GeneratorType> >& systems) {
     system.addRule("L", "[@(0.09)\"{+(18)G(5)-(18)'G(10)-(18)'G(5)+(270)'G(5)-(18)'G(10)-(18)'G(5)}]");
     system.addRule("O", "+(90)g[&&D/W/(72)W/(72)W/(72)W/(72)W]");
     //system.addRule("D", "[@(0.05)\"\"FF]");
-    system.addRule("W", "[@(0.1)!(0.1)\"\"/(20)&(20)G(0.3)][\"\"\"@(0.1){&&-(36)G(4)+(36)'G(4)|-(36)'G(4)+(36)'G(4)}]");
+    system.addRule("W", "[@(0.1)!(0.1)\"\"/(20)&(20)G(0.15)][\"\"\"@(0.05){&(40)-(68.2)G(2.6926)+(46.4)'G(2.6926)+(31.3)'G(3.0414)+(46.8)'G(3.6056)+(67.4)'G(3.6056)+(46.8)`G(3.0414)+(31.3)`G(2.6926)+(46.4)`G(2.6926)}{\"&(39)-(45)G(1.4142)+(66.8)G(2.6926)+(136.4)G(2.6926)+(66.8)G(1.4142)}]");
     system.setProperty("N", 9);
     system.setProperty("angle", 18.95);
     system.setProperty("segmentLength", 15.0);
@@ -310,10 +310,13 @@ void createColorBooks(ofPtrArray<ColorBook>& colorBooks) {
     cb->add(ofColor::black);
     cb->addGradient(ofColor::darkGreen, 5);
     cb->nextSeries();
-    cb->add(ofColor::red);
+    cb->add(ofColor::darkRed);
     cb->nextSeries();
+    cb->add(ofColor::red);
     cb->add(ofColor::pink);
-    cb->addGradient(ofColor::white, 8);
+    cb->addGradient(ofColor::white, 3);
+    cb->nextSeries();
+    cb->add(ofColor::red);
     colorBooks.push_back(cb);
 }
 
