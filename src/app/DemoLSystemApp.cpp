@@ -147,7 +147,6 @@ void DemoLSystemApp::draw(){
     
     //ofBackground(0, 0, 100, 255);
     ofBackground(0, 0, 0, 0);
-    ofSetColor(200, 200, 180);
 
     string generatorName;
     LSystem& system = systems[currentSystem].first;
@@ -175,7 +174,20 @@ void DemoLSystemApp::draw(){
     }
     
     syphonServer.publishScreen();
+
     haikuRenderer.update();
+
+    // now that we've published our syphon outputs, draw a background and the haiku text
+    ofSetColor(60, 10, 140, 255);
+    ofRect(ofGetWidth() * -2, ofGetHeight() * -2, -999, ofGetWidth() * 4, ofGetHeight() * 4);
+
+    ofSetColor(200, 200, 180);
+    ofDisableDepthTest();
+    haikuRenderer.draw(20, ofGetHeight() - 200);
+    ofEnableDepthTest();
+
+    ofSetColor(200, 200, 180);
+
 
     if (showUI) {
         ParagraphFormatter para(20, 25, NULL, NULL);
