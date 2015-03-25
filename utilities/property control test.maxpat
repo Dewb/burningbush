@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 947.0, 130.0, 491.0, 480.0 ],
+		"rect" : [ 681.0, 152.0, 491.0, 480.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -362,14 +362,13 @@
 					"floatoutput" : 1,
 					"id" : "obj-1",
 					"maxclass" : "dial",
-					"min" : 15.0,
 					"mult" : 0.001,
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "float" ],
 					"parameter_enable" : 0,
 					"patching_rect" : [ 70.0, 154.0, 122.0, 122.0 ],
-					"size" : 50000.0,
+					"size" : 1024.0,
 					"style" : ""
 				}
 
@@ -474,7 +473,9 @@
 					"destination" : [ "obj-3", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"source" : [ "obj-21", 0 ]
+					"source" : [ "obj-21", 0 ],
+					"watchpoint_flags" : 1,
+					"watchpoint_id" : 5
 				}
 
 			}
