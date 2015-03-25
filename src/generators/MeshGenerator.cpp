@@ -60,8 +60,9 @@ namespace {
 
         if (!state.inPolygonNode && state.tropism > 0) {
             ofVec3f T(-0.27, -0.60, 0.00);
-            ofVec3f a = state.tropism * state.heading.crossed(T).normalized();
-            state.heading += a;
+            float a = state.tropism * state.heading.crossed(T).length();
+            state.heading.rotate(a * RAD_TO_DEG, state.up);
+            state.left.rotate(a * RAD_TO_DEG, state.up);
         }
 
         state.position += state.heading.normalized() * state.segmentLength;
