@@ -18,7 +18,25 @@ void createSystems(vector<pair<LSystem, GeneratorType> >& systems) {
     LSystem system;
 
     system.reset();
-    system.setTitle("Ternary Branching tree example (ABOP p.60)");
+    system.setTitle("Bonsai (by Dewb)");
+    system.setAxiom("!(1)+(45)F(48)/(19)VA");
+    system.addRule("A", "/(60)[VF(12)B]/(60)[VF(8)B]/(19)F(4)B");
+    system.addRule("B", "/(19)[VF(8)C]/(189)[VF(8)C]/(19)F(8)C");
+    system.addRule("C", "/(19)[VXC]/(19)XC").setProbability(0.8);
+    system.addRule("C", "").setProbability(0.2);
+    system.addRule("X", "F(4)^(45)F(4)").setProbability(0.4);
+    system.addRule("X", "F(4)").setProbability(0.6);
+    system.addRule("V", "F(0.5)-(45)F(0.5)").setProbability(0.5);
+    system.setProperty("N", 9);
+    system.setProperty("angle", 18.95);
+    system.setProperty("segmentLength", 0.5);
+    system.setProperty("segmentRadius", 0.1);
+    system.setProperty("tropism", 0.0);
+    system.setProperty("colorBook", 4);
+    systems.push_back(make_pair(system, GeneratorTypeMesh));
+
+    system.reset();
+    system.setTitle("Cherry Tree (by Dewb)");
     system.setAxiom("!(0.132)F_t(300)/(45)X");
     system.addRule("X", "B(1)!(0.132)F_t(50)[&F_t(50)A(1)]R[&F_t(50)A(1)]R[&F_t(50)A(1)]");
     system.addRule("A(n)", "B(n)!(0.132)S[&SA(n+1)]R[&SA(n+1)]R[&SA(n+1)]").setCondition("n < 6");

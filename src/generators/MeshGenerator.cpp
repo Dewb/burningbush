@@ -65,7 +65,7 @@ namespace {
             state.left.rotate(a * RAD_TO_DEG, state.up);
         }
 
-        state.position += state.heading.normalized() * state.segmentLength;
+        state.position += state.heading.normalized() * length;
     }
 
     void forward_radius(MeshGeneratorState& state, FloatParams&) {

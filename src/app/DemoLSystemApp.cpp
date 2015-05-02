@@ -7,6 +7,11 @@
 
 
 void DemoLSystemApp::setup() {
+
+    ofQuaternion q, qo(0,.76081,0.64897,0), qr;
+    qr.makeRotate(95, ofVec3f(0,0,1));
+    q = qo.inverse();
+    q.normalize();
     
     createSystems(systems);
     createColorBooks(colorBooks);
@@ -42,7 +47,7 @@ void DemoLSystemApp::setup() {
     syphonServer.setName("output");
 
     cameraRotationSpeed = 0.2;
-    cameraZoom = 0.0;
+    cameraZoom = 1.0;
 
     haikuRenderer.initialize(createHaikuSystem(), 3, "haiku", 650, 180, "Raleway-Black.ttf", 28, 15);
 }
