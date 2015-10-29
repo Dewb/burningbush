@@ -34,12 +34,20 @@ namespace {
         ofLine(state.previousPosition.x, state.previousPosition.y, state.position.x, state.position.y);
     }
 
-    void rotate_cw(LineGeneratorState& state, FloatParams&) {
-        state.heading = fmod(state.heading + state.angle, 360.0f);
+    void rotate_cw(LineGeneratorState& state, FloatParams& params) {
+        float angle = state.angle;
+        if (params.size() > 0) {
+            angle = params[0];
+        }
+        state.heading = fmod(state.heading + angle, 360.0f);
     }
 
-    void rotate_ccw(LineGeneratorState& state, FloatParams&) {
-        state.heading = fmod(state.heading - state.angle, 360.0f);
+    void rotate_ccw(LineGeneratorState& state, FloatParams& params) {
+        float angle = state.angle;
+        if (params.size() > 0) {
+            angle = params[0];
+        }
+        state.heading = fmod(state.heading - angle, 360.0f);
     }
     
 }

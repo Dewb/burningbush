@@ -134,6 +134,24 @@ TEST(LSystem, ParametricConditionalMatching) {
     EXPECT_EQ("++++++F", to_string(system.generate(7, true)));
 }
 
+TEST(LSystem, ParametricSystemProperties) {
+    LSystem system;
+    system.setAxiom("A(3)");
+    system.setProperty("x", 2);
+    system.addRule("A(n)", "+(x)A(n-1)B(n)").setCondition("n > 0");
+    system.addRule("B(n)", "C(x)").setCondition("n == x");
+
+    EXPECT_EQ("+(2)+(2)+(2)A(0)B(1)C(2)B(3)", to_string(system.generate(7, true)));
+}
+
+
+TEST(LSystem, ParametricMultipleFormalParmaters) {
+    LSystem system;
+    system.setAxiom("A(3,2)");
+    system.addRule("A(x,y)", "B(x,y)A(x+1,y+1)");
+
+    EXPECT_EQ("B(3,2)B(4,3)A(5,4)", to_string(system.generate(2, true)));
+}
 
 #include "DemoHaiku.h"
 

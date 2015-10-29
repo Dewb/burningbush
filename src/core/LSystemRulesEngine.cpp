@@ -30,9 +30,11 @@ public:
     bool isParsed;
     bool isBound;
     
-    ExpressionWrapper(string expr) {
+    ExpressionWrapper(string expr, map<string, float>& systemProperties) {
         expressionString = expr;
+
         expression.register_symbol_table(symbol_table);
+
         parser.dec().collect_variables() = true;
         parser.enable_unknown_symbol_resolver();
         isParsed = false;
@@ -45,10 +47,14 @@ public:
         
         isParsed = true;
         parser.dec().symbols(symbol_list);
+
+        for (auto& prop : systemProperties) {
+            symbol_table.variable_ref(prop.first) = prop.second;
+        }
     }
     
     bool bind(const vector<string> formalParams, const vector<string> arguments) {
-        
+
         for (std::size_t i = 0; i < symbol_list.size(); ++i) {
             symbol_t& symbol = symbol_list[i];
             
@@ -56,6 +62,7 @@ public:
                 case parser_t::e_st_variable:
                     {
                         bool found = false;
+
                         for (int i = 0; i < formalParams.size(); i++) {
                             if (formalParams[i] == symbol.first) {
                                 T x;
@@ -71,6 +78,11 @@ public:
                                 found = true;
                             }
                         }
+
+                        if (!found && symbol_table.symbol_exists(symbol.first)) {
+                            found = true;
+                        }
+
                         if (!found) {
                             cout << "ERROR: Unknown symbol " << symbol.first << " in expression " << expressionString << "\n";
                             return false;
@@ -100,7 +112,7 @@ typedef ExpressionWrapper<float> Expression;
 
 class ExpressionCache {
 public:
-    ExpressionCache(const RuleSet& rules);
+    ExpressionCache(const RuleSet& rules, map<string, float>& pSystemProperties);
     ~ExpressionCache();
     Expression* getCondition(const RuleToken& token, int ruleIndex);
     Expression* getSuccessor(const RuleToken& token, int ruleIndex, int tokenIndex, int argIndex);
@@ -129,20 +141,20 @@ Expression* ExpressionCache::getSuccessor(const RuleToken& token, int ruleIndex,
     }
 }
 
-ExpressionCache::ExpressionCache(const RuleSet& rules) {
+ExpressionCache::ExpressionCache(const RuleSet& rules, map<string, float>& systemProperties) {
     for (auto& r : rules) {
         const RuleToken& token = r.first;
         for (int ruleIndex = 0; ruleIndex < r.second.size(); ruleIndex++) {
             auto& rule = r.second[ruleIndex];
             if (!rule.parametricCondition.empty()) {
-                auto e = new Expression(rule.parametricCondition);
+                auto e = new Expression(rule.parametricCondition, systemProperties);
                 conditionExpressions.insert(make_pair(tr1::make_tuple(token, ruleIndex), e));
             }
             int tokenIndex = 0;
             for (auto iter = rule.successor.begin(); iter != rule.successor.end(); iter++) {
                 auto args = iter->parameters;
                 for (int argIndex = 0; argIndex < args.size(); argIndex++) {
-                    auto e = new Expression(args[argIndex]);
+                    auto e = new Expression(args[argIndex], systemProperties);
                     successorExpressions.insert(make_pair(tr1::make_tuple(token, ruleIndex, tokenIndex, argIndex), e));
                 }
                 tokenIndex++;
@@ -175,7 +187,7 @@ bool conditionMatches(const RuleToken& predecessor, const RuleToken& tokenMatch,
 
 LSystemRulesEngine::LSystemRulesEngine(LSystem* ls) {
     system = ls;
-    expressionCache = new ExpressionCache(ls->rules);
+    expressionCache = new ExpressionCache(ls->rules, ls->properties);
 }
 
 LSystemRulesEngine::~LSystemRulesEngine() {
