@@ -307,6 +307,29 @@ void DemoLSystemApp::saveVectorFile() {
 
 }
 
+void DemoLSystemApp::saveMesh() {
+    LSystem& system = systems[currentSystem].first;
+    GeneratorType mode = systems[currentSystem].second;
+
+    if (mode == GeneratorTypeMesh) {
+        int iterations = fmax(0.0, system.getProperty("N") + iterationAdjustment);
+
+        std::ostringstream ss;
+        ss << (system.getTitle().empty() ? "lsystem" : system.getTitle());
+        ss << "-";
+        ss << system.getSeed();
+        ss << "-iter";
+        ss << iterations;
+        ss << ".ply";
+
+        auto fileResult = ofSystemSaveDialog(ss.str(), "Save model");
+        if (!fileResult.bSuccess) {
+            return;
+        }
+        mesh->save(fileResult.getPath());
+    }
+}
+
 void DemoLSystemApp::updateMesh(bool rerunSystem) {
     
     LSystem& system = systems[currentSystem].first;
@@ -390,6 +413,8 @@ void DemoLSystemApp::keyPressed(int key){
         updateMesh();
     } else if (key == 's') {
         saveVectorFile();
+    } else if (key == 'S') {
+        saveMesh();
     } else if (key == '?') {
         showUI = !showUI;
         viewDirty = true;

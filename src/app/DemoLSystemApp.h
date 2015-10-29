@@ -27,6 +27,7 @@ public:
     
     void updateMesh(bool rerunSystem = true);
     void saveVectorFile();
+    void saveMesh();
 
     void keyPressed(int key);
     void keyReleased(int key);
