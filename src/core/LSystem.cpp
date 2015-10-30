@@ -75,7 +75,7 @@ typedef vector<Replacement> Replacements;
 RuleString LSystem::generate(int iterations, bool logging) {
     int currentIteration = 1;
     RuleString current = axiom;
-    
+
     tr1::ranlux_base_01 generator(seed);
     tr1::uniform_real<float> distribution(0.0, 1.0);
 
@@ -96,6 +96,7 @@ RuleString LSystem::generate(int iterations, bool logging) {
             break;
         }
     }
+
 
     while (currentIteration <= iterations) {
         replacements.clear();

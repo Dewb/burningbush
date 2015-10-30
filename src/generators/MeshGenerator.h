@@ -29,6 +29,7 @@ public:
 
     float angle;
     float segmentLength;
+    float segmentLengthGrowthFactor;
     float segmentRadius;
     float tropism;
     

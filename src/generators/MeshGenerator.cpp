@@ -11,7 +11,11 @@
 
 
 MeshGeneratorState::MeshGeneratorState()
-: heading(ofVec3f(0, 1, 0))
+: angle(45)
+, segmentLength(10)
+, segmentLengthGrowthFactor(0.618034)
+, segmentRadius(2.0)
+, heading(ofVec3f(0, 1, 0))
 , up(ofVec3f(0, 0, 1))
 , left(ofVec3f(1, 0, 0))
 , currentColor(0)
@@ -28,6 +32,7 @@ MeshGeneratorState::MeshGeneratorState(const MeshGeneratorState& other) {
     left = other.left;
     angle = other.angle;
     segmentLength = other.segmentLength;
+    segmentLengthGrowthFactor = other.segmentLengthGrowthFactor;
     segmentRadius = other.segmentRadius;
     colorBook = other.colorBook;
     currentColor = other.currentColor;
@@ -154,11 +159,15 @@ namespace {
     }
     
     void increase_length(MeshGeneratorState& state, FloatParams& params) {
-        state.segmentLength *= (1.0 / 0.618034);
+        float factor = 1.0 / state.segmentLengthGrowthFactor;
+        if (params.size() > 0) {
+            factor = params[0];
+        }
+        state.segmentLength *= factor;
     }
-    
+
     void decrease_length(MeshGeneratorState& state, FloatParams& params) {
-        float factor = 0.618034;
+        float factor = state.segmentLengthGrowthFactor;
         if (params.size() > 0) {
             factor = params[0];
         }
