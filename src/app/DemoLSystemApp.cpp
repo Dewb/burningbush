@@ -52,7 +52,7 @@ void DemoLSystemApp::setup() {
     haikuRenderer.initialize(createHaikuSystem(), 3, "haiku", 650, 180, "Raleway-Black.ttf", 28, 15);
     haikuRenderer.hide();
 
-    options.useCache = false;
+    options.useCache = true;
 }
 
 ofVec3f getMeshCenter(ofPtr<ofMesh> mesh) {

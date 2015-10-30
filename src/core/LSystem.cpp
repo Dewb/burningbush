@@ -101,7 +101,7 @@ RuleString LSystem::generate(int iterations, LSystemOptions& options) {
             if (iter->first == iterations) {
                 return iter->second;
             } else if (iter->first < iterations) {
-                currentIteration = iter->first;
+                currentIteration = iter->first + 1;
                 current = iter->second;
                 break;
             }
