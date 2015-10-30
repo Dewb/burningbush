@@ -103,6 +103,17 @@ struct ResultsCacheComparator {
 
 typedef set<ResultsCacheLine, ResultsCacheComparator> ResultsCache;
 
+class LSystemOptions {
+public:
+    bool logging;
+    bool useCache;
+    int steps;
+
+    LSystemOptions();
+
+    static LSystemOptions DefaultOptions;
+};
+
 class LSystem {
 public:
     LSystem();
@@ -116,7 +127,7 @@ public:
     ProductionRule& addRule(const RuleString& leftContext, const RuleToken& predecessor, const RuleString& rightContext, const RuleString& successor);
     const RuleSet& getRules() const { return rules; }
     
-    RuleString generate(int iteration, bool logging = false);
+    RuleString generate(int iteration, LSystemOptions& options = LSystemOptions::DefaultOptions);
     
     void reset();
     void reseed(unsigned seed);

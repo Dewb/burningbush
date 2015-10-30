@@ -12,6 +12,15 @@
 #include <iostream>
 
 
+LSystemOptions::LSystemOptions()
+: useCache(true)
+, logging(false)
+, steps(-1)
+{
+}
+
+LSystemOptions LSystemOptions::DefaultOptions;
+
 LSystem::LSystem() {
     seed = abs(rand());
 }
@@ -72,7 +81,7 @@ bool LSystem::isStochastic() const {
 typedef pair<RuleString::iterator, RuleString> Replacement;
 typedef vector<Replacement> Replacements;
 
-RuleString LSystem::generate(int iterations, bool logging) {
+RuleString LSystem::generate(int iterations, LSystemOptions& options) {
     int currentIteration = 1;
     RuleString current = axiom;
 
@@ -83,20 +92,21 @@ RuleString LSystem::generate(int iterations, bool logging) {
     Replacements replacements;
     LSystemRulesEngine engine(this);
     
-    if (logging) {
+    if (options.logging) {
         cout << current << "\n";
     }
 
-    for (auto iter = cache.begin(); iter != cache.end(); iter++) {
-        if (iter->first == iterations) {
-            return iter->second;
-        } else if (iter->first < iterations) {
-            currentIteration = iter->first;
-            current = iter->second;
-            break;
+    if (options.useCache) {
+        for (auto iter = cache.begin(); iter != cache.end(); iter++) {
+            if (iter->first == iterations) {
+                return iter->second;
+            } else if (iter->first < iterations) {
+                currentIteration = iter->first;
+                current = iter->second;
+                break;
+            }
         }
     }
-
 
     while (currentIteration <= iterations) {
         replacements.clear();
@@ -109,7 +119,7 @@ RuleString LSystem::generate(int iterations, bool logging) {
                     // Basic case: just one matching rule
                     auto& rule = matchedRules[0].second;
                     int ruleIndex = matchedRules[0].first;
-                    if (logging) {
+                    if (options.logging) {
                         cout << "Executing: " << rule << "\n";
                     }
                     RuleString successor =
@@ -129,7 +139,7 @@ RuleString LSystem::generate(int iterations, bool logging) {
                         int ruleIndex = iter->first;
                         s += rule.probability;
                         if (s > p) {
-                            if (logging) {
+                            if (options.logging) {
                                 cout << "Executing: " << rule << "\n";
                             }
                             RuleString successor =
@@ -147,7 +157,7 @@ RuleString LSystem::generate(int iterations, bool logging) {
             current.insert(current.erase(repl.first), repl.second.begin(), repl.second.end());
         }
         
-        if (logging) {
+        if (options.logging) {
             cout << current << "\n";
         }
 
