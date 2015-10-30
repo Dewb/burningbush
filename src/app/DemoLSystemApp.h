@@ -43,7 +43,8 @@ public:
 
 protected:
     bool showUI;
-    bool logSystemGeneration;
+
+    LSystemOptions options;
 
     ofxSyphonServer syphonServer;
     ofxOscReceiver oscReceiver;

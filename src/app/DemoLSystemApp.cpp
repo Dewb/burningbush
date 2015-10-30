@@ -44,7 +44,6 @@ void DemoLSystemApp::setup() {
 
     oscReceiver.setup(7777);
     showUI = true;
-    logSystemGeneration = false;
     syphonServer.setName("output");
 
     cameraRotationSpeed = 0.2;
@@ -52,6 +51,8 @@ void DemoLSystemApp::setup() {
 
     haikuRenderer.initialize(createHaikuSystem(), 3, "haiku", 650, 180, "Raleway-Black.ttf", 28, 15);
     haikuRenderer.hide();
+
+    options.useCache = false;
 }
 
 ofVec3f getMeshCenter(ofPtr<ofMesh> mesh) {
@@ -286,7 +287,7 @@ void DemoLSystemApp::saveVectorFile() {
         }
         
         ofSetLineWidth(0.5);
-        vector_gen.generate(system, state, iterations, -1, logSystemGeneration);
+        vector_gen.generate(system, state, iterations, options);
     } else if (mode == GeneratorTypeMesh) {
         
         MeshGeneratorState state;
@@ -305,7 +306,7 @@ void DemoLSystemApp::saveVectorFile() {
         result->scale = 500;
         state.result.reset(result);
         
-        mesh_gen.generate(system, state, iterations, -1, logSystemGeneration);
+        mesh_gen.generate(system, state, iterations, options);
     }
 
 }
@@ -360,7 +361,7 @@ void DemoLSystemApp::updateMesh(bool rerunSystem) {
         }
         
         ofSetLineWidth(0.5);
-        line_gen.generate(system, state, iterations, -1, logSystemGeneration);
+        line_gen.generate(system, state, iterations, options);
         
         glEndList();
         
@@ -380,7 +381,7 @@ void DemoLSystemApp::updateMesh(bool rerunSystem) {
         auto result = new ofMeshResult();
         state.result.reset(result);
         
-        mesh_gen.generate(system, state, iterations, -1, logSystemGeneration);
+        mesh_gen.generate(system, state, iterations, options);
         mesh = result->mesh;
         
         cam.setTarget(getMeshCenter(mesh));
@@ -427,7 +428,7 @@ void DemoLSystemApp::keyPressed(int key){
         haikuRenderer.newText();
         viewDirty = true;
     } else if (key == 'l') {
-        logSystemGeneration = !logSystemGeneration;
+        options.logging = !options.logging;
     }
 }
 
