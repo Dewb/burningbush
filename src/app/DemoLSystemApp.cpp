@@ -44,12 +44,14 @@ void DemoLSystemApp::setup() {
 
     oscReceiver.setup(7777);
     showUI = true;
+    logSystemGeneration = false;
     syphonServer.setName("output");
 
     cameraRotationSpeed = 0.2;
     cameraZoom = 1.0;
 
     haikuRenderer.initialize(createHaikuSystem(), 3, "haiku", 650, 180, "Raleway-Black.ttf", 28, 15);
+    haikuRenderer.hide();
 }
 
 ofVec3f getMeshCenter(ofPtr<ofMesh> mesh) {
@@ -284,13 +286,14 @@ void DemoLSystemApp::saveVectorFile() {
         }
         
         ofSetLineWidth(0.5);
-        vector_gen.generate(system, state, iterations);
+        vector_gen.generate(system, state, iterations, -1, logSystemGeneration);
     } else if (mode == GeneratorTypeMesh) {
         
         MeshGeneratorState state;
         state.left = state.heading.crossed(state.up);
         state.angle = system.getProperty("angle");
         state.segmentLength = system.getProperty("segmentLength");
+        state.segmentLengthGrowthFactor = system.getProperty("segmentLengthGrowthFactor");
         state.segmentRadius = system.getProperty("segmentRadius");
         state.tropism = system.getProperty("tropism");
         if (system.hasProperty("colorBook") && system.getProperty("colorBook") < colorBooks.size()) {
@@ -302,7 +305,7 @@ void DemoLSystemApp::saveVectorFile() {
         result->scale = 500;
         state.result.reset(result);
         
-        mesh_gen.generate(system, state, iterations);
+        mesh_gen.generate(system, state, iterations, -1, logSystemGeneration);
     }
 
 }
@@ -357,7 +360,7 @@ void DemoLSystemApp::updateMesh(bool rerunSystem) {
         }
         
         ofSetLineWidth(0.5);
-        line_gen.generate(system, state, iterations);
+        line_gen.generate(system, state, iterations, -1, logSystemGeneration);
         
         glEndList();
         
@@ -367,6 +370,7 @@ void DemoLSystemApp::updateMesh(bool rerunSystem) {
         state.left = state.heading.crossed(state.up);
         state.angle = system.getProperty("angle");
         state.segmentLength = system.getProperty("segmentLength");
+        state.segmentLengthGrowthFactor = system.getProperty("segmentLengthGrowthFactor");
         state.segmentRadius = system.getProperty("segmentRadius");
         state.tropism = system.getProperty("tropism");
         if (system.hasProperty("colorBook") && system.getProperty("colorBook") < colorBooks.size()) {
@@ -376,7 +380,7 @@ void DemoLSystemApp::updateMesh(bool rerunSystem) {
         auto result = new ofMeshResult();
         state.result.reset(result);
         
-        mesh_gen.generate(system, state, iterations);
+        mesh_gen.generate(system, state, iterations, -1, logSystemGeneration);
         mesh = result->mesh;
         
         cam.setTarget(getMeshCenter(mesh));
@@ -419,8 +423,11 @@ void DemoLSystemApp::keyPressed(int key){
         showUI = !showUI;
         viewDirty = true;
     } else if (key == 'h') {
+        haikuRenderer.show();
         haikuRenderer.newText();
         viewDirty = true;
+    } else if (key == 'l') {
+        logSystemGeneration = !logSystemGeneration;
     }
 }
 

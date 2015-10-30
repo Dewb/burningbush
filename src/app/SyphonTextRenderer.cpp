@@ -53,7 +53,7 @@ void SyphonTextRenderer::show() {
 }
 
 void SyphonTextRenderer::update() {
-    if (!initialized) {
+    if (!initialized & !visible) {
         return;
     }
 
@@ -79,5 +79,7 @@ void SyphonTextRenderer::update() {
 }
 
 void SyphonTextRenderer::draw(float x, float y) {
-    fbo.draw(x, y);
+    if (visible) {
+        fbo.draw(x, y);
+    }
 }
