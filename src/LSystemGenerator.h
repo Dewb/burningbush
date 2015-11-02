@@ -57,6 +57,13 @@ public:
         }
         return NULL;
     }
+
+    struct StackFrame {
+        StateType state;
+        RuleString::const_iterator groupStartPoint;
+        int groupRepeatCount;
+        StackFrame(StateType& s, RuleString::const_iterator groupStart, int groupRepeat) : state(s), groupStartPoint(groupStart), groupRepeatCount(groupRepeat) {}
+    };
     
     virtual void begin(StateType& state) {}
     virtual void end(StateType& state) {};
@@ -65,19 +72,22 @@ public:
         RuleString ruleStr = system.generate(iterations, options);
         int steps = options.steps;
         if (steps < 0 || steps > ruleStr.size()) {
-            steps = ruleStr.size();
+            steps = INT_MAX;
         }
-        stack<StateType> stateStack;
-        stateStack.push(state);
-        begin(stateStack.top());
-        auto iter = ruleStr.begin();
+
+        RuleString::const_iterator iter = ruleStr.begin();
+
+        stack<StackFrame> stateStack;
+        stateStack.push(StackFrame(state, ruleStr.end(), 0));
+
+        begin(stateStack.top().state);
+
         unsigned i = 0;
         while(i < steps && iter != ruleStr.end()) {
             auto sym = getSymbol(*iter);
             if (sym) {
                 if (sym->shouldStartGroup()) {
-                    StateType newState = stateStack.top();
-                    stateStack.push(newState);
+                    stateStack.push(StackFrame(stateStack.top().state, iter, 0));
                 }
                 
                 FloatParams floatParams;
@@ -92,17 +102,30 @@ public:
                     }
                 }
                 
-                sym->execute(stateStack.top(), floatParams);
+                sym->execute(stateStack.top().state, floatParams);
                 
                 if (sym->shouldEndGroup() && stateStack.size() > 1) {
-                    stateStack.pop();
+
+                    if (floatParams.size() > 0 && stateStack.top().groupStartPoint != ruleStr.end()) {
+                        int totalCopies = (int)ceil(floatParams[0]);
+                        if (stateStack.top().groupRepeatCount < totalCopies - 1) {
+                            // starting to repeat
+                            iter = stateStack.top().groupStartPoint;
+                            stateStack.top().groupRepeatCount++;
+                        } else {
+                            stateStack.pop();
+                        }
+
+                    } else {
+                        stateStack.pop();
+                    }
                 }
             }
             i++;
             ++iter;
         }
-        end(stateStack.top());
-        state = stateStack.top();
+        end(stateStack.top().state);
+        state = stateStack.top().state;
     }
     
 protected:
