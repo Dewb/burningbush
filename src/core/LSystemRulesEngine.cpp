@@ -204,7 +204,7 @@ RuleString LSystemRulesEngine::evaluateSuccessor(int ruleIndex, const RuleToken&
         for (int i = 0; i < token.parameters.size(); i++) {
             Expression* e = expressionCache->getSuccessor(predecessor, ruleIndex, tokenIndex, i);
             float value = evaluateExpression(predecessor, tokenMatch, e);
-            token.parameters[i] = to_string(value);
+            token.parameters[i] = to_string(value, 24);
         }
         tokenIndex++;
     }
