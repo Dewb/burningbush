@@ -1,10 +1,16 @@
 #include "LSystem.h"
 #include <gtest/gtest.h>
 
+LSystemOptions testOptions;
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
+
+    testOptions.logging = true;
     return RUN_ALL_TESTS();
 }
+
+
 
 TEST(LSystem, ParallelReplacement) {
     LSystem system;
@@ -14,7 +20,7 @@ TEST(LSystem, ParallelReplacement) {
     system.addRule('c', "d+");
     system.addRule('+', "/");
     
-    EXPECT_EQ("b+c+d+/", to_string(system.generate(1, true)));
+    EXPECT_EQ("b+c+d+/", to_string(system.generate(1, testOptions)));
 }
 
 TEST(LSystem, SimpleContext) {
@@ -23,7 +29,7 @@ TEST(LSystem, SimpleContext) {
     system.addRule("b", 'a', "", "b");
     system.addRule('b', "a");
 
-    EXPECT_EQ("aaaaaaaab", to_string(system.generate(8, true)));
+    EXPECT_EQ("aaaaaaaab", to_string(system.generate(8, testOptions)));
 }
 
 TEST(LSystem, LeftContextOnEdge) {
@@ -31,7 +37,7 @@ TEST(LSystem, LeftContextOnEdge) {
     system.setAxiom("aaabb");
     system.addRule("aaa", 'b', "", "c");
     
-    EXPECT_EQ("aaacb", to_string(system.generate(1, true)));
+    EXPECT_EQ("aaacb", to_string(system.generate(1, testOptions)));
 }
 
 TEST(LSystem, RightContextOnEdge) {
@@ -39,7 +45,7 @@ TEST(LSystem, RightContextOnEdge) {
     system.setAxiom("bbaaa");
     system.addRule("", 'b', "aaa", "c");
     
-    EXPECT_EQ("bcaaa", to_string(system.generate(1, true)));
+    EXPECT_EQ("bcaaa", to_string(system.generate(1, testOptions)));
 }
 
 TEST(LSystem, LeftContextOverEdge) {
@@ -47,7 +53,7 @@ TEST(LSystem, LeftContextOverEdge) {
     system.setAxiom("aaabb");
     system.addRule("aaaa", 'b', "", "c");
     
-    EXPECT_EQ("aaabb", to_string(system.generate(1, true)));
+    EXPECT_EQ("aaabb", to_string(system.generate(1, testOptions)));
 }
 
 TEST(LSystem, RightContextOverEdge) {
@@ -55,7 +61,7 @@ TEST(LSystem, RightContextOverEdge) {
     system.setAxiom("bbaaa");
     system.addRule("", 'b', "aaaa", "c");
     
-    EXPECT_EQ("bbaaa", to_string(system.generate(1, true)));
+    EXPECT_EQ("bbaaa", to_string(system.generate(1, testOptions)));
 }
 
 TEST(LSystem, ContextSkipBranches) {
@@ -63,7 +69,7 @@ TEST(LSystem, ContextSkipBranches) {
     system.setAxiom("a[x]b[x]c");
     system.addRule("a", 'b', "c", "+");
     
-    EXPECT_EQ("a[x]+[x]c", to_string(system.generate(1, true)));
+    EXPECT_EQ("a[x]+[x]c", to_string(system.generate(1, testOptions)));
 }
 
 TEST(LSystem, LeftContextSkipNestedBranches) {
@@ -72,7 +78,7 @@ TEST(LSystem, LeftContextSkipNestedBranches) {
     system.addRule("aaa", 'b', "", "+"); // should match
     system.addRule("b", 'c', "", "+");   // should not match
     
-    EXPECT_EQ("aaa[xy[xxyb][[xxb]cc]]+", to_string(system.generate(1, true)));
+    EXPECT_EQ("aaa[xy[xxyb][[xxb]cc]]+", to_string(system.generate(1, testOptions)));
 }
 
 TEST(LSystem, RightContextEnterBranch) {
@@ -80,7 +86,7 @@ TEST(LSystem, RightContextEnterBranch) {
     system.setAxiom("a[x]b[x]c");
     system.addRule("a", 'b', "x", "+");
     
-    EXPECT_EQ("a[x]+[x]c", to_string(system.generate(1, true)));
+    EXPECT_EQ("a[x]+[x]c", to_string(system.generate(1, testOptions)));
 }
 
 TEST(LSystem, RightContextEnterNestedBranch) {
@@ -89,7 +95,7 @@ TEST(LSystem, RightContextEnterNestedBranch) {
     system.addRule("a", 'b', "xyz", "+");
     system.addRule("b", 'x', "yf", "+");
     
-    EXPECT_EQ("a[x]+[+[y[za]f]d]c", to_string(system.generate(1, true)));
+    EXPECT_EQ("a[x]+[+[y[za]f]d]c", to_string(system.generate(1, testOptions)));
 }
 
 TEST(LSystem, SubscriptMatching) {
@@ -98,7 +104,7 @@ TEST(LSystem, SubscriptMatching) {
     system.addRule("F_a", "+F_b");
     system.addRule("F_b", "-F_a");
     
-    EXPECT_EQ("F_c/F/+-+-F_a", to_string(system.generate(4, true)));
+    EXPECT_EQ("F_c/F/+-+-F_a", to_string(system.generate(4, testOptions)));
 }
 
 TEST(LSystem, ParametricBasicParsing) {
@@ -122,7 +128,7 @@ TEST(LSystem, ParametricBasicMatching) {
     system.addRule("A_c(x,y)", "-A(x+1,y+1)");
     system.addRule("B(x,y)", "f");
     
-    EXPECT_EQ("F(6)B(5)+F(0)-F(48)", to_string(system.generate(2, true)));
+    EXPECT_EQ("F(6)B(5)+F(0)-F(48)", to_string(system.generate(2, testOptions)));
 }
 
 TEST(LSystem, ParametricConditionalMatching) {
@@ -131,7 +137,7 @@ TEST(LSystem, ParametricConditionalMatching) {
     system.addRule("A(n)", "+A(n-1)").setCondition("n > 0");
     system.addRule("A(n)", "F").setCondition("n == 0");
     
-    EXPECT_EQ("++++++F", to_string(system.generate(7, true)));
+    EXPECT_EQ("++++++F", to_string(system.generate(7, testOptions)));
 }
 
 TEST(LSystem, ParametricSystemProperties) {
@@ -141,7 +147,7 @@ TEST(LSystem, ParametricSystemProperties) {
     system.addRule("A(n)", "+(x)A(n-1)B(n)").setCondition("n > 0");
     system.addRule("B(n)", "C(x)").setCondition("n == x");
 
-    EXPECT_EQ("+(2)+(2)+(2)A(0)B(1)C(2)B(3)", to_string(system.generate(7, true)));
+    EXPECT_EQ("+(2)+(2)+(2)A(0)B(1)C(2)B(3)", to_string(system.generate(7, testOptions)));
 }
 
 
@@ -150,7 +156,7 @@ TEST(LSystem, ParametricMultipleFormalParmaters) {
     system.setAxiom("A(3,2)");
     system.addRule("A(x,y)", "B(x,y)A(x+1,y+1)");
 
-    EXPECT_EQ("B(3,2)B(4,3)A(5,4)", to_string(system.generate(2, true)));
+    EXPECT_EQ("B(3,2)B(4,3)A(5,4)", to_string(system.generate(2, testOptions)));
 }
 
 #include "DemoHaiku.h"
@@ -163,7 +169,7 @@ TEST(LSystem, HaikuTest) {
     int count = 10;
     while (count--) {
         system.reseed(rand());
-        cout << system.generate(3, false) << "\n\n";
+        cout << system.generate(3) << "\n\n";
     }
 
     EXPECT_EQ(true, true);
