@@ -22,6 +22,9 @@ namespace {
         for (auto& c : newMesh.getColors()) {
             target->addColor(c);
         }
+        for (auto& n : newMesh.getNormals()) {
+            target->addNormal(n);
+        }
     }
     
     void addTriangleToMesh(ofPtr<ofMesh> mesh, const ofVec3f& a, const ofVec3f& b, const ofVec3f& c,
@@ -36,6 +39,15 @@ namespace {
         mesh->addColor(color1);
         mesh->addColor(color2);
         mesh->addColor(color3);
+
+        ofVec3f v1, v2, n;
+        v1 = a - b;
+        v2 = a - c;
+        n = v1.cross(v2);
+
+        mesh->addNormal(n);
+        mesh->addNormal(n);
+        mesh->addNormal(n);
     }
 }
 
