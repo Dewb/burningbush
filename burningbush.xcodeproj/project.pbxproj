@@ -21,6 +21,22 @@
 		5B0CE2971A7C9378008A2E22 /* ProductionRule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B0CE2951A7C9378008A2E22 /* ProductionRule.cpp */; };
 		5B25A82A1A70676F00691C35 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B8B64C71A5A9BAA006F6EB9 /* main.cpp */; };
 		5B3BFEA51AB4A4900088E3DF /* SyphonTextRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B3BFEA31AB4A4900088E3DF /* SyphonTextRenderer.cpp */; };
+		5B66797B1BE6F7E2001F6E87 /* LightingShader_sources.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B66796D1BE6F7E2001F6E87 /* LightingShader_sources.cpp */; };
+		5B66797C1BE6F7E2001F6E87 /* MappingShader_sources.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B66796E1BE6F7E2001F6E87 /* MappingShader_sources.cpp */; };
+		5B66797D1BE6F7E2001F6E87 /* ofxShadersFX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B66796F1BE6F7E2001F6E87 /* ofxShadersFX.cpp */; };
+		5B66797E1BE6F7E2001F6E87 /* ofxShadersFX_AlphaBlendingShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B6679711BE6F7E2001F6E87 /* ofxShadersFX_AlphaBlendingShader.cpp */; };
+		5B66797F1BE6F7E2001F6E87 /* ofxShadersFX_ColorKeyShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B6679731BE6F7E2001F6E87 /* ofxShadersFX_ColorKeyShader.cpp */; };
+		5B6679801BE6F7E2001F6E87 /* ofxShadersFX_DisplaceMapShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B6679751BE6F7E2001F6E87 /* ofxShadersFX_DisplaceMapShader.cpp */; };
+		5B6679811BE6F7E2001F6E87 /* ofxShadersFX_LightingShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B6679771BE6F7E2001F6E87 /* ofxShadersFX_LightingShader.cpp */; };
+		5B6679821BE6F7E2001F6E87 /* ofxShadersFX_MappingShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B6679791BE6F7E2001F6E87 /* ofxShadersFX_MappingShader.cpp */; };
+		5B6679831BE6F7E2001F6E87 /* LightingShader_sources.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B66796D1BE6F7E2001F6E87 /* LightingShader_sources.cpp */; };
+		5B6679841BE6F7E2001F6E87 /* MappingShader_sources.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B66796E1BE6F7E2001F6E87 /* MappingShader_sources.cpp */; };
+		5B6679851BE6F7E2001F6E87 /* ofxShadersFX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B66796F1BE6F7E2001F6E87 /* ofxShadersFX.cpp */; };
+		5B6679861BE6F7E2001F6E87 /* ofxShadersFX_AlphaBlendingShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B6679711BE6F7E2001F6E87 /* ofxShadersFX_AlphaBlendingShader.cpp */; };
+		5B6679871BE6F7E2001F6E87 /* ofxShadersFX_ColorKeyShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B6679731BE6F7E2001F6E87 /* ofxShadersFX_ColorKeyShader.cpp */; };
+		5B6679881BE6F7E2001F6E87 /* ofxShadersFX_DisplaceMapShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B6679751BE6F7E2001F6E87 /* ofxShadersFX_DisplaceMapShader.cpp */; };
+		5B6679891BE6F7E2001F6E87 /* ofxShadersFX_LightingShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B6679771BE6F7E2001F6E87 /* ofxShadersFX_LightingShader.cpp */; };
+		5B66798A1BE6F7E2001F6E87 /* ofxShadersFX_MappingShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B6679791BE6F7E2001F6E87 /* ofxShadersFX_MappingShader.cpp */; };
 		5B7BCDAC1AB15699006724C2 /* ofxSyphonClient.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5B7BCD9D1AB15699006724C2 /* ofxSyphonClient.mm */; };
 		5B7BCDAD1AB15699006724C2 /* ofxSyphonServer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5B7BCD9F1AB15699006724C2 /* ofxSyphonServer.mm */; };
 		5B7BCDAE1AB15699006724C2 /* ofxSyphonServerDirectory.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5B7BCDA11AB15699006724C2 /* ofxSyphonServerDirectory.mm */; };
@@ -153,6 +169,22 @@
 		5B0CE2981A7C99A7008A2E22 /* DemoSystems.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DemoSystems.h; path = app/DemoSystems.h; sourceTree = "<group>"; };
 		5B3BFEA31AB4A4900088E3DF /* SyphonTextRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SyphonTextRenderer.cpp; path = app/SyphonTextRenderer.cpp; sourceTree = "<group>"; };
 		5B3BFEA41AB4A4900088E3DF /* SyphonTextRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SyphonTextRenderer.h; path = app/SyphonTextRenderer.h; sourceTree = "<group>"; };
+		5B64570B1BE6EC09007B396A /* vert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = vert.glsl; path = bin/data/vert.glsl; sourceTree = "<group>"; };
+		5B64570C1BE6EC19007B396A /* frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = frag.glsl; path = bin/data/frag.glsl; sourceTree = "<group>"; };
+		5B66796D1BE6F7E2001F6E87 /* LightingShader_sources.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = LightingShader_sources.cpp; sourceTree = "<group>"; };
+		5B66796E1BE6F7E2001F6E87 /* MappingShader_sources.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MappingShader_sources.cpp; sourceTree = "<group>"; };
+		5B66796F1BE6F7E2001F6E87 /* ofxShadersFX.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxShadersFX.cpp; sourceTree = "<group>"; };
+		5B6679701BE6F7E2001F6E87 /* ofxShadersFX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxShadersFX.h; sourceTree = "<group>"; };
+		5B6679711BE6F7E2001F6E87 /* ofxShadersFX_AlphaBlendingShader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxShadersFX_AlphaBlendingShader.cpp; sourceTree = "<group>"; };
+		5B6679721BE6F7E2001F6E87 /* ofxShadersFX_AlphaBlendingShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxShadersFX_AlphaBlendingShader.h; sourceTree = "<group>"; };
+		5B6679731BE6F7E2001F6E87 /* ofxShadersFX_ColorKeyShader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxShadersFX_ColorKeyShader.cpp; sourceTree = "<group>"; };
+		5B6679741BE6F7E2001F6E87 /* ofxShadersFX_ColorKeyShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxShadersFX_ColorKeyShader.h; sourceTree = "<group>"; };
+		5B6679751BE6F7E2001F6E87 /* ofxShadersFX_DisplaceMapShader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxShadersFX_DisplaceMapShader.cpp; sourceTree = "<group>"; };
+		5B6679761BE6F7E2001F6E87 /* ofxShadersFX_DisplaceMapShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxShadersFX_DisplaceMapShader.h; sourceTree = "<group>"; };
+		5B6679771BE6F7E2001F6E87 /* ofxShadersFX_LightingShader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxShadersFX_LightingShader.cpp; sourceTree = "<group>"; };
+		5B6679781BE6F7E2001F6E87 /* ofxShadersFX_LightingShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxShadersFX_LightingShader.h; sourceTree = "<group>"; };
+		5B6679791BE6F7E2001F6E87 /* ofxShadersFX_MappingShader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxShadersFX_MappingShader.cpp; sourceTree = "<group>"; };
+		5B66797A1BE6F7E2001F6E87 /* ofxShadersFX_MappingShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxShadersFX_MappingShader.h; sourceTree = "<group>"; };
 		5B7BCD9B1AB15699006724C2 /* ofxSyphon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxSyphon.h; sourceTree = "<group>"; };
 		5B7BCD9C1AB15699006724C2 /* ofxSyphonClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxSyphonClient.h; sourceTree = "<group>"; };
 		5B7BCD9D1AB15699006724C2 /* ofxSyphonClient.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ofxSyphonClient.mm; sourceTree = "<group>"; };
@@ -340,6 +372,53 @@
 				5B0CE2951A7C9378008A2E22 /* ProductionRule.cpp */,
 			);
 			name = core;
+			sourceTree = "<group>";
+		};
+		5B64570D1BE6EC22007B396A /* bin */ = {
+			isa = PBXGroup;
+			children = (
+				5B64570E1BE6EC28007B396A /* data */,
+			);
+			name = bin;
+			sourceTree = "<group>";
+		};
+		5B64570E1BE6EC28007B396A /* data */ = {
+			isa = PBXGroup;
+			children = (
+				5B64570C1BE6EC19007B396A /* frag.glsl */,
+				5B64570B1BE6EC09007B396A /* vert.glsl */,
+			);
+			name = data;
+			sourceTree = "<group>";
+		};
+		5B66796B1BE6F7E2001F6E87 /* ofxShadersFX */ = {
+			isa = PBXGroup;
+			children = (
+				5B66796C1BE6F7E2001F6E87 /* src */,
+			);
+			name = ofxShadersFX;
+			sourceTree = "<group>";
+		};
+		5B66796C1BE6F7E2001F6E87 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				5B66796D1BE6F7E2001F6E87 /* LightingShader_sources.cpp */,
+				5B66796E1BE6F7E2001F6E87 /* MappingShader_sources.cpp */,
+				5B66796F1BE6F7E2001F6E87 /* ofxShadersFX.cpp */,
+				5B6679701BE6F7E2001F6E87 /* ofxShadersFX.h */,
+				5B6679711BE6F7E2001F6E87 /* ofxShadersFX_AlphaBlendingShader.cpp */,
+				5B6679721BE6F7E2001F6E87 /* ofxShadersFX_AlphaBlendingShader.h */,
+				5B6679731BE6F7E2001F6E87 /* ofxShadersFX_ColorKeyShader.cpp */,
+				5B6679741BE6F7E2001F6E87 /* ofxShadersFX_ColorKeyShader.h */,
+				5B6679751BE6F7E2001F6E87 /* ofxShadersFX_DisplaceMapShader.cpp */,
+				5B6679761BE6F7E2001F6E87 /* ofxShadersFX_DisplaceMapShader.h */,
+				5B6679771BE6F7E2001F6E87 /* ofxShadersFX_LightingShader.cpp */,
+				5B6679781BE6F7E2001F6E87 /* ofxShadersFX_LightingShader.h */,
+				5B6679791BE6F7E2001F6E87 /* ofxShadersFX_MappingShader.cpp */,
+				5B66797A1BE6F7E2001F6E87 /* ofxShadersFX_MappingShader.h */,
+			);
+			name = src;
+			path = ../of_v0.8.4_osx_release/addons/ofxShadersFX/src;
 			sourceTree = "<group>";
 		};
 		5B7BCD991AB15699006724C2 /* ofxSyphon */ = {
@@ -634,6 +713,7 @@
 				1F4FB5C423662B96ADFDCC0B /* ofxXmlSettings */,
 				5BD6740A1AAFA4DC00B1032E /* ofxOsc */,
 				5B7BCD991AB15699006724C2 /* ofxSyphon */,
+				5B66796B1BE6F7E2001F6E87 /* ofxShadersFX */,
 			);
 			name = addons;
 			sourceTree = "<group>";
@@ -689,6 +769,7 @@
 		E4B69B4A0A3A1720003C02F2 = {
 			isa = PBXGroup;
 			children = (
+				5B64570D1BE6EC22007B396A /* bin */,
 				5B0CE2861A7B2025008A2E22 /* lib */,
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				E4EB6923138AFD0F00A09F29 /* Project.xcconfig */,
@@ -834,12 +915,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B6679841BE6F7E2001F6E87 /* MappingShader_sources.cpp in Sources */,
 				5B0CE2971A7C9378008A2E22 /* ProductionRule.cpp in Sources */,
+				5B66798A1BE6F7E2001F6E87 /* ofxShadersFX_MappingShader.cpp in Sources */,
 				5B0CE2851A7B18F3008A2E22 /* LSystemRulesEngine.cpp in Sources */,
 				5B0CE2941A7C9334008A2E22 /* RuleString.cpp in Sources */,
+				5B6679891BE6F7E2001F6E87 /* ofxShadersFX_LightingShader.cpp in Sources */,
+				5B6679871BE6F7E2001F6E87 /* ofxShadersFX_ColorKeyShader.cpp in Sources */,
+				5B6679831BE6F7E2001F6E87 /* LightingShader_sources.cpp in Sources */,
+				5B6679851BE6F7E2001F6E87 /* ofxShadersFX.cpp in Sources */,
 				5B25A82A1A70676F00691C35 /* main.cpp in Sources */,
 				5B8B8A741A5AB814007F24F6 /* LSystem.cpp in Sources */,
+				5B6679881BE6F7E2001F6E87 /* ofxShadersFX_DisplaceMapShader.cpp in Sources */,
 				5B0CE2911A7C918E008A2E22 /* RuleToken.cpp in Sources */,
+				5B6679861BE6F7E2001F6E87 /* ofxShadersFX_AlphaBlendingShader.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -847,13 +936,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B66797C1BE6F7E2001F6E87 /* MappingShader_sources.cpp in Sources */,
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* DemoLSystemApp.cpp in Sources */,
+				5B66797F1BE6F7E2001F6E87 /* ofxShadersFX_ColorKeyShader.cpp in Sources */,
 				5BD674381AAFA4DC00B1032E /* ofxOscReceiver.cpp in Sources */,
 				5BEC72481A70754F00894162 /* ofMeshResult.cpp in Sources */,
+				5B66797B1BE6F7E2001F6E87 /* LightingShader_sources.cpp in Sources */,
 				5B7BCDB11AB15699006724C2 /* SyphonNameboundClient.m in Sources */,
+				5B6679811BE6F7E2001F6E87 /* ofxShadersFX_LightingShader.cpp in Sources */,
 				C9893715C4B972F7387711FD /* ofxBaseGui.cpp in Sources */,
+				5B6679821BE6F7E2001F6E87 /* ofxShadersFX_MappingShader.cpp in Sources */,
 				5B0CE28E1A7C8FEF008A2E22 /* ColorBook.cpp in Sources */,
+				5B66797E1BE6F7E2001F6E87 /* ofxShadersFX_AlphaBlendingShader.cpp in Sources */,
 				DE407E9EE9F292F730D30FEF /* ofxButton.cpp in Sources */,
 				5BD674351AAFA4DC00B1032E /* ofxOscBundle.cpp in Sources */,
 				5BD6743C1AAFA4DC00B1032E /* UdpSocket.cpp in Sources */,
@@ -868,6 +963,7 @@
 				FBA20CC9B0626C7D5A9D5F9C /* ofxToggle.cpp in Sources */,
 				5BD6743B1AAFA4DC00B1032E /* NetworkingUtils.cpp in Sources */,
 				7EFCFE727D9DE492780174E1 /* ofxXmlSettings.cpp in Sources */,
+				5B6679801BE6F7E2001F6E87 /* ofxShadersFX_DisplaceMapShader.cpp in Sources */,
 				5BD6743F1AAFA4DC00B1032E /* OscReceivedElements.cpp in Sources */,
 				5BB4EA1E1A4EC2A40047F957 /* TurntableCam.cpp in Sources */,
 				5B7BCDAE1AB15699006724C2 /* ofxSyphonServerDirectory.mm in Sources */,
@@ -893,6 +989,7 @@
 				5B0CE2931A7C9334008A2E22 /* RuleString.cpp in Sources */,
 				5BD6743A1AAFA4DC00B1032E /* IpEndpointName.cpp in Sources */,
 				5BCB2DF11A6DF4130042DFF4 /* CreEPS.cpp in Sources */,
+				5B66797D1BE6F7E2001F6E87 /* ofxShadersFX.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

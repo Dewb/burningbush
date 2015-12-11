@@ -16,15 +16,11 @@ namespace {
         for (auto& index : newMesh.getIndices()) {
             target->addIndex(index + startIndex);
         }
-        for (auto& v : newMesh.getVertices()) {
-            target->addVertex(v * transform);
+        for (auto& vertex : newMesh.getVertices()) {
+            target->addVertex(vertex * transform);
         }
-        for (auto& c : newMesh.getColors()) {
-            target->addColor(c);
-        }
-        for (auto& n : newMesh.getNormals()) {
-            target->addNormal(n);
-        }
+        target->addColors(newMesh.getColors());
+        target->addNormals(newMesh.getNormals());
     }
     
     void addTriangleToMesh(ofPtr<ofMesh> mesh, const ofVec3f& a, const ofVec3f& b, const ofVec3f& c,
@@ -54,10 +50,10 @@ namespace {
 void ofMeshResult::addSegment(const ofVec3f& pt1, const ofVec3f& pt2, float radius, const ofColor& color) {
     float length = (pt1 - pt2).length();
     ofMesh segmentMesh = ofMesh::cylinder(radius, length, 6, 1, 2, true, OF_PRIMITIVE_TRIANGLES);
-    for (auto& v : segmentMesh.getVertices()) {
-        segmentMesh.addColor(color);
-    }
-    
+    ofFloatColor floatColor(color);
+    vector<ofFloatColor> colors(segmentMesh.getNumVertices(), floatColor);
+    segmentMesh.addColors(colors);
+
     ofMatrix4x4 shiftOrigin;
     shiftOrigin.makeTranslationMatrix(ofVec3f(0, length * 0.5, 0));
     ofMatrix4x4 orient;

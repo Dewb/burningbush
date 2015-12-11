@@ -7,6 +7,7 @@
 #include "TurntableCam.h"
 #include "ofxOsc.h"
 #include "SyphonTextRenderer.h"
+#include "ofxShadersFX.h"
 
 template<typename T>
 class ofPtrArray : public vector<ofPtr<T> > {
@@ -56,6 +57,8 @@ protected:
     unsigned int drawListIndex;
     ofLight headlight;
     ofMaterial material;
+    ofShader shader;
+    ofxShadersFX::Lighting::LightingShader lightShader;
 
     ofPtr<ofMesh> mesh;
     

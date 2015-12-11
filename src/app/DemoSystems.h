@@ -19,7 +19,7 @@ void createSystems(vector<pair<LSystem, GeneratorType> >& systems) {
 
     system.reset();
     system.setTitle("Starflake (Dewb, from a concept by cosinezero)");
-    system.setAxiom("P(20.0)");
+    system.setAxiom("P(50.0)");
     //system.addRule("P(x)", "P(x/3)[f(x)+(180-a)[P(x/3)F(x)+(a)](s)]");
     //system.addRule("P(x)", "'P(x/3)[F(x)+(180-360/s)[P(x/3)F(x)+(360/s)](s)]");
     //system.addRule("P(r)", "'P(r/3.0)[F(r)+(180-(s-2)*90/s)[P(r/3.0)F(2*r*sin(3.14159/s))+(360.0/s)](s)]");
@@ -36,9 +36,10 @@ void createSystems(vector<pair<LSystem, GeneratorType> >& systems) {
     system.setProperty("position_x", 0);
     system.setProperty("position_y", 0);
     system.setProperty("segmentLength", 0.15);
-    system.setProperty("segmentRadius", 0.1);
+    system.setProperty("segmentRadius", 0.2);
     system.setProperty("tropism", 0.0);
     system.setProperty("colorBook", 3);
+    system.setProperty("shiny", 1);
     systems.push_back(make_pair(system, GeneratorTypeMesh));
 
     system.reset();

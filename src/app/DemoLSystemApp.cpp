@@ -23,7 +23,7 @@ void DemoLSystemApp::setup() {
     ofEnableAlphaBlending();
     ofEnableAntiAliasing();
     ofSetSmoothLighting(true);
-    ofBackground(0, 0, 80);
+    ofBackground(0, 0, 0);
     ofSetBackgroundAuto(false);
     
     polyRenderMode = OF_MESH_FILL;
@@ -33,6 +33,10 @@ void DemoLSystemApp::setup() {
     headlight.setSpecularColor(ofColor(255, 255, 255));
     headlight.setDiffuseColor(ofColor(180, 100, 180));
     material.setShininess(7);
+
+    shader.load("vert.glsl", "frag.glsl");
+    lightShader.useCamera(&cam);
+    lightShader.useLight(&headlight);
     
     cam.setPosition(-25, 50, 75);
     
@@ -169,6 +173,11 @@ void DemoLSystemApp::draw(){
     } else if (mode == GeneratorTypeMesh) {
         generatorName = "MeshGenerator";
         cam.begin();
+        //shader.begin();
+        //shader.setUniformMatrix4f("normalMatrix", ofMatrix4x4::getTransposedOf(cam.getModelViewMatrix().getInverse()));
+
+        //lightShader.begin();
+
         ofSetLineWidth(0.1);
         if (system.getProperty("shiny")) {
             ofEnableLighting();
@@ -178,6 +187,9 @@ void DemoLSystemApp::draw(){
         mesh->draw(polyRenderMode);
         ofDisableLighting();
         //material.end();
+
+        //lightShader.end();
+        //shader.end();
         cam.end();
     }
     
@@ -185,9 +197,11 @@ void DemoLSystemApp::draw(){
 
     haikuRenderer.update();
 
-    // now that we've published our syphon outputs, draw a background and the haiku text
-    ofSetColor(60, 10, 140, 255);
-    ofRect(ofGetWidth() * -2, ofGetHeight() * -2, -999, ofGetWidth() * 4, ofGetHeight() * 4);
+    if (false) {
+        // now that we've published our syphon outputs, draw a background
+        ofSetColor(60, 10, 140, 255);
+        ofRect(ofGetWidth() * -2, ofGetHeight() * -2, -999, ofGetWidth() * 4, ofGetHeight() * 4);
+    }
 
     ofSetColor(200, 200, 180);
     ofDisableDepthTest();
@@ -384,7 +398,7 @@ void DemoLSystemApp::updateMesh(bool rerunSystem) {
         mesh_gen.generate(system, state, iterations, options);
         mesh = result->mesh;
         
-        cam.setTarget(getMeshCenter(mesh));
+        //cam.setTarget(getMeshCenter(mesh));
     }
     
     viewDirty = true;
