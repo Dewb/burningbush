@@ -1,0 +1,82 @@
+# Test of simple system-file parser
+
+system Starflake (Dewb, from a concept by cosinezero)
+axiom P(50.0)
+rule P(r) '[!P(r*f)]['[f(r)[+(x)&(y)/(z)!P(r*f)]+(180-(s-2)*90/s)F(2*r*sin(3.14159/s))]+(360/s)](s)
+property N 1
+property s 7.0
+property f 0.333333
+property x 0
+property y 0
+property z 0
+property angle 30
+property edgeLength 1.0
+property heading 0
+property position_x 0
+property position_y 0
+property segmentLength 0.15
+property segmentRadius 0.2
+property tropism 0.0
+property colorBook 3
+property shiny 1
+property centered 0
+generate mesh
+
+system Cherry Tree (by Dewb)
+axiom !(0.132)F_t(1)/(45)X
+rule X B(1)!(0.132)F_t(50)[&F_t(50)A(1)]R[&F_t(50)A(1)]R[&F_t(50)A(1)]
+rule A(n) B(n)!(0.132)S[&SA(n+1)]R[&SA(n+1)]R[&SA(n+1)]
+condition n < 6
+
+rule R /(94.74)
+probability 0.5
+
+rule R /(132.63)
+probability 0.5
+
+rule S F(50)
+probability 0.3
+
+rule S F(30)
+probability 0.3
+
+rule S w
+probability 0.3
+
+rule F(l) F(l*1.249)
+probability 0.5
+
+rule F(l) /[f(l/3)[B(l/10)]f(l/4)[/B(l/10)]]F(l)
+probability 0.125
+
+rule F(l) /[f(2*l/3)[B(l/10)]f(l/6)[/B(l/10)]]F(l)
+probability 0.125
+
+rule F(l) /[f(l/5)[B(l/10)]/(15)f(l/5)[/B(l/10)]f(2*l/5)[/B(l/10)]]F(l)
+probability 0.125
+
+rule F(l) /[f(l/4)[B(l/10)]/(30)f(l/12)[B(l/10)]f(l/5)[/B(l/10)]]F(l)
+probability 0.125
+
+rule !(w) !(w*1.732)
+rule B(x) [T(0)//&(60)L][T(0)//^(60)L]
+condition x < 5
+
+rule B(x) [T(0)O]
+condition x >= 5
+
+rule L [@(1.0)\"{+(18)G(5)-(18)'G(10)-(18)'G(5)+(270)'G(5)-(18)'G(10)-(18)'G(5)}]
+rule O +(90)g[&&D/W/(72)W/(72)W/(72)W/(72)W]
+rule W [@(4.0)!(4.0)\"\"/(20)&(20)G(0.15)][\"\"\"@(2.0){&(40)-(68.2)G(2.6926)+(46.4)'G(2.6926)+(31.3)'G(3.0414)+(46.8)'G(3.6056)+(67.4)'G(3.6056)+(46.8)`G(3.0414)+(31.3)`G(2.6926)+(46.4)`G(2.6926)}{\"&(39)-(45)G(1.4142)+(66.8)G(2.6926)+(136.4)G(2.6926)+(66.8)G(1.4142)}]
+
+#rule D [@(8.0)!(0.1)\"\"FF]
+
+property N 9
+property angle 18.95
+property segmentLength 0.15
+property segmentRadius 0.01
+property tropism 0.0
+property colorBook 4
+property centered 1
+
+generate mesh

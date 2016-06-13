@@ -13,7 +13,8 @@ void DemoLSystemApp::setup() {
     q = qo.inverse();
     q.normalize();
     
-    createSystems(systems);
+    parseSystems(systems);
+    //createSystems(systems);
     createColorBooks(colorBooks);
 
     ofEnableDepthTest();
@@ -299,7 +300,7 @@ void DemoLSystemApp::saveVectorFile() {
         if (system.hasProperty("position_y")) {
             state.position.y = ofGetHeight() * (0.5 + 0.5 * system.getProperty("position_y"));
         }
-        
+
         ofSetLineWidth(0.5);
         vector_gen.generate(system, state, iterations, options);
     } else if (mode == GeneratorTypeMesh) {
@@ -397,8 +398,12 @@ void DemoLSystemApp::updateMesh(bool rerunSystem) {
         
         mesh_gen.generate(system, state, iterations, options);
         mesh = result->mesh;
-        
-        //cam.setTarget(getMeshCenter(mesh));
+
+        if (!system.hasProperty("centered") || system.getProperty("centered") != 0) {
+            cam.setTarget(getMeshCenter(mesh));
+        } else {
+            cam.setTarget(ofVec3f(0, 0, 0));
+        }
     }
     
     viewDirty = true;
@@ -434,6 +439,10 @@ void DemoLSystemApp::keyPressed(int key){
         saveVectorFile();
     } else if (key == 'S') {
         saveMesh();
+    } else if (key == 'R') {
+        systems.clear();
+        parseSystems(systems);
+        updateMesh(true);
     } else if (key == '?') {
         showUI = !showUI;
         viewDirty = true;

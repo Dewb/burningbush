@@ -169,6 +169,7 @@
 		5B0CE2981A7C99A7008A2E22 /* DemoSystems.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DemoSystems.h; path = app/DemoSystems.h; sourceTree = "<group>"; };
 		5B3BFEA31AB4A4900088E3DF /* SyphonTextRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SyphonTextRenderer.cpp; path = app/SyphonTextRenderer.cpp; sourceTree = "<group>"; };
 		5B3BFEA41AB4A4900088E3DF /* SyphonTextRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SyphonTextRenderer.h; path = app/SyphonTextRenderer.h; sourceTree = "<group>"; };
+		5B457CF61C1B4BEB00906F19 /* systems.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = systems.txt; path = bin/data/systems.txt; sourceTree = "<group>"; };
 		5B64570B1BE6EC09007B396A /* vert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = vert.glsl; path = bin/data/vert.glsl; sourceTree = "<group>"; };
 		5B64570C1BE6EC19007B396A /* frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = frag.glsl; path = bin/data/frag.glsl; sourceTree = "<group>"; };
 		5B66796D1BE6F7E2001F6E87 /* LightingShader_sources.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = LightingShader_sources.cpp; sourceTree = "<group>"; };
@@ -387,6 +388,7 @@
 			children = (
 				5B64570C1BE6EC19007B396A /* frag.glsl */,
 				5B64570B1BE6EC09007B396A /* vert.glsl */,
+				5B457CF61C1B4BEB00906F19 /* systems.txt */,
 			);
 			name = data;
 			sourceTree = "<group>";

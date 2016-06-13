@@ -10,8 +10,70 @@
 #define burningbush_DemoSystems_h
 
 #include <DemoLSystemApp.h>
+#include <iostream>
+#include <fstream>
+#include <cstring>
 
 using namespace std;
+
+void parseSystems(vector<pair<LSystem, GeneratorType> >& systems) {
+    LSystem system;
+    ProductionRule* pLastRule = NULL;
+
+    string line, token, data, data1, data2;
+
+    char * dir = getcwd(NULL, 0); // Platform-dependent, see reference link below
+    printf("Current dir: %s", dir);
+
+    ifstream file;
+    file.open("../../../data/systems.txt");
+
+    while (file.is_open() && !file.eof()) {
+        getline(file, line);
+        if (line.empty() || line[0] == '#') {
+            continue;
+        }
+
+        int firstSpace = line.find(" ");
+        int secondSpace = line.find(" ", firstSpace + 1);
+        token = line.substr(0, firstSpace);
+        data = line.substr(firstSpace + 1, string::npos);
+        data1 = line.substr(firstSpace + 1, secondSpace - firstSpace - 1);
+        data2 = line.substr(secondSpace + 1, string::npos);
+
+        if (token == "system") {
+            system.reset();
+            system.setTitle(data);
+        } else if (token == "axiom") {
+            system.setAxiom(data1);
+        } else if (token == "rule") {
+            pLastRule = &system.addRule(data1, data2);
+        } else if (token == "probability") {
+            if (pLastRule) {
+                float f = atof(data1.c_str());
+                pLastRule->setProbability(f);
+            }
+        } else if (token == "condition") {
+            if (pLastRule) {
+                pLastRule->setCondition(data);
+            }
+        } else if (token == "property") {
+            float f = atof(data2.c_str());
+            system.setProperty(data1, f);
+        } else if (token == "generate") {
+            if (data1 == "mesh") {
+                systems.push_back(make_pair(system, GeneratorTypeMesh));
+            } else if (data1 == "line") {
+                systems.push_back(make_pair(system, GeneratorTypeLine));
+            }
+        } else {
+            cout << "WARNING: Unrecognized token " << token << endl;
+        }
+
+    }
+
+    file.close();
+}
 
 void createSystems(vector<pair<LSystem, GeneratorType> >& systems) {
     
