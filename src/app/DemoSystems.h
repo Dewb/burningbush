@@ -34,6 +34,13 @@ void parseSystems(vector<pair<LSystem, GeneratorType> >& systems) {
             continue;
         }
 
+        int cr = line.find("\\n");
+        while (cr != string::npos)
+        {
+            line.replace(cr, 2, "\n");
+            cr = line.find("\\n", cr);
+        }
+
         int firstSpace = line.find(" ");
         int secondSpace = line.find(" ", firstSpace + 1);
         token = line.substr(0, firstSpace);
@@ -65,6 +72,10 @@ void parseSystems(vector<pair<LSystem, GeneratorType> >& systems) {
                 systems.push_back(make_pair(system, GeneratorTypeMesh));
             } else if (data1 == "line") {
                 systems.push_back(make_pair(system, GeneratorTypeLine));
+            } else if (data1 == "text") {
+                systems.push_back(make_pair(system, GeneratorTypeText));
+            } else if (data1 == "none") {
+                systems.push_back(make_pair(system, GeneratorTypeNone));
             }
         } else {
             cout << "WARNING: Unrecognized token " << token << endl;

@@ -15,8 +15,10 @@ public:
 };
 
 typedef enum {
+    GeneratorTypeNone = -1,
     GeneratorTypeLine,
-    GeneratorTypeMesh
+    GeneratorTypeMesh,
+    GeneratorTypeText
 } GeneratorType;
 
 

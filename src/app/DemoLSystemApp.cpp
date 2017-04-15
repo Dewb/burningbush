@@ -1,6 +1,5 @@
 #include "DemoLSystemApp.h"
 #include "DemoSystems.h"
-#include "DemoHaiku.h"
 #include "ParagraphFormatter.h"
 #include "ofMeshResult.h"
 #include "VectorFileMeshResult.h"
@@ -14,7 +13,6 @@ void DemoLSystemApp::setup() {
     q.normalize();
     
     parseSystems(systems);
-    //createSystems(systems);
     createColorBooks(colorBooks);
 
     ofEnableDepthTest();
@@ -54,8 +52,12 @@ void DemoLSystemApp::setup() {
     cameraRotationSpeed = 0.2;
     cameraZoom = 1.0;
 
-    haikuRenderer.initialize(createHaikuSystem(), 3, "haiku", 650, 180, "Raleway-Black.ttf", 28, 15);
-    haikuRenderer.hide();
+    for (int i = 0; i < systems.size(); i++) {
+        if (systems[i].second == GeneratorTypeText) {
+            haikuRenderer.initialize(systems[i].first, 3, "haiku", 650, 180, "Raleway-Black.ttf", 28, 15);
+            haikuRenderer.hide();
+        }
+    }
 
     options.useCache = false;
 }
@@ -411,8 +413,12 @@ void DemoLSystemApp::updateMesh(bool rerunSystem) {
 
 void DemoLSystemApp::keyPressed(int key){
     if (key == ' ') {
-        
-        currentSystem = (currentSystem + 1) % systems.size();
+
+        do {
+            currentSystem = (currentSystem + 1) % systems.size();
+        } while (systems[currentSystem].second != GeneratorTypeLine &&
+                 systems[currentSystem].second != GeneratorTypeMesh);
+
         iterationAdjustment = 0;
         
         updateMesh();

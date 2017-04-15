@@ -196,7 +196,6 @@
 		5B7BCDA61AB15699006724C2 /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Syphon.framework; sourceTree = "<group>"; };
 		5B7BCDA81AB15699006724C2 /* SyphonNameboundClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SyphonNameboundClient.h; sourceTree = "<group>"; };
 		5B7BCDA91AB15699006724C2 /* SyphonNameboundClient.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SyphonNameboundClient.m; sourceTree = "<group>"; };
-		5B7BCDBB1AB2AC30006724C2 /* DemoHaiku.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DemoHaiku.h; path = app/DemoHaiku.h; sourceTree = "<group>"; };
 		5B8B64C71A5A9BAA006F6EB9 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		5B8B8A601A5AADC8007F24F6 /* libgtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgtest.a; path = "lib/gtest-1.7.0/lib/osx/libgtest.a"; sourceTree = SOURCE_ROOT; };
 		5B8B8A761A5AB8CE007F24F6 /* LSystemUnitTests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LSystemUnitTests; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -630,7 +629,6 @@
 			isa = PBXGroup;
 			children = (
 				5B0CE2981A7C99A7008A2E22 /* DemoSystems.h */,
-				5B7BCDBB1AB2AC30006724C2 /* DemoHaiku.h */,
 				E4B69E1F0A3A1BDC003C02F2 /* DemoLSystemApp.h */,
 				E4B69E1E0A3A1BDC003C02F2 /* DemoLSystemApp.cpp */,
 				5BE87C2C1A5C58A300C819C3 /* ParagraphFormatter.h */,

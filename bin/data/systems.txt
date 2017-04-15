@@ -1,26 +1,5 @@
 # Test of simple system-file parser
 
-system Starflake (Dewb, from a concept by cosinezero)
-axiom P(50.0)
-rule P(r) '[!P(r*f)]['[f(r)[+(x)&(y)/(z)!P(r*f)]+(180-(s-2)*90/s)F(2*r*sin(3.14159/s))]+(360/s)](s)
-property N 1
-property s 7.0
-property f 0.333333
-property x 0
-property y 0
-property z 0
-property angle 30
-property edgeLength 1.0
-property heading 0
-property position_x 0
-property position_y 0
-property segmentLength 0.15
-property segmentRadius 0.2
-property tropism 0.0
-property colorBook 3
-property shiny 1
-property centered 0
-generate mesh
 
 system Cherry Tree (by Dewb)
 axiom !(0.132)F_t(1)/(45)X
@@ -80,3 +59,220 @@ property colorBook 4
 property centered 1
 
 generate mesh
+
+system Starflake (Dewb, from a concept by cosinezero)
+axiom P(50.0)
+rule P(r) '[!P(r*f)]['[f(r)[+(x)&(y)/(z)!P(r*f)]+(180-(s-2)*90/s)F(2*r*sin(3.14159/s))]+(360/s)](s)
+property N 1
+property s 7.0
+property f 0.333333
+property x 0
+property y 0
+property z 0
+property angle 30
+property edgeLength 1.0
+property heading 0
+property position_x 0
+property position_y 0
+property segmentLength 0.15
+property segmentRadius 0.2
+property tropism 0.0
+property colorBook 3
+property shiny 1
+property centered 0
+generate mesh
+
+system Haiku (dewb)
+axiom 1\n2\n3
+
+rule 1 A_2 H_3
+rule 1 A_1 H_4
+rule 1 A_2 H_3
+rule 1 Q_1 A_1 N_2 V_1
+
+rule 2 T_2 G_3 D_2
+rule 2 T_2 A_5
+rule 2 A_1 H_3 D_3
+rule 2 A_2 H_3 D_2
+
+rule 3 A_1 N_1 D_2 V_1
+rule 3 T_2 H_3
+rule 3 H_3 P_2
+rule 3 G_3 D_2
+
+rule H_3 N_2 V_1
+rule H_3 N_1 V_2
+rule H_4 N_2 V_2
+rule H_4 N_1 V_3
+rule H_3 S_2 C_1
+rule H_3 S_1 C_2
+rule H_4 S_2 C_2
+rule H_4 S_1 C_3
+rule H_4 N_4
+
+rule Q_1 three
+probability 0.15
+
+rule Q_1 five
+probability 0.15
+
+rule Q_1 A_1
+probability 0.7
+
+rule A_1 pink
+rule A_1 green
+rule A_1 blue
+rule A_1 dark
+rule A_1 pale
+rule A_1 spring
+rule A_2 winter
+rule A_2 summer
+rule A_2 cherry
+rule A_2 moonlit
+rule A_2 fragile
+rule A_2 dappled
+rule A_2 restless
+rule A_2 blushing
+rule A_2 floating
+rule A_2 unseen
+rule A_2 alone
+rule A_2 gentle
+rule A_2 cautious
+rule A_2 shadowed
+rule A_3 delicate
+rule A_3 fanciful
+rule A_3 delightful
+rule A_3 vigilant
+rule A_5 illuminated
+rule A_5 unmistakable
+rule A_5 inseparable
+rule A_5 precipitating
+rule A_5 indescribable
+rule A_5 serendipitous
+rule A_5 still pirouetting
+
+rule S_1 spring
+rule S_1 rain
+rule S_1 wind
+rule S_1 air
+rule S_2 winter
+rule S_2 summer
+rule S_2 twilight
+rule S_2 forest
+rule S_2 starlight
+rule S_2 moonlight
+rule S_2 springtime
+
+rule N_1 leaves
+rule N_1 stars
+rule N_1 gusts
+rule N_1 rays
+rule N_1 buds
+rule N_1 twigs
+rule N_2 raindrops
+rule N_2 blossoms
+rule N_2 petals
+rule N_2 sisters
+rule N_2 brothers
+rule N_2 children
+rule N_2 flowers
+rule N_2 dancers
+rule N_2 moonbeams
+rule N_2 eddies
+rule N_2 branches
+rule N_2 flowers
+rule N_4 cherry blossoms
+rule N_4 cherry petals
+
+rule V_1 breathe
+rule V_1 fall
+rule V_1 twirl
+rule V_1 run
+rule V_1 cry
+rule V_1 speak
+rule V_1 dance
+rule V_1 sprout
+rule V_1 swell
+rule V_2 emerge
+rule V_2 unfurl
+rule V_2 alight
+rule V_2 ripple
+rule V_2 settle
+rule V_2 shiver
+rule V_2 relax
+rule V_2 awake
+rule V_2 waver
+rule V_3 undulate
+rule V_3 saturate
+rule V_3 escalate
+rule V_3 reinforce
+
+rule C_1 breathes
+rule C_1 falls
+rule C_1 twirls
+rule C_1 runs
+rule C_1 cries
+rule C_1 speaks
+rule C_1 creeps
+rule C_1 sprouts
+rule C_1 swells
+rule C_1 peeks
+rule C_1 blinks
+rule C_2 dances
+rule C_2 unfurls
+rule C_2 catches
+rule C_2 dissolves
+rule C_2 wavers
+rule C_2 alights
+rule C_2 ripples
+rule C_2 settles
+rule C_2 shivers
+rule C_3 relaxes
+rule C_3 awakens
+rule C_3 emerges
+rule C_3 undulates
+rule C_3 saturates
+rule C_3 escalates
+
+rule T_2 morning
+rule T_2 twilight
+rule T_2 tonight
+rule T_2 at dusk
+rule T_2 at dawn
+rule T_2 at last
+rule T_2 and soon
+rule T_2 long past
+
+rule P_2 on wind
+rule P_2 through trees
+rule P_2 to soil
+rule P_2 in leaves
+rule P_2 in clouds
+rule P_2 in mist
+rule P_2 in warmth
+
+rule G_3 blossoming
+rule G_3 unfolding
+rule G_3 expanding
+rule G_3 revealing
+rule G_3 fluttering
+rule G_3 swirling past
+rule G_3 raining down
+rule G_3 trickling down
+rule G_3 closing up
+
+rule D_2 P_2
+rule D_2 slowly
+rule D_2 quickly
+rule D_2 in dance
+rule D_2 in bloom
+rule D_3 into spring
+rule D_3 together
+rule D_3 hungrily
+rule D_3 cautiously
+rule D_3 silently
+rule D_3 into air
+rule D_3 above trees
+
+generate text
+
