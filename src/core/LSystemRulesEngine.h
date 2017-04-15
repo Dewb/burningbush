@@ -13,6 +13,8 @@
 
 class ExpressionCache;
 
+typedef vector<pair<int, ProductionRule*> > IndexedProductionRulePtrGroup;
+
 class LSystemRulesEngine {
 public:
     LSystemRulesEngine(LSystem* ls);
@@ -20,7 +22,7 @@ public:
     
     void getMatchingRules(const RuleString& current,
                           const RuleString::iterator& currentPos,
-                          IndexedProductionRuleGroup& matched);
+                          IndexedProductionRulePtrGroup& matched);
     RuleString evaluateSuccessor(int ruleIndex,
                                  const RuleToken& predecessor,
                                  const RuleToken& tokenMatch,

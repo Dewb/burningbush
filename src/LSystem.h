@@ -114,6 +114,7 @@ public:
     static LSystemOptions DefaultOptions;
 };
 
+
 class LSystem {
 public:
     LSystem();

@@ -13,7 +13,7 @@
 
 
 LSystemOptions::LSystemOptions()
-: useCache(true)
+: useCache(false)
 , logging(false)
 , steps(-1)
 {
@@ -88,7 +88,7 @@ RuleString LSystem::generate(int iterations, LSystemOptions& options) {
     tr1::ranlux_base_01 generator(seed);
     tr1::uniform_real<float> distribution(0.0, 1.0);
 
-    IndexedProductionRuleGroup matchedRules;
+    IndexedProductionRulePtrGroup matchedRules;
     Replacements replacements;
     LSystemRulesEngine engine(this);
     
@@ -117,7 +117,7 @@ RuleString LSystem::generate(int iterations, LSystemOptions& options) {
             if (matchedRules.size()) {
                 if (matchedRules.size() == 1) {
                     // Basic case: just one matching rule
-                    auto& rule = matchedRules[0].second;
+                    auto rule = *(matchedRules[0].second);
                     int ruleIndex = matchedRules[0].first;
                     if (options.logging) {
                         cout << "Executing: " << rule << "\n";
@@ -129,13 +129,13 @@ RuleString LSystem::generate(int iterations, LSystemOptions& options) {
                     // Stochastic case: multiple rules
                     float totalProbability = 0;
                     for (auto& item : matchedRules) {
-                        totalProbability += item.second.probability;
+                        totalProbability += item.second->probability;
                     }
                     float d = distribution(generator);
                     float p = d * totalProbability;
                     float s = 0;
                     for (auto iter = matchedRules.rbegin(); iter != matchedRules.rend(); ++iter) {
-                        auto& rule = iter->second;
+                        auto rule = *(iter->second);
                         int ruleIndex = iter->first;
                         s += rule.probability;
                         if (s > p) {
@@ -161,7 +161,10 @@ RuleString LSystem::generate(int iterations, LSystemOptions& options) {
             cout << current << "\n";
         }
 
-        cache.insert(make_pair<int, RuleString>(currentIteration, current));
+        if (options.useCache) {
+            cache.insert(make_pair<int, RuleString>(currentIteration, current));
+        }
+
         currentIteration++;
     }
 

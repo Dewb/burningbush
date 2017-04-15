@@ -292,7 +292,7 @@ bool contextMatches(const RuleString& ignoreContext, const Iter& contextBegin, c
     }
 }
 
-void LSystemRulesEngine::getMatchingRules(const RuleString& current, const RuleString::iterator& currentPos, IndexedProductionRuleGroup& matched) {
+void LSystemRulesEngine::getMatchingRules(const RuleString& current, const RuleString::iterator& currentPos, IndexedProductionRulePtrGroup& matched) {
     if (system->rules.find(*currentPos) == system->rules.end()) {
         return;
     }
@@ -303,8 +303,8 @@ void LSystemRulesEngine::getMatchingRules(const RuleString& current, const RuleS
     // If a context-free and a contextual rule match, prefer the contextual;
     // if multiple contextual rules match, prefer the longer one;
     // if multiple contextual rules of the same length match, prefer the one on the axial branch (trunk)
-    IndexedProductionRuleGroup contextFreeMatches;
-    IndexedProductionRuleGroup contextualMatches;
+    IndexedProductionRulePtrGroup contextFreeMatches;
+    IndexedProductionRulePtrGroup contextualMatches;
     int contextMatchLength = 0;
     int trunkMatchLength = 0;
     
@@ -313,11 +313,11 @@ void LSystemRulesEngine::getMatchingRules(const RuleString& current, const RuleS
         auto& rule = ruleSet[ruleIndex];
         if (rule.leftContext.empty() && rule.rightContext.empty()) {
             if (!rule.isParametric() || rule.parametricCondition.empty()) {
-                contextFreeMatches.push_back(make_pair(ruleIndex, rule));
+                contextFreeMatches.push_back(make_pair(ruleIndex, &rule));
             } else {
                 Expression* e = expressionCache->getCondition(*currentPos, ruleIndex);
                 if (conditionMatches(rule.predecessor, *currentPos, e)) {
-                    contextFreeMatches.push_back(make_pair(ruleIndex, rule));
+                    contextFreeMatches.push_back(make_pair(ruleIndex, &rule));
                 }
             }
         } else {
@@ -346,16 +346,16 @@ void LSystemRulesEngine::getMatchingRules(const RuleString& current, const RuleS
             
             if (contextLength > contextMatchLength) {
                 contextualMatches.clear();
-                contextualMatches.push_back(make_pair(ruleIndex, rule));
+                contextualMatches.push_back(make_pair(ruleIndex, &rule));
                 contextMatchLength = contextLength;
                 trunkMatchLength = trunkLength;
             } else if (contextLength == contextMatchLength) {
                 if (trunkLength > trunkMatchLength) {
                     contextualMatches.clear();
-                    contextualMatches.push_back(make_pair(ruleIndex, rule));
+                    contextualMatches.push_back(make_pair(ruleIndex, &rule));
                     trunkMatchLength = trunkLength;
                 } else if (trunkLength == trunkMatchLength) {
-                    contextualMatches.push_back(make_pair(ruleIndex, rule));
+                    contextualMatches.push_back(make_pair(ruleIndex, &rule));
                 }
             }
         }
