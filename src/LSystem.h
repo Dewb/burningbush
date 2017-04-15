@@ -139,6 +139,7 @@ public:
     void setProperty(string name, float value);
     float getProperty(string name) const;
     bool hasProperty(string name) const;
+    const vector<string> getProperties() const;
     
     void setTitle(const string& strTitle) { title = strTitle; }
     const string& getTitle() const { return title; }

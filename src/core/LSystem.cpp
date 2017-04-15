@@ -187,3 +187,11 @@ void LSystem::setProperty(string name, float value) {
 bool LSystem::hasProperty(string name) const {
     return properties.find(name) != properties.end();
 }
+
+const vector<string> LSystem::getProperties() const {
+    vector<string> retval;
+    for (auto const& prop : properties) {
+        retval.push_back(prop.first);
+    }
+    return retval;
+}
