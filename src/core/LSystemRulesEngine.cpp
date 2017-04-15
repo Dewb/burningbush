@@ -312,7 +312,7 @@ void LSystemRulesEngine::getMatchingRules(const RuleString& current, const RuleS
     for (int ruleIndex = 0; ruleIndex < ruleSet.size(); ruleIndex++) {
         auto& rule = ruleSet[ruleIndex];
         if (rule.leftContext.empty() && rule.rightContext.empty()) {
-            if (!rule.isParametric() || rule.parametricCondition.empty()) {
+            if (rule.parametricCondition.empty()) {
                 contextFreeMatches.push_back(make_pair(ruleIndex, &rule));
             } else {
                 Expression* e = expressionCache->getCondition(*currentPos, ruleIndex);
