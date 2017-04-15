@@ -54,7 +54,7 @@ void DemoLSystemApp::setup() {
 
     for (int i = 0; i < systems.size(); i++) {
         if (systems[i].second == GeneratorTypeText) {
-            haikuRenderer.initialize(systems[i].first, 3, "haiku", 650, 180, "Raleway-Black.ttf", 28, 15);
+            haikuRenderer.initialize(&systems[i].first, 3, "haiku", 650, 180, "Raleway-Black.ttf", 28, 15);
             haikuRenderer.hide();
         }
     }
@@ -90,6 +90,28 @@ void DemoLSystemApp::update(){
     }
 }
 
+bool oscPropertyChange(LSystem& system, string propName, float value)
+{
+    if (system.hasProperty(propName)) {
+        float base = 0.0;
+        float factor = 1.0;
+        if (propName == "angle") {
+            base = 20;
+            factor = 40;
+        } else if (propName == "tropism") {
+            base = 0;
+            factor = 0.5;
+        }
+        float oldValue = system.getProperty(propName);
+        float newValue = base + value * factor;
+        if (oldValue != newValue) {
+            system.setProperty(propName, newValue);
+            return true;
+        }
+    }
+    return false;
+}
+
 void DemoLSystemApp::processOscInput() {
 
     LSystem& system = systems[currentSystem].first;
@@ -99,25 +121,31 @@ void DemoLSystemApp::processOscInput() {
         // get the next message
         ofxOscMessage m;
         oscReceiver.getNextMessage(&m);
+        float value = m.getArgAsFloat(0);
 
-        if(m.getAddress().substr(0, 17) == "/system/property/"){
-            string propName = m.getAddress().substr(17);
-            if (system.hasProperty(propName)) {
-                float base = 0.0;
-                float factor = 1.0;
-                if (propName == "angle") {
-                    base = 20;
-                    factor = 40;
-                } else if (propName == "tropism") {
-                    base = 0;
-                    factor = 0.5;
-                }
-                float oldValue = system.getProperty(propName);
-                float newValue = base + m.getArgAsFloat(0) * factor;
-                if (oldValue != newValue) {
-                    system.setProperty(propName, newValue);
-                    meshChanged = true;
-                }
+        if(m.getAddress().substr(0, 24) == "/currentSystem/property/"){
+            string propName = m.getAddress().substr(24);
+            meshChanged = oscPropertyChange(system, propName, value);
+        }
+
+        if(m.getAddress().substr(0, 19) == "/system/1/property/"){
+            string propName = m.getAddress().substr(19);
+            if (systems.size() > 0) {
+                meshChanged = oscPropertyChange(systems[0].first, propName, value);
+            }
+        }
+
+        if(m.getAddress().substr(0, 19) == "/system/2/property/"){
+            string propName = m.getAddress().substr(19);
+            if (systems.size() > 1) {
+                meshChanged = oscPropertyChange(systems[1].first, propName, value);
+            }
+        }
+
+        if(m.getAddress().substr(0, 19) == "/system/3/property/"){
+            string propName = m.getAddress().substr(19);
+            if (systems.size() > 2) {
+                meshChanged = oscPropertyChange(systems[2].first, propName, value);
             }
         }
 
@@ -136,7 +164,7 @@ void DemoLSystemApp::processOscInput() {
             viewDirty = true;
         }
 
-        if (m.getAddress() == "/system/reseed" && m.getArgAsFloat(0) > 0) {
+        if (m.getAddress() == "/currentSystem/reseed" && m.getArgAsFloat(0) > 0) {
             systems[currentSystem].first.reseed();
             meshChanged = true;
         }
@@ -224,7 +252,7 @@ void DemoLSystemApp::draw(){
         if (system.isStochastic()) {
             arrow = " ------> ";
         }
-        
+
         for (auto& ruleGroup : system.getRules()) {
             for (auto& rule : ruleGroup.second) {
                 string left = "", right = "", cond = "";
@@ -248,13 +276,11 @@ void DemoLSystemApp::draw(){
         }
         
         para.breakParagraph();
-        para.printLine("N = " + to_string(iterations));
-        if (system.hasProperty("angle")) {
-            para.printLine("angle = " + to_string(system.getProperty("angle")));
+
+        for (auto& prop : system.getProperties()) {
+            para.printLine(prop + " = " + to_string(system.getProperty(prop)));
         }
-        if (system.hasProperty("colorBook")) {
-            para.printLine("color book #" + to_string(system.getProperty("colorBook")));
-        }
+
         if (system.isStochastic()) {
             para.printLine("seed = " + to_string(system.getSeed()));
         }

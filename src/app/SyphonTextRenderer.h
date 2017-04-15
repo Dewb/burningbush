@@ -19,7 +19,7 @@ public:
     SyphonTextRenderer();
     ~SyphonTextRenderer();
 
-    void initialize(const LSystem& sys, int iterationCount,
+    void initialize(LSystem* sys, int iterationCount,
                     std::string serverName, int width, int height,
                     std::string fontName, int fontSize, int margin);
 
@@ -31,7 +31,7 @@ public:
     void update();
     void draw(float x, float y);
 
-    LSystem system;
+    LSystem* system;
     int iterations;
 
     std::string current;

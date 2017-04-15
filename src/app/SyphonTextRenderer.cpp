@@ -14,7 +14,7 @@ SyphonTextRenderer::SyphonTextRenderer() {
     visible = true;
 }
 
-void SyphonTextRenderer::initialize(const LSystem& sys, int iterationCount,
+void SyphonTextRenderer::initialize(LSystem* sys, int iterationCount,
                                     std::string serverName, int width, int height,
                                     std::string fontName, int fontSize, int _margin) {
     system = sys;
@@ -36,8 +36,8 @@ SyphonTextRenderer::~SyphonTextRenderer() {
 }
 
 void SyphonTextRenderer::newText() {
-    system.reseed(rand());
-    current = to_string(system.generate(iterations));
+    system->reseed(rand());
+    current = to_string(system->generate(iterations));
 }
 
 bool SyphonTextRenderer::isVisible() {
