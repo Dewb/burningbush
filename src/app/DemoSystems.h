@@ -89,7 +89,7 @@ void parseSystems(vector<pair<LSystem, GeneratorType> >& systems) {
 void createSystems(vector<pair<LSystem, GeneratorType> >& systems) {
     
     LSystem system;
-
+/*
     system.reset();
     system.setTitle("Starflake (Dewb, from a concept by cosinezero)");
     system.setAxiom("P(50.0)");
@@ -182,7 +182,7 @@ void createSystems(vector<pair<LSystem, GeneratorType> >& systems) {
     system.setProperty("tropism", 0.0);
     system.setProperty("colorBook", 4);
     systems.push_back(make_pair(system, GeneratorTypeMesh));
-
+*/
     
     system.reset();
     system.setTitle("\"Row of Trees\" parametric OL-system from Mandlebrot 1982 (ABOP p.47)");
