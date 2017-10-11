@@ -76,7 +76,7 @@ property edgeLength 60.0
 property heading 0
 property position_x 0
 property position_y 0
-property segmentLength 10
+property segmentLength 7
 property segmentRadius 6
 property tropism 0.0
 property colorBook 3

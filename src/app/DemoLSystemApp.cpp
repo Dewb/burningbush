@@ -38,7 +38,7 @@ void DemoLSystemApp::setup() {
     lightShader.useCamera(&cam);
     lightShader.useLight(&headlight);
     
-    cam.setPosition(-25, 50, 75);
+    cam.setPosition(0, 0, 75);
     
     drawListIndex = glGenLists(1);
     
@@ -209,7 +209,10 @@ void DemoLSystemApp::draw() {
 
 	for (int i = 0; i<domemaster.renderCount; i++) {
 		domemaster.begin(i);
+		ofPushMatrix();
+		ofRotate(cam.getGlobalOrientation().getEuler().y);
 		drawScene();
+		ofPopMatrix();
 		domemaster.end(i);
 	}
 
@@ -482,9 +485,9 @@ void DemoLSystemApp::updateMesh(bool rerunSystem) {
         auto result = new ofMeshResult();
         state.result.reset(result);
 
-//        if (reuseRuleStr) {
-//            mesh_gen.generate(ruleStr, system, state, iterations, options);
-//        }
+		//if (!ruleStr.empty()) {
+        //    mesh_gen.generate(ruleStr, system, state, iterations, options);
+        //} 
         mesh_gen.generate(system, state, iterations, options);
         mesh = result->mesh;
 
