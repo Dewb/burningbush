@@ -68,8 +68,14 @@ public:
     virtual void begin(StateType& state) {}
     virtual void end(StateType& state) {};
     
-    void generate(LSystem& system, StateType& state, unsigned iterations, LSystemOptions& options) {
+    RuleString generate(LSystem& system, StateType& state, unsigned iterations, LSystemOptions& options) {
         RuleString ruleStr = system.generate(iterations, options);
+        generate(ruleStr, system, state, iterations, options);
+        return ruleStr;
+    }
+
+    void generate(RuleString& ruleStr, LSystem& system, StateType& state, unsigned iterations, LSystemOptions& options) {
+
         int steps = options.steps;
         if (steps < 0 || steps > ruleStr.size()) {
             steps = std::numeric_limits<int>::max();

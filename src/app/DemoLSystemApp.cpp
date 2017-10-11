@@ -13,6 +13,7 @@ void DemoLSystemApp::setup() {
     q.normalize();
     
     parseSystems(systems);
+    createSystems(systems);
     createColorBooks(colorBooks);
 
     ofEnableDepthTest();
@@ -113,7 +114,7 @@ bool oscPropertyChange(LSystem& system, string propName, float value)
             base = 20;
             factor = 40;
         } else if (propName == "tropism") {
-            base = 0;
+            base = 0.10;
             factor = 0.5;
         }
         float oldValue = system.getProperty(propName);
@@ -480,7 +481,10 @@ void DemoLSystemApp::updateMesh(bool rerunSystem) {
         
         auto result = new ofMeshResult();
         state.result.reset(result);
-        
+
+//        if (reuseRuleStr) {
+//            mesh_gen.generate(ruleStr, system, state, iterations, options);
+//        }
         mesh_gen.generate(system, state, iterations, options);
         mesh = result->mesh;
 
