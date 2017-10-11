@@ -51,18 +51,22 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="../of_v0.9.8_vs_release/libs\openFrameworksCompiled\project\vs\openFrameworksRelease.props" />
+    <Import Project="..\of_v0.9.8_vs_release\addons\ofxSpout\ofxSpoutLib\ofxSpout.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="../of_v0.9.8_vs_release/libs\openFrameworksCompiled\project\vs\openFrameworksRelease.props" />
+    <Import Project="..\of_v0.9.8_vs_release\addons\ofxSpout\ofxSpoutLib\ofxSpout.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="../of_v0.9.8_vs_release/libs\openFrameworksCompiled\project\vs\openFrameworksDebug.props" />
+    <Import Project="..\of_v0.9.8_vs_release\addons\ofxSpout\ofxSpoutLib\ofxSpout.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="../of_v0.9.8_vs_release/libs\openFrameworksCompiled\project\vs\openFrameworksDebug.props" />
+    <Import Project="..\of_v0.9.8_vs_release\addons\ofxSpout\ofxSpoutLib\ofxSpout.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -174,6 +178,7 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxDomemaster\src\ofxDomemaster.cpp" />
     <ClCompile Include="src\app\DemoLSystemApp.cpp" />
     <ClCompile Include="src\app\main.cpp" />
     <ClCompile Include="src\app\ParagraphFormatter.cpp" />
@@ -227,6 +232,7 @@
     <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs\tinyxmlparser.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxDomemaster\src\ofxDomemaster.h" />
     <ClInclude Include="src\app\DemoLSystemApp.h" />
     <ClInclude Include="src\app\DemoSystems.h" />
     <ClInclude Include="src\app\ParagraphFormatter.h" />
@@ -287,6 +293,9 @@
     <ProjectReference Include="$(OF_ROOT)\libs\openFrameworksCompiled\project\vs\openframeworksLib.vcxproj">
       <Project>{5837595d-aca9-485c-8e76-729040ce4b0b}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\of_v0.9.8_vs_release\addons\ofxSpout\ofxSpoutLib\ofxSpout.vcxproj">
+      <Project>{c087079e-2a0e-4b85-a479-c28e2d01a048}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc">
@@ -294,6 +303,9 @@
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/D_DEBUG %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>$(OF_ROOT)\libs\openFrameworksCompiled\project\vs</AdditionalIncludeDirectories>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="bin\data\systems.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ProjectExtensions>

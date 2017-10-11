@@ -8,6 +8,12 @@
 #include "ofxOsc.h"
 #include "SyphonTextRenderer.h"
 #include "ofxShadersFX.h"
+#include "ofxDomemaster\src\ofxDomemaster.h"
+
+#ifdef WIN32
+#define USE_SPOUT
+#include "ofxSpout.h"
+#endif
 
 template<typename T>
 class ofPtrArray : public vector<ofPtr<T> > {
@@ -27,6 +33,7 @@ public:
     void setup();
     void update();
     void draw();
+	void drawScene();
     
     void updateMesh(bool rerunSystem = true);
     void saveVectorFile();
@@ -49,9 +56,14 @@ protected:
 
     LSystemOptions options;
 
-#ifdef SYPHON
+#ifdef USE_SYPHON
     ofxSyphonServer syphonServer;
 #endif
+#ifdef USE_SPOUT
+	ofxSpout::Sender spoutSender;
+	ofFbo spoutFbo;
+#endif
+
     ofxOscReceiver oscReceiver;
 
     ofxTurntableCam cam;
@@ -77,6 +89,8 @@ protected:
     ofPtrArray<ColorBook> colorBooks;
 
     SyphonTextRenderer haikuRenderer;
+
+	ofxDomemaster domemaster;
     
     float cameraRotationSpeed;
     float cameraZoom;

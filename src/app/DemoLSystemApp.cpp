@@ -47,8 +47,16 @@ void DemoLSystemApp::setup() {
 
     oscReceiver.setup(7777);
     showUI = true;
-#ifdef SYPHON
+
+#ifdef USE_SYPHON
 	syphonServer.setName("output");
+#endif
+
+#define DOME_SIZE 1024
+
+#ifdef USE_SPOUT
+	spoutSender.init("burningbush", DOME_SIZE, DOME_SIZE);
+	spoutFbo.allocate(DOME_SIZE, DOME_SIZE, GL_RGBA);
 #endif
 
     cameraRotationSpeed = 0.2;
@@ -60,6 +68,10 @@ void DemoLSystemApp::setup() {
             haikuRenderer.hide();
         }
     }
+
+	domemaster.setup();
+	domemaster.setCameraPosition(-20, 40, 70);
+	domemaster.resize(DOME_SIZE, DOME_SIZE);
 
     options.useCache = false;
 }
@@ -182,125 +194,166 @@ void DemoLSystemApp::processOscInput() {
     }
 }
 
-void DemoLSystemApp::draw(){
-    if (!viewDirty)
-        return;
+void DemoLSystemApp::draw() {
+	if (!viewDirty)
+		return;
 
-    // First few draw calls seem to be ineffective, for some reason
-    if (ofGetElapsedTimeMillis() > 500)
-        viewDirty = false;
-    
-    //ofBackground(0, 0, 100, 255);
-    ofBackground(0, 0, 0, 0);
+	// First few draw calls seem to be ineffective, for some reason
+	if (ofGetElapsedTimeMillis() > 500)
+		viewDirty = false;
 
-    string generatorName;
-    LSystem& system = systems[currentSystem].first;
-    GeneratorType mode = systems[currentSystem].second;
-    
-    int iterations = fmax(0.0, system.getProperty("N") + iterationAdjustment);
+	cam.begin();
+	drawScene();
+	cam.end();
 
-    if (mode == GeneratorTypeLine) {
-        generatorName = "LineGenerator";
-        glLineWidth(0.5);
-        glCallList(drawListIndex);
-    } else if (mode == GeneratorTypeMesh) {
-        generatorName = "MeshGenerator";
-        cam.begin();
-        //shader.begin();
-        //shader.setUniformMatrix4f("normalMatrix", ofMatrix4x4::getTransposedOf(cam.getModelViewMatrix().getInverse()));
+	for (int i = 0; i<domemaster.renderCount; i++) {
+		domemaster.begin(i);
+		drawScene();
+		domemaster.end(i);
+	}
 
-        //lightShader.begin();
 
-        ofSetLineWidth(0.1);
-        if (system.getProperty("shiny")) {
-            ofEnableLighting();
-            headlight.enable();
-            //material.begin();
-        }
-        mesh->draw(polyRenderMode);
-        ofDisableLighting();
-        //material.end();
-
-        //lightShader.end();
-        //shader.end();
-        cam.end();
-    }
-    
-#ifdef SYPHON
+#ifdef USE_SYPHON
 	syphonServer.publishScreen();
 #endif
 
-    haikuRenderer.update();
+#ifdef USE_SPOUT
+	//spoutTexture.loadScreenData(0, 0, spoutTexture.getWidth(), spoutTexture.getHeight());
+	
+	spoutFbo.begin();
+	ofClear(ofColor(0, 0, 0, 0));
+	domemaster.draw();
+	spoutFbo.end();
 
-    if (false) {
-        // now that we've published our syphon outputs, draw a background
-        ofSetColor(60, 10, 140, 255);
-        ofRect(ofGetWidth() * -2, ofGetHeight() * -2, -999, ofGetWidth() * 4, ofGetHeight() * 4);
-    }
+	spoutSender.send(spoutFbo.getTextureReference(0), true);
+#endif
 
-    ofSetColor(200, 200, 180);
-    ofDisableDepthTest();
-    haikuRenderer.draw(20, ofGetHeight() - 200);
-    ofEnableDepthTest();
+	haikuRenderer.update();
 
-    ofSetColor(200, 200, 180);
+	if (false) {
+		// now that we've published our syphon outputs, draw a background
+		ofSetColor(60, 10, 140, 255);
+		ofRect(ofGetWidth() * -2, ofGetHeight() * -2, -999, ofGetWidth() * 4, ofGetHeight() * 4);
+	}
+
+	ofSetColor(200, 200, 180);
+	ofDisableDepthTest();
+	haikuRenderer.draw(20, ofGetHeight() - 200);
+	ofEnableDepthTest();
+
+	ofSetColor(200, 200, 180);
 
 
-    if (showUI) {
-        ParagraphFormatter para(20, 25, NULL, NULL);
-        
-        para.printLine(to_string(system.getAxiom()));
-        para.breakParagraph();
-        
-        string arrow = " --> ";
-        if (system.isStochastic()) {
-            arrow = " ------> ";
-        }
+	if (showUI) {
 
-        for (auto& ruleGroup : system.getRules()) {
-            for (auto& rule : ruleGroup.second) {
-                string left = "", right = "", cond = "";
-                if (!rule.leftContext.empty()) {
-                    left = to_string(rule.leftContext) + " < ";
-                }
-                if (!rule.rightContext.empty()) {
-                    right = " > " + to_string(rule.rightContext);
-                }
-                if (!rule.parametricCondition.empty()) {
-                    cond = " : " + rule.parametricCondition;
-                }
+		string generatorName;
+		LSystem& system = systems[currentSystem].first;
+		GeneratorType mode = systems[currentSystem].second;
 
-                string super = "";
-                if (ruleGroup.second.isStochastic()) {
-                    super = to_string(rule.probability);
-                }
-                string beforeArrow = left + to_string(rule.predecessor) + right + cond;
-                para.printLine(beforeArrow + arrow + to_string(rule.successor), super, beforeArrow.size() + 2);
-            }
-        }
-        
-        para.breakParagraph();
+		if (mode == GeneratorTypeLine) {
+			generatorName = "LineGenerator";
+			glLineWidth(0.5);
+			glCallList(drawListIndex);
+		}
+		else if (mode == GeneratorTypeMesh) {
+			generatorName = "MeshGenerator";
+		}
+		
+		ParagraphFormatter para(20, 25, NULL, NULL);
 
-        for (auto& prop : system.getProperties()) {
-            para.printLine(prop + " = " + to_string(system.getProperty(prop)));
-        }
+		para.printLine(to_string(system.getAxiom()));
+		para.breakParagraph();
 
-        if (system.isStochastic()) {
-            para.printLine("seed = " + to_string(system.getSeed()));
-        }
-        
-        para.restart(20, ofGetHeight() - 25, ParagraphFormatter::LowerLeft);
-        para.printLine(generatorName);
-        para.printLine(system.getTitle());
+		string arrow = " --> ";
+		if (system.isStochastic()) {
+			arrow = " ------> ";
+		}
 
-        para.restart(ofGetWidth() - 20, ofGetHeight() - 25, ParagraphFormatter::LowerRight);
-        
-        para.printLine("SPACE to cycle systems");
-        para.printLine("+/- to adjust iteration count");
-        if (system.isStochastic()) {
-            para.printLine("R to reseed stochastic system");
-        }
-    }
+		for (auto& ruleGroup : system.getRules()) {
+			for (auto& rule : ruleGroup.second) {
+				string left = "", right = "", cond = "";
+				if (!rule.leftContext.empty()) {
+					left = to_string(rule.leftContext) + " < ";
+				}
+				if (!rule.rightContext.empty()) {
+					right = " > " + to_string(rule.rightContext);
+				}
+				if (!rule.parametricCondition.empty()) {
+					cond = " : " + rule.parametricCondition;
+				}
+
+				string super = "";
+				if (ruleGroup.second.isStochastic()) {
+					super = to_string(rule.probability);
+				}
+				string beforeArrow = left + to_string(rule.predecessor) + right + cond;
+				para.printLine(beforeArrow + arrow + to_string(rule.successor), super, beforeArrow.size() + 2);
+			}
+		}
+
+		para.breakParagraph();
+
+		for (auto& prop : system.getProperties()) {
+			para.printLine(prop + " = " + to_string(system.getProperty(prop)));
+		}
+
+		if (system.isStochastic()) {
+			para.printLine("seed = " + to_string(system.getSeed()));
+		}
+
+		para.restart(20, ofGetHeight() - 25, ParagraphFormatter::LowerLeft);
+		para.printLine(generatorName);
+		para.printLine(system.getTitle());
+
+		para.restart(ofGetWidth() - 20, ofGetHeight() - 25, ParagraphFormatter::LowerRight);
+
+		para.printLine("SPACE to cycle systems");
+		para.printLine("+/- to adjust iteration count");
+		if (system.isStochastic()) {
+			para.printLine("R to reseed stochastic system");
+		}
+	}
+}
+
+void DemoLSystemApp::drawScene() {
+
+	//ofBackground(0, 0, 100, 255);
+	ofBackground(0, 0, 0, 0);
+
+	ofPushMatrix();
+	ofPushStyle();
+
+	LSystem& system = systems[currentSystem].first;
+	GeneratorType mode = systems[currentSystem].second;
+
+	int iterations = fmax(0.0, system.getProperty("N") + iterationAdjustment);
+
+	if (mode == GeneratorTypeLine) {
+		glLineWidth(0.5);
+		glCallList(drawListIndex);
+	}
+	else if (mode == GeneratorTypeMesh) {
+		//shader.begin();
+		//shader.setUniformMatrix4f("normalMatrix", ofMatrix4x4::getTransposedOf(cam.getModelViewMatrix().getInverse()));
+
+		//lightShader.begin();
+
+		ofSetLineWidth(0.1);
+		if (system.getProperty("shiny")) {
+			ofEnableLighting();
+			headlight.enable();
+			//material.begin();
+		}
+		mesh->draw(polyRenderMode);
+		ofDisableLighting();
+		//material.end();
+
+		//lightShader.end();
+		//shader.end();
+	}
+
+	ofPopStyle();
+	ofPopMatrix();
 }
 
 void DemoLSystemApp::saveVectorFile() {

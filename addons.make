@@ -1,6 +1,8 @@
 ofxAutoReloadedShader
+ofxDomemaster
 ofxGui
 ofxOsc
 ofxShadersFX
+ofxSpout
 ofxVectorGraphics
 ofxXmlSettings

@@ -70,12 +70,12 @@ property x 0
 property y 0
 property z 0
 property angle 30
-property edgeLength 1.0
+property edgeLength 60.0
 property heading 0
 property position_x 0
 property position_y 0
-property segmentLength 0.15
-property segmentRadius 0.2
+property segmentLength 10
+property segmentRadius 6
 property tropism 0.0
 property colorBook 3
 property shiny 1

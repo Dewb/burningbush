@@ -154,6 +154,9 @@
     <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs\tinyxmlparser.cpp">
       <Filter>addons\ofxXmlSettings\libs</Filter>
     </ClCompile>
+    <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxDomemaster\src\ofxDomemaster.cpp">
+      <Filter>addons\ofxDomemaster</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -230,6 +233,9 @@
     </Filter>
     <Filter Include="addons\ofxXmlSettings\libs">
       <UniqueIdentifier>{687714A8-1662-FA1C-261F-50F0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxDomemaster">
+      <UniqueIdentifier>{bb54f5b7-7bc6-4a4b-ab5b-071891890636}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -398,8 +404,14 @@
     <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs\tinyxml.h">
       <Filter>addons\ofxXmlSettings\libs</Filter>
     </ClInclude>
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxDomemaster\src\ofxDomemaster.h">
+      <Filter>addons\ofxDomemaster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="bin\data\systems.txt" />
   </ItemGroup>
 </Project>
