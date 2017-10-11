@@ -10,7 +10,7 @@
 #define burningbush_LSystemGenerator_h
 
 #include "LSystem.h"
-#include <tr1/functional>
+#include <functional>
 #include <stack>
 #include <iostream>
 
@@ -19,7 +19,7 @@ typedef vector<float> FloatParams;
 template<typename StateType>
 class SymbolData {
 public:
-    typedef tr1::function<void(StateType&, FloatParams&)> SymbolAction;
+    typedef function<void(StateType&, FloatParams&)> SymbolAction;
     
     SymbolData(RuleToken t) : token(t) { _startsGroup = false; _endsGroup = false;}
     SymbolData& startsGroup() { _startsGroup = true; return *this; }
@@ -44,7 +44,7 @@ private:
 template<typename StateType>
 class Generator {
 public:
-    typedef tr1::function<void(StateType&, FloatParams)> SymbolAction;
+    typedef function<void(StateType&, FloatParams)> SymbolAction;
     typedef SymbolData<StateType> Symbol;
     
     void add(const Symbol& token) { _symbols.insert(std::pair<RuleToken, Symbol>(token.getToken(), token)); }
@@ -72,7 +72,7 @@ public:
         RuleString ruleStr = system.generate(iterations, options);
         int steps = options.steps;
         if (steps < 0 || steps > ruleStr.size()) {
-            steps = INT_MAX;
+            steps = std::numeric_limits<int>::max();
         }
 
         RuleString::const_iterator iter = ruleStr.begin();

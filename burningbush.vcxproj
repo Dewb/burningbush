@@ -1,0 +1,304 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{7FD42DF7-442E-479A-BA76-D0022F99702A}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>burningbush</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="../of_v0.9.8_vs_release/libs\openFrameworksCompiled\project\vs\openFrameworksRelease.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="../of_v0.9.8_vs_release/libs\openFrameworksCompiled\project\vs\openFrameworksRelease.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="../of_v0.9.8_vs_release/libs\openFrameworksCompiled\project\vs\openFrameworksDebug.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="../of_v0.9.8_vs_release/libs\openFrameworksCompiled\project\vs\openFrameworksDebug.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>bin\</OutDir>
+    <IntDir>bin\obj\$(Configuration)\$(Platform)\</IntDir>
+    <TargetName>$(ProjectName)_debug</TargetName>
+    <LinkIncremental>true</LinkIncremental>
+    <GenerateManifest>true</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>bin\</OutDir>
+    <IntDir>bin\obj\$(Configuration)\$(Platform)\</IntDir>
+    <TargetName>$(ProjectName)_debug</TargetName>
+    <LinkIncremental>true</LinkIncremental>
+    <GenerateManifest>true</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>bin\</OutDir>
+    <IntDir>bin\obj\$(Configuration)\$(Platform)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>bin\</OutDir>
+    <IntDir>bin\obj\$(Configuration)\$(Platform)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;src\app;src\core;src\generators;..\of_v0.9.8_vs_release\addons\ofxAutoReloadedShader\src;..\of_v0.9.8_vs_release\addons\ofxGui\src;..\of_v0.9.8_vs_release\addons\ofxOsc\libs;..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack;..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src;..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip;..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\posix;..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\win32;..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc;..\of_v0.9.8_vs_release\addons\ofxOsc\src;..\of_v0.9.8_vs_release\addons\ofxShadersFX\src;..\of_v0.9.8_vs_release\addons\ofxVectorGraphics\libs;..\of_v0.9.8_vs_release\addons\ofxVectorGraphics\src;..\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs;..\of_v0.9.8_vs_release\addons\ofxXmlSettings\src</AdditionalIncludeDirectories>
+      <CompileAs>CompileAsCpp</CompileAs>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent />
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;src\app;src\core;src\generators;..\of_v0.9.8_vs_release\addons\ofxAutoReloadedShader\src;..\of_v0.9.8_vs_release\addons\ofxGui\src;..\of_v0.9.8_vs_release\addons\ofxOsc\libs;..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack;..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src;..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip;..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\posix;..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\win32;..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc;..\of_v0.9.8_vs_release\addons\ofxOsc\src;..\of_v0.9.8_vs_release\addons\ofxShadersFX\src;..\of_v0.9.8_vs_release\addons\ofxVectorGraphics\libs;..\of_v0.9.8_vs_release\addons\ofxVectorGraphics\src;..\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs;..\of_v0.9.8_vs_release\addons\ofxXmlSettings\src</AdditionalIncludeDirectories>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent />
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;src\app;src\core;src\generators;..\of_v0.9.8_vs_release\addons\ofxAutoReloadedShader\src;..\of_v0.9.8_vs_release\addons\ofxGui\src;..\of_v0.9.8_vs_release\addons\ofxOsc\libs;..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack;..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src;..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip;..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\posix;..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\win32;..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc;..\of_v0.9.8_vs_release\addons\ofxOsc\src;..\of_v0.9.8_vs_release\addons\ofxShadersFX\src;..\of_v0.9.8_vs_release\addons\ofxVectorGraphics\libs;..\of_v0.9.8_vs_release\addons\ofxVectorGraphics\src;..\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs;..\of_v0.9.8_vs_release\addons\ofxXmlSettings\src</AdditionalIncludeDirectories>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent />
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;src\app;src\core;src\generators;..\of_v0.9.8_vs_release\addons\ofxAutoReloadedShader\src;..\of_v0.9.8_vs_release\addons\ofxGui\src;..\of_v0.9.8_vs_release\addons\ofxOsc\libs;..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack;..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src;..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip;..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\posix;..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\win32;..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc;..\of_v0.9.8_vs_release\addons\ofxOsc\src;..\of_v0.9.8_vs_release\addons\ofxShadersFX\src;..\of_v0.9.8_vs_release\addons\ofxVectorGraphics\libs;..\of_v0.9.8_vs_release\addons\ofxVectorGraphics\src;..\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs;..\of_v0.9.8_vs_release\addons\ofxXmlSettings\src</AdditionalIncludeDirectories>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent />
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\app\DemoLSystemApp.cpp" />
+    <ClCompile Include="src\app\main.cpp" />
+    <ClCompile Include="src\app\ParagraphFormatter.cpp" />
+    <ClCompile Include="src\app\SyphonTextRenderer.cpp" />
+    <ClCompile Include="src\app\TurntableCam.cpp" />
+    <ClCompile Include="src\core\LSystem.cpp" />
+    <ClCompile Include="src\core\LSystemRulesEngine.cpp" />
+    <ClCompile Include="src\core\ProductionRule.cpp" />
+    <ClCompile Include="src\core\RuleString.cpp" />
+    <ClCompile Include="src\core\RuleToken.cpp" />
+    <ClCompile Include="src\generators\ColorBook.cpp" />
+    <ClCompile Include="src\generators\LineGenerator.cpp" />
+    <ClCompile Include="src\generators\MeshGenerator.cpp" />
+    <ClCompile Include="src\generators\ofMeshResult.cpp" />
+    <ClCompile Include="src\generators\VectorFileGenerator.cpp" />
+    <ClCompile Include="src\generators\VectorFileMeshResult.cpp" />
+    <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxAutoReloadedShader\src\ofxAutoReloadedShader.cpp" />
+    <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxBaseGui.cpp" />
+    <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxButton.cpp" />
+    <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxGuiGroup.cpp" />
+    <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxLabel.cpp" />
+    <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxPanel.cpp" />
+    <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxSlider.cpp" />
+    <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxSliderGroup.cpp" />
+    <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxToggle.cpp" />
+    <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscBundle.cpp" />
+    <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscMessage.cpp" />
+    <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscParameterSync.cpp" />
+    <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscReceiver.cpp" />
+    <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscSender.cpp" />
+    <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\IpEndpointName.cpp" />
+    <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\win32\NetworkingUtils.cpp" />
+    <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\win32\UdpSocket.cpp" />
+    <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscOutboundPacketStream.cpp" />
+    <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscPrintReceivedElements.cpp" />
+    <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscReceivedElements.cpp" />
+    <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscTypes.cpp" />
+    <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxShadersFX\src\LightingShader_sources.cpp" />
+    <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxShadersFX\src\MappingShader_sources.cpp" />
+    <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxShadersFX\src\ofxShadersFX.cpp" />
+    <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxShadersFX\src\ofxShadersFX_AlphaBlendingShader.cpp" />
+    <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxShadersFX\src\ofxShadersFX_ColorKeyShader.cpp" />
+    <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxShadersFX\src\ofxShadersFX_DisplaceMapShader.cpp" />
+    <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxShadersFX\src\ofxShadersFX_LightingShader.cpp" />
+    <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxShadersFX\src\ofxShadersFX_MappingShader.cpp" />
+    <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxVectorGraphics\src\ofxVectorGraphics.cpp" />
+    <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxVectorGraphics\libs\CreEPS.cpp" />
+    <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxXmlSettings\src\ofxXmlSettings.cpp" />
+    <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs\tinyxml.cpp" />
+    <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs\tinyxmlerror.cpp" />
+    <ClCompile Include="..\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs\tinyxmlparser.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\app\DemoLSystemApp.h" />
+    <ClInclude Include="src\app\DemoSystems.h" />
+    <ClInclude Include="src\app\ParagraphFormatter.h" />
+    <ClInclude Include="src\app\SyphonTextRenderer.h" />
+    <ClInclude Include="src\app\TurntableCam.h" />
+    <ClInclude Include="src\core\LSystemRulesEngine.h" />
+    <ClInclude Include="src\generators\ColorBook.h" />
+    <ClInclude Include="src\generators\LineGenerator.h" />
+    <ClInclude Include="src\generators\MeshGenerator.h" />
+    <ClInclude Include="src\generators\ofMeshResult.h" />
+    <ClInclude Include="src\generators\VectorFileGenerator.h" />
+    <ClInclude Include="src\generators\VectorFileMeshResult.h" />
+    <ClInclude Include="src\LSystem.h" />
+    <ClInclude Include="src\LSystemGenerator.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxAutoReloadedShader\src\ofxAutoReloadedShader.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxBaseGui.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxButton.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxGui.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxGuiGroup.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxLabel.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxPanel.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxSlider.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxSliderGroup.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxToggle.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOsc.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscArg.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscBundle.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscMessage.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscParameterSync.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscReceiver.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscSender.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\IpEndpointName.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\NetworkingUtils.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\PacketListener.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\TimerListener.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\UdpSocket.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\MessageMappingOscPacketListener.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscException.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscHostEndianness.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscOutboundPacketStream.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscPacketListener.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscPrintReceivedElements.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscReceivedElements.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscTypes.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxShadersFX\src\ofxShadersFX.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxShadersFX\src\ofxShadersFX_AlphaBlendingShader.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxShadersFX\src\ofxShadersFX_ColorKeyShader.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxShadersFX\src\ofxShadersFX_DisplaceMapShader.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxShadersFX\src\ofxShadersFX_LightingShader.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxShadersFX\src\ofxShadersFX_MappingShader.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxVectorGraphics\src\ofxVectorGraphics.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxVectorGraphics\libs\CreEPS.hpp" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxVectorGraphics\libs\CreEPS_Types.hpp" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxXmlSettings\src\ofxXmlSettings.h" />
+    <ClInclude Include="..\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs\tinyxml.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(OF_ROOT)\libs\openFrameworksCompiled\project\vs\openframeworksLib.vcxproj">
+      <Project>{5837595d-aca9-485c-8e76-729040ce4b0b}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="icon.rc">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/D_DEBUG %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/D_DEBUG %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>$(OF_ROOT)\libs\openFrameworksCompiled\project\vs</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="icon.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

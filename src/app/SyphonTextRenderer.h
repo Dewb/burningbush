@@ -12,7 +12,8 @@
 #include <string>
 #include "LSystem.h"
 #include "ofTrueTypeFont.h"
-#include "ofxSyphonServer.h"
+//#include "ofxSyphonServer.h"
+#include <ofMain.h>
 
 class SyphonTextRenderer {
 public:
@@ -39,7 +40,7 @@ public:
     int margin;
 
 protected:
-    ofxSyphonServer syphonServer;
+    //ofxSyphonServer syphonServer;
     ofFbo fbo;
 
     bool initialized;

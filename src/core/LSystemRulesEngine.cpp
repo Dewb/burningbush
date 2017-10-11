@@ -9,7 +9,7 @@
 #include "LSystemRulesEngine.h"
 #include "../../lib/exprtk/exprtk.hpp"
 #include <iostream>
-#include <tr1/tuple>
+#include <tuple>
 
 template <typename T>
 class ExpressionWrapper {
@@ -117,12 +117,12 @@ public:
     Expression* getCondition(const RuleToken& token, int ruleIndex);
     Expression* getSuccessor(const RuleToken& token, int ruleIndex, int tokenIndex, int argIndex);
     
-    map<tr1::tuple<RuleToken, int>, Expression*> conditionExpressions;
-    map<tr1::tuple<RuleToken, int, int, int>, Expression*> successorExpressions;
+    map<tuple<RuleToken, int>, Expression*> conditionExpressions;
+    map<tuple<RuleToken, int, int, int>, Expression*> successorExpressions;
 };
 
 Expression* ExpressionCache::getCondition(const RuleToken& token, int ruleIndex) {
-    auto t = tr1::make_tuple(token, ruleIndex);
+    auto t = make_tuple(token, ruleIndex);
     auto iter = conditionExpressions.find(t);
     if (iter != conditionExpressions.end()) {
         return iter->second;
@@ -132,7 +132,7 @@ Expression* ExpressionCache::getCondition(const RuleToken& token, int ruleIndex)
 }
 
 Expression* ExpressionCache::getSuccessor(const RuleToken& token, int ruleIndex, int tokenIndex, int argIndex) {
-    auto t = tr1::make_tuple(token, ruleIndex, tokenIndex, argIndex);
+    auto t = make_tuple(token, ruleIndex, tokenIndex, argIndex);
     auto iter = successorExpressions.find(t);
     if (iter != successorExpressions.end()) {
         return iter->second;
@@ -148,14 +148,14 @@ ExpressionCache::ExpressionCache(const RuleSet& rules, map<string, float>& syste
             auto& rule = r.second[ruleIndex];
             if (!rule.parametricCondition.empty()) {
                 auto e = new Expression(rule.parametricCondition, systemProperties);
-                conditionExpressions.insert(make_pair(tr1::make_tuple(token, ruleIndex), e));
+                conditionExpressions.insert(make_pair(make_tuple(token, ruleIndex), e));
             }
             int tokenIndex = 0;
             for (auto iter = rule.successor.begin(); iter != rule.successor.end(); iter++) {
                 auto args = iter->parameters;
                 for (int argIndex = 0; argIndex < args.size(); argIndex++) {
                     auto e = new Expression(args[argIndex], systemProperties);
-                    successorExpressions.insert(make_pair(tr1::make_tuple(token, ruleIndex, tokenIndex, argIndex), e));
+                    successorExpressions.insert(make_pair(make_tuple(token, ruleIndex, tokenIndex, argIndex), e));
                 }
                 tokenIndex++;
             }
@@ -341,8 +341,8 @@ void LSystemRulesEngine::getMatchingRules(const RuleString& current, const RuleS
                 continue;
             }
             
-            int contextLength = rule.leftContext.size() + rule.rightContext.size();
-            int trunkLength = rule.leftContext.size() + rightTrunkLength;
+            size_t contextLength = rule.leftContext.size() + rule.rightContext.size();
+            size_t trunkLength = rule.leftContext.size() + rightTrunkLength;
             
             if (contextLength > contextMatchLength) {
                 contextualMatches.clear();

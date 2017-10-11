@@ -22,11 +22,8 @@ void parseSystems(vector<pair<LSystem, GeneratorType> >& systems) {
 
     string line, token, data, data1, data2;
 
-    char * dir = getcwd(NULL, 0); // Platform-dependent, see reference link below
-    printf("Current dir: %s", dir);
-
     ifstream file;
-    file.open("../../../data/systems.txt");
+    file.open("data/systems.txt");
 
     while (file.is_open() && !file.eof()) {
         getline(file, line);

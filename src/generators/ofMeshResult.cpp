@@ -62,14 +62,11 @@ void ofMeshResult::addSegment(const ofVec3f& pt1, const ofVec3f& pt2, float radi
     mergeIntoMesh(mesh, segmentMesh, shiftOrigin * orient);
 }
 
-void ofMeshResult::addPolygon(const vector<ofVec3f>& polyPoints, const vector<ofColor>& colors) {
-    auto points = polyPoints;
-    if (points.back() != points.front()) {
-        points.push_back(points.front());
-    }
+void ofMeshResult::addPolygon(const vector<ofVec3f>& points, const vector<ofColor>& colors) {
+
     for (int i = 1; i < points.size() - 1; i++) {
-        addTriangleToMesh(mesh, points[0], points[i], points[i + 1],
-                          colors[0], colors[i], colors[i + 1]);
+        addTriangleToMesh(mesh, points[0], points[i], points[(i + 1) % points.size()],
+                          colors[0], colors[i], colors[(i + 1) % colors.size()]);
     }
 }
 

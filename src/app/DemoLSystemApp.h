@@ -49,7 +49,9 @@ protected:
 
     LSystemOptions options;
 
+#ifdef SYPHON
     ofxSyphonServer syphonServer;
+#endif
     ofxOscReceiver oscReceiver;
 
     ofxTurntableCam cam;

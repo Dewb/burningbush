@@ -1,5 +1,6 @@
-ofxGui
-ofxXmlSettings
 ofxAutoReloadedShader
-ofxBullet
-ofxSyphon
+ofxGui
+ofxOsc
+ofxShadersFX
+ofxVectorGraphics
+ofxXmlSettings

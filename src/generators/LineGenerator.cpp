@@ -19,7 +19,7 @@ LineGeneratorState::LineGeneratorState()
 
 namespace {
     
-    void forward(LineGeneratorState& state, FloatParams& params) {
+    void forward_move(LineGeneratorState& state, FloatParams& params) {
         float length = state.edgeLength;
         if (params.size() > 0) {
             length *= params[0];
@@ -30,7 +30,7 @@ namespace {
     }
     
     void forward_draw(LineGeneratorState& state, FloatParams& params) {
-        forward(state, params);
+        forward_move(state, params);
         ofLine(state.previousPosition.x, state.previousPosition.y, state.position.x, state.position.y);
     }
 
@@ -54,7 +54,7 @@ namespace {
 
 LineGenerator::LineGenerator() {
     add(Symbol('F').action(forward_draw));
-    add(Symbol('f').action(forward));
+    add(Symbol('f').action(forward_move));
     add(Symbol('+').action(rotate_ccw));
     add(Symbol('-').action(rotate_cw));
     add(Symbol('[').startsGroup());

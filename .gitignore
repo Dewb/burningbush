@@ -19,3 +19,14 @@ xcuserdata
 *.moved-aside
 DerivedData
 *.xcuserstate
+bin/obj
+*.VC.db
+*.VC.opendb
+*.vcxproj.user
+.vs
+bin/*.exe
+bin/*.pdb
+bin/*.dll
+bin/*.ilk
+bin/*.lib
+bin/*.exp

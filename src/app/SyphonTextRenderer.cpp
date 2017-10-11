@@ -21,7 +21,7 @@ void SyphonTextRenderer::initialize(LSystem* sys, int iterationCount,
     iterations = iterationCount;
     margin = _margin;
 
-    syphonServer.setName(serverName);
+    //syphonServer.setName(serverName);
     fbo.allocate(width, height, GL_RGBA);
 
     font.loadFont(fontName, fontSize);
@@ -75,7 +75,7 @@ void SyphonTextRenderer::update() {
     ofPopStyle();
     fbo.end();
 
-    syphonServer.publishTexture(&(fbo.getTextureReference()));
+    //syphonServer.publishTexture(&(fbo.getTextureReference()));
 }
 
 void SyphonTextRenderer::draw(float x, float y) {

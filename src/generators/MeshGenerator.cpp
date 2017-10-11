@@ -57,7 +57,7 @@ ofColor MeshGeneratorState::getCurrentColor() {
 
 namespace {
     
-    void forward(MeshGeneratorState& state, FloatParams& params) {
+    void forward_move(MeshGeneratorState& state, FloatParams& params) {
         float length = state.segmentLength;
         if (params.size() > 0) {
             length *= params[0];
@@ -79,7 +79,7 @@ namespace {
 
     void forward_draw(MeshGeneratorState& state, FloatParams& params) {
         ofVec3f previous = state.position;
-        forward(state, params);
+        forward_move(state, params);
         if (!state.inPolygonNode) {
             if (state.result) {
                 state.result->addSegment(state.position, previous, state.segmentRadius, state.getCurrentColor());
@@ -212,7 +212,7 @@ MeshGenerator::MeshGenerator() {
     add(Symbol('G').action(forward_draw));
     add(Symbol('g').action(forward_radius));
     add(Symbol('T').action(tropism));
-    add(Symbol('f').action(forward));
+    add(Symbol('f').action(forward_move));
     add(Symbol('+').action(turn_left));
     add(Symbol('-').action(turn_right));
     add(Symbol('&').action(pitch_down));

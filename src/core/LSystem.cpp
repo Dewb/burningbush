@@ -8,7 +8,7 @@
 
 #include "LSystem.h"
 #include "LSystemRulesEngine.h"
-#include <tr1/random>
+#include <random>
 #include <iostream>
 
 
@@ -85,8 +85,8 @@ RuleString LSystem::generate(int iterations, LSystemOptions& options) {
     int currentIteration = 1;
     RuleString current = axiom;
 
-    tr1::ranlux_base_01 generator(seed);
-    tr1::uniform_real<float> distribution(0.0, 1.0);
+    ranlux_base_01 generator(seed);
+    uniform_real<float> distribution(0.0, 1.0);
 
     IndexedProductionRulePtrGroup matchedRules;
     Replacements replacements;
@@ -162,7 +162,7 @@ RuleString LSystem::generate(int iterations, LSystemOptions& options) {
         }
 
         if (options.useCache) {
-            cache.insert(make_pair<int, RuleString>(currentIteration, current));
+            cache.insert(make_pair(currentIteration, current));
         }
 
         currentIteration++;

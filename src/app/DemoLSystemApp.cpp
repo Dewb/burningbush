@@ -47,7 +47,9 @@ void DemoLSystemApp::setup() {
 
     oscReceiver.setup(7777);
     showUI = true;
-    syphonServer.setName("output");
+#ifdef SYPHON
+	syphonServer.setName("output");
+#endif
 
     cameraRotationSpeed = 0.2;
     cameraZoom = 1.0;
@@ -67,8 +69,8 @@ ofVec3f getMeshCenter(ofPtr<ofMesh> mesh) {
     if(v.size() == 0) {
         return ofVec3f(0, 0, 0);
     }
-    ofVec3f minV(MAXFLOAT, MAXFLOAT, MAXFLOAT);
-    ofVec3f maxV(-MAXFLOAT, -MAXFLOAT, -MAXFLOAT);
+    ofVec3f minV(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
+    ofVec3f maxV(std::numeric_limits<float>::min(), std::numeric_limits<float>::min(), std::numeric_limits<float>::min());
     for(unsigned int i = 0; i < v.size(); i++) {
         minV.x = min(minV.x, v[i].x);
         minV.y = min(minV.y, v[i].y);
@@ -224,7 +226,9 @@ void DemoLSystemApp::draw(){
         cam.end();
     }
     
-    syphonServer.publishScreen();
+#ifdef SYPHON
+	syphonServer.publishScreen();
+#endif
 
     haikuRenderer.update();
 

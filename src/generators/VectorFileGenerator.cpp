@@ -73,7 +73,7 @@ VectorFileGeneratorState::VectorFileGeneratorState()
 
 namespace {
     
-    void forward(VectorFileGeneratorState& state, FloatParams& params) {
+    void forward_move(VectorFileGeneratorState& state, FloatParams& params) {
         float length = state.edgeLength;
         if (params.size() > 0) {
             length *= params[0];
@@ -84,7 +84,7 @@ namespace {
     }
     
     void forward_draw(VectorFileGeneratorState& state, FloatParams& params) {
-        forward(state, params);
+        forward_move(state, params);
         
         Segment s(state.previousPosition, state.position);
         auto result = state.uniqueSegments->insert(s);
@@ -112,7 +112,7 @@ namespace {
 
 VectorFileGenerator::VectorFileGenerator() {    
     add(Symbol('F').action(forward_draw));
-    add(Symbol('f').action(forward));
+    add(Symbol('f').action(forward_move));
     add(Symbol('+').action(rotate_ccw));
     add(Symbol('-').action(rotate_cw));
     add(Symbol('[').startsGroup().action(start_shape));
